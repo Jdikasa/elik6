@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 373.68 312.05">
+    <defs>
+        <style>
+            .cls-1{isolation:isolate;}.cls-2{fill:url(#Dégradé_sans_nom_28);}.cls-3{opacity:0.35;mix-blend-mode:multiply;}.cls-4{fill:#010101;}.cls-5{fill:url(#Dégradé_sans_nom_27);}.cls-6{fill:#fff;}.cls-7{fill:#ededed;}</style>
+        <linearGradient id="Dégradé_sans_nom_28" x1="186.6" y1="259.44" x2="186.6"
+            gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#3a54b4" />
+            <stop offset="0.14" stop-color="#3a54b4" />
+            <stop offset="0.34" stop-color="#3a54b4" />
+            <stop offset="0.57" stop-color="#3a54b4" />
+            <stop offset="0.82" stop-color="#3a54b4" />
+            <stop offset="1" stop-color="#3a54b4" />
+        </linearGradient>
+        <linearGradient id="Dégradé_sans_nom_27" x1="186.6" y1="312.05" x2="186.6" y2="53.55"
+            gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#3a54b4" />
+            <stop offset="1" stop-color="#0e2fa4" />
+        </linearGradient>
+    </defs>
+    <title>lockedfolder-arsp</title>
+    <g class="cls-1">
+        <g id="Calque_2" data-name="Calque 2">
+            <g id="Calque_1-2" data-name="Calque 1">
+                <path class="cls-2"
+                    d="M341.46,76.59V212.32a47.12,47.12,0,0,1-47.12,47.12H78.86a47.11,47.11,0,0,1-47.11-47.12V47.12A47.1,47.1,0,0,1,78.22,0H151c4,.12,17.26,1.42,23.31,13.32,6.13,12.05,15.15,15.42,17.65,16.15H294.34A47.12,47.12,0,0,1,341.46,76.59Z" />
+
+                <g class="cls-3">
+                    <rect class="cls-4" x="31.75" y="53.55" width="309.71" height="258.49"
+                        rx="47.03" />
+                </g>
+                <rect class="cls-5" x="31.75" y="53.55" width="309.71" height="258.49" rx="47.03" />
+                <path class="cls-6"
+                    d="M176.14,172.15h-7c0-2.47,0-4.94,0-7.41a17.47,17.47,0,0,1,34.93,0c.06,2.47,0,4.94,0,7.41h-7c0-2.31.11-4.63,0-6.93-.37-6-5.08-10.51-10.65-10.37a10.7,10.7,0,0,0-10.22,10.36C176,167.52,176.14,169.84,176.14,172.15Z" />
+                <rect class="cls-6" x="158.57" y="172.15" width="56.06" height="45.64" rx="7.19" />
+                <circle class="cls-7" cx="186.6" cy="194.96" r="5.8" />
+            </g>
+        </g>
+    </g>
+</svg>
