@@ -273,7 +273,7 @@
                                     <a class="d-flex align-items-center"
                                         href="{{ route('pm.countries.show', $certificat) }}">
                                         <div class="flex-shrink-0">
-                                            @if (File::exists('../public/assets/vendor/flag-icon-css/flags/1x1/' . Str::lower($certificat->country->code) . '.svg'))
+                                            @if (File::exists(public_path('/assets/vendor/flag-icon-css/flags/1x1/' . Str::lower($certificat->country->code) . '.svg')))
                                                 <div class="avatar avatar-sm avatar-circle">
                                                     <img class="avatar-img"
                                                         src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/' . Str::lower($certificat->country->code) . '.svg') }}"

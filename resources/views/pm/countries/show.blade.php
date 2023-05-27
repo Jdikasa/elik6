@@ -48,7 +48,7 @@
                                 $random = rand(1, 4);
                             @endphp
 
-                            @if (File::exists('../public/assets/vendor/flag-icon-css/flags/1x1/' . Str::lower($certificat->country->code) . '.svg'))
+                            @if (File::exists(public_path('/assets/vendor/flag-icon-css/flags/1x1/' . Str::lower($certificat->country->code) . '.svg')))
                                 <div class="flex-shrink-0">
                                     <div class="avatar avatar-lg avatar-circle">
                                         <img class="avatar-img"
