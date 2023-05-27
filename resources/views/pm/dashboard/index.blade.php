@@ -490,10 +490,13 @@
 
                             <tbody>
                                 @foreach ($projects as $project)
+                                    @php
+                                        $random = rand(1, 4);
+                                    @endphp
                                     <tr>
                                         <td>
                                             <a class="d-flex align-items-center" href="project.html">
-                                                @if (File::exists('../public/assets/vendor/flag-icon-css/flags/1x1/' . Str::lower($project->certificat->country->code) . '.svg'))
+                                                @if (File::exists(public_path('/assets/vendor/flag-icon-css/flags/1x1/' . Str::lower($project->certificat->country->code) . '.svg')))
                                                     <div class="flex-shrink-0">
                                                         <img class="avatar avatar-sm" src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/' . Str::lower($project->certificat->country->code) . '.svg') }}"
                                                             alt="Image Description">
