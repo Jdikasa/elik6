@@ -1184,7 +1184,7 @@
         var updatingChartDatasets = [
             [
                 @foreach ($projectStatuts as $key => $statut)
-                {{ $projectMainChartData[$key] }},
+                {{ isset($projectMainChartData[$key]) ? $projectMainChartData[$key] : 0 }},
                 @endforeach
             ]
         ]
