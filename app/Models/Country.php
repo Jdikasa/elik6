@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Support\Facades\Auth;
 
 class Country extends Model
@@ -38,6 +39,26 @@ class Country extends Model
     public function certificat()
     {
         return $this->hasOne(Certificat::class, 'country_id');
+    }
+
+    /**
+     * Get all of the customers for the Country
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    // public function customers()
+    // {
+    //     return $this->hasMany(Customer::class, 'country_id');
+    // }
+
+    /**
+     * Get all of the customers for the Country
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function customers(): HasManyThrough
+    {
+        return $this->hasManyThrough(Customer::class, Adresse::class);
     }
 
     /**

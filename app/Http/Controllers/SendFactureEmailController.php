@@ -45,6 +45,9 @@ class SendFactureEmailController extends Controller
             ]);
 
         } catch (\Exception $e) {
+
+            dd($e);
+
             $content = json_encode([
                 'name' => 'Finance / facture',
                 'statut' => 'error',

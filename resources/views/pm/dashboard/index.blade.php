@@ -14,14 +14,14 @@
                     </div>
                     <!-- End Col -->
 
-                    <div class="col-auto">
+                    {{-- <div class="col-auto">
                         <!-- Daterangepicker -->
                         <button id="js-daterangepicker-predefined" class="btn btn-ghost-light btn-sm dropdown-toggle">
                             <i class="bi-calendar-week"></i>
                             <span class="js-daterangepicker-predefined-preview ms-1"></span>
                         </button>
                         <!-- End Daterangepicker -->
-                    </div>
+                    </div> --}}
                     <!-- End Col -->
                 </div>
                 <!-- End Row -->
@@ -30,16 +30,16 @@
         </div>
     </div>
 
-    <div class="content container-fluid pt-0" style="margin-top: -17rem;">
+    <div class="pt-0 content container-fluid" style="margin-top: -17rem;">
         <!-- Stats -->
-        <div class="row g-3 mb-3">
+        <div class="mb-3 row g-3">
             <div class="col-sm-6 col-lg-3">
                 <!-- Card -->
                 <a class="card card-hover-shadow h-100" href="#">
                     <div class="card-body">
                         <h6 class="card-subtitle">Nombre Total de Clients</h6>
 
-                        <div class="row align-items-center gx-2 mb-1">
+                        <div class="mb-1 row align-items-center gx-2">
                             <div class="col-6">
                                 <h2 class="card-title text-inherit">
                                     {{ convertUnit($totalClients) }}
@@ -108,7 +108,7 @@
                     <div class="card-body">
                         <h6 class="card-subtitle">Nombre de pays commandé</h6>
 
-                        <div class="row align-items-center gx-2 mb-1">
+                        <div class="mb-1 row align-items-center gx-2">
                             <div class="col-6">
                                 <h2 class="card-title text-inherit">
                                     {{ convertUnit($totalCertificats) }}
@@ -178,7 +178,7 @@
                     <div class="card-body">
                         <h6 class="card-subtitle">Nombre total de Projets</h6>
 
-                        <div class="row align-items-center gx-2 mb-1">
+                        <div class="mb-1 row align-items-center gx-2">
                             <div class="col-6">
                                 <h2 class="card-title text-inherit">
                                     {{ convertUnit($totalProjects) }}
@@ -248,7 +248,7 @@
                     <div class="card-body">
                         <h6 class="card-subtitle">Montant généré</h6>
 
-                        <div class="row align-items-center gx-2 mb-1">
+                        <div class="mb-1 row align-items-center gx-2">
                             <div class="col-6">
                                 <h2 class="card-title text-inherit">
                                     {{ convertUnit($transactionMontant) }} $
@@ -312,12 +312,12 @@
         </div>
         <!-- End Stats -->
 
-        <div class="row g-3 mb-3">
+        <div class="mb-3 row g-3">
             <div class="col-12">
                 <div class="card">
                     <!-- Header -->
                     {{-- <div class="card-header card-header-content-sm-between">
-                        <h4 class="card-header-title mb-2 mb-sm-0">Projets du mois</h4>
+                        <h4 class="mb-2 card-header-title mb-sm-0">Projets du mois</h4>
 
                         <!-- Nav -->
                         {{-- <ul class="nav nav-segment nav-fill" id="projectsTab" role="tablist">
@@ -336,12 +336,12 @@
 
                     <!-- Body -->
                     <div class="card-body">
-                        <div class="row align-items-sm-center mb-4">
-                            <div class="col-sm mb-3 mb-sm-0">
-                                <div class="d-flex flex-col align-items-cente">
-                                    <span class="h5 mb-3 d-block">Statistique des projets par étape</span>
-                                    <span class="h1 mb-1 d-block">Total</span>
-                                    <span class="h4 mb-0">1 Projets</span>
+                        <div class="mb-4 row align-items-sm-center">
+                            <div class="mb-3 col-sm mb-sm-0">
+                                <div class="flex-col d-flex align-items-cente">
+                                    <span class="mb-3 h5 d-block">Statistique des projets par étape</span>
+                                    <span class="mb-1 h1 d-block">Total</span>
+                                    <span class="mb-0 h4">{{ convertUnit($totalProjects) }} Projets</span>
 
                                     {{-- <span class="text-success ms-2">
                                         <i class="bi-graph-up"></i> 25.3%
@@ -390,12 +390,10 @@
                                   "data":
                                     {
                                         "labels": [
-                                            @for ($i = 1; $i < 13; $i++)
-                                                "{{ Str::ucfirst(now()->month($i)->isoFormat('MMM')) }}"
+                                            @for ($i = 1; $i < 13; $i++) "{{ Str::ucfirst(now()->month($i)->isoFormat('MMM')) }}"
                                                 @if ($i < 12)
                                                 ,
-                                                @endif
-                                            @endfor
+                                                @endif @endfor
                                             {{-- "Feb","Jan","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec" --}}
                                         ],
                                         "datasets": [
@@ -413,8 +411,7 @@
                                                 }
                                                 @if (!$loop->last)
                                                 ,
-                                                @endif
-                                            @endforeach
+                                                @endif @endforeach
                                         ]
                                     },
                                     "options": {
@@ -476,7 +473,8 @@
 
                     <!-- Table -->
                     <div class="table-responsive">
-                        <table class="table table-borderless table-thead-bordered table-align-middle card-table">
+                        <table class="table table-borderless table-thead-bordered table-align-middle card-table"
+                            id="datatable">
                             <thead class="thead-light">
                                 <tr>
                                     <th>Pays</th>
@@ -496,20 +494,23 @@
                                     <tr>
                                         <td>
                                             <a class="d-flex align-items-center" href="project.html">
-                                                @if (File::exists(public_path('/assets/vendor/flag-icon-css/flags/1x1/' . Str::lower($project->certificat->country->code) . '.svg')))
+                                                @if (File::exists(public_path(
+                                                            '/assets/vendor/flag-icon-css/flags/1x1/' . Str::lower($project->certificat->country->code) . '.svg')))
                                                     <div class="flex-shrink-0">
-                                                        <img class="avatar avatar-sm" src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/' . Str::lower($project->certificat->country->code) . '.svg') }}"
+                                                        <img class="avatar avatar-sm"
+                                                            src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/' . Str::lower($project->certificat->country->code) . '.svg') }}"
                                                             alt="Image Description">
                                                     </div>
                                                 @else
-                                                    <div class="avatar @if ($random == 1) avatar-soft-primary @elseif($random == 2) avatar-soft-dark @elseif($random == 3) avatar-soft-info @else avatar-soft-danger @endif  avatar-circle">
+                                                    <div
+                                                        class="avatar @if ($random == 1) avatar-soft-primary @elseif($random == 2) avatar-soft-dark @elseif($random == 3) avatar-soft-info @else avatar-soft-danger @endif  avatar-circle">
                                                         <span class="avatar-initials">
                                                             {{ Str::upper($certificat->country->name_fr[0]) }}
                                                         </span>
                                                     </div>
                                                 @endif
                                                 <div class="flex-grow-1 ms-3">
-                                                    <span class="d-block h5 text-inherit mb-0">
+                                                    <span class="mb-0 d-block h5 text-inherit">
                                                         {{ $project->certificat->country->name_fr ?? $projet->certificat->country->name_en }}
                                                     </span>
                                                 </div>
@@ -528,7 +529,7 @@
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <span class="mb-0">34</span>
-                                                <span class="badge bg-soft-danger text-danger p-1 ms-2">
+                                                <span class="p-1 badge bg-soft-danger text-danger ms-2">
                                                     <i class="bi-graph-down"></i> 1.8
                                                 </span>
                                             </div>
@@ -542,12 +543,14 @@
                                                             $etape = $key + 1;
                                                         }
                                                     }
-                                                    $pourc = round(($etape * $projectStatuts->count()) / 100 ,2);
+                                                    $pourc = round(($etape * $projectStatuts->count()) / 100, 2);
                                                 @endphp
                                                 <span class="mb-0 me-2">{{ $pourc }}%</span>
                                                 <div class="progress table-progress">
-                                                    <div @class(["progress-bar", "bg-success" => $pourc == 100]) role="progressbar" style="width: {{ $pourc }}%"
-                                                        aria-valuenow="{{ $pourc }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    <div @class(['progress-bar', 'bg-success' => $pourc == 100]) role="progressbar"
+                                                        style="width: {{ $pourc }}%"
+                                                        aria-valuenow="{{ $pourc }}" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
                                                 </div>
                                             </div>
                                         </td>
@@ -558,128 +561,113 @@
                     </div>
                     <!-- End Table -->
 
-                    <!-- Card Footer -->
-                    <a class="card-footer text-center" href="{{ route('pm.projects.index') }}">
-                        Voir tout les projets <i class="bi-chevron-right"></i>
-                    </a>
-                    <!-- End Card Footer -->
+                    @if (count($projects))
+                        <!-- Card Footer -->
+                        <a class="text-center card-footer" href="{{ route('pm.projects.index') }}">
+                            Voir tout les projets <i class="bi-chevron-right"></i>
+                        </a>
+                        <!-- End Card Footer -->
+                    @endif
                 </div>
             </div>
         </div>
         <!-- End Row -->
 
-        <div class="row g-3 mb-3">
+        <div class="mb-3 row g-3">
 
-            <div class="col-lg-6 mb-3 mb-lg-0">
+            <div class="mb-3 col-lg-6 mb-lg-0">
                 <!-- Card -->
                 <div class="card h-100">
                     <!-- Header -->
                     <div class="card-header card-header-content-sm-between">
-                        <h4 class="card-header-title mb-2 mb-sm-0">Transactions</h4>
+                        <h4 class="mb-2 card-header-title mb-sm-0">Transactions pour ce mois</h4>
 
                         <!-- Daterangepicker -->
-                        <button id="js-daterangepicker-predefined" class="btn btn-ghost-secondary btn-sm dropdown-toggle">
+                        {{-- <button id="js-daterangepicker-predefined" class="btn btn-ghost-secondary btn-sm dropdown-toggle">
                             <i class="bi-calendar-week"></i>
                             <span class="js-daterangepicker-predefined-preview ms-1"></span>
-                        </button>
+                        </button> --}}
                         <!-- End Daterangepicker -->
                     </div>
                     <!-- End Header -->
 
                     <!-- Body -->
                     <div class="card-body">
+                        @php
+                            $colors = [];
+                            $red = [];
+                            $green = [];
+                            $blue = [];
+                            foreach ($transactionChartData2 as $key => $statut) {
+                                $hexa = Str::padLeft(dechex(mt_rand(0, 0xffffff)), 6, '0');
+                                $colors[$key] = '#' . $hexa;
+                                $red[$key] = hexdec(substr($hexa, 0, 2));
+                                $green[$key] = hexdec(substr($hexa, 2, 2));
+                                $blue[$key] = hexdec(substr($hexa, 4, 6));
+                            }
+                        @endphp
                         <!-- Chart -->
-                        <div class="chartjs-custom mx-auto" style="height: 20rem;">
+                        <div class="mx-auto chartjs-custom" style="height: 20rem;">
                             <canvas class="js-chart-datalabels"
                                 data-hs-chartjs-options='{
-                            "type": "bubble",
-                            "data": {
-                              "datasets": [
-                                {
-                                  "label": "Label 1",
-                                  "data": [
-                                    {"x": 50, "y": 65, "r": 99}
-                                  ],
-                                  "color": "#fff",
-                                  "backgroundColor": "rgba(55, 125, 255, 0.9)",
-                                  "borderColor": "transparent"
-                                },
-                                {
-                                  "label": "Label 2",
-                                  "data": [
-                                    {"x": 46, "y": 42, "r": 65}
-                                  ],
-                                  "color": "#fff",
-                                  "backgroundColor": "rgba(100, 0, 214, 0.8)",
-                                  "borderColor": "transparent"
-                                },
-                                {
-                                  "label": "Label 3",
-                                  "data": [
-                                    {"x": 48, "y": 15, "r": 38}
-                                  ],
-                                  "color": "#fff",
-                                  "backgroundColor": "#00c9db",
-                                  "borderColor": "transparent"
-                                },
-                                {
-                                  "label": "Label 3",
-                                  "data": [
-                                    {"x": 55, "y": 2, "r": 61}
-                                  ],
-                                  "color": "#fff",
-                                  "backgroundColor": "#4338ca",
-                                  "borderColor": "transparent"
-                                }
-                              ]
-                            },
-                            "options": {
-                              "scales": {
-                                "y": {
-                                  "grid": {
-                                    "display": false,
-                                    "drawBorder": false
-                                  },
-                                  "ticks": {
-                                    "display": false,
-                                    "max": 100,
-                                    "beginAtZero": true
-                                  }
-                                },
-                                "x": {
-                                "grid": {
-                                    "display": false,
-                                    "drawBorder": false
-                                  },
-                                  "ticks": {
-                                    "display": false,
-                                    "max": 100,
-                                    "beginAtZero": true
-                                  }
-                                }
-                              },
-                              "plugins": {
-                                "tooltip": false
-                              }
-                            }
-                          }'></canvas>
+                                    "type": "bubble",
+                                    "data": {
+                                        "datasets": [
+                                            @foreach ($transactionChartData2 as $key => $transaction)
+                                                {
+                                                    "label": "{{ $transaction->titre }}",
+                                                    "data": [
+                                                        {"x": {{ $key }}, "y": {{ rand(0, 100) }}, "r": {{ $transaction->transactions_count }}}
+                                                    ],
+                                                    "color": "#fff",
+                                                    "backgroundColor": "rgba({{ $red[$key] }}, {{ $green[$key] }}, {{ $blue[$key] }}, {{ ((rand(1, 5) + 5) * 9) / 100 }})",
+                                                    "borderColor": "transparent"
+                                                }
+                                                @if (!$loop->last)
+                                                ,
+                                                @endif @endforeach
+                                        ]
+                                    },
+                                    "options": {
+                                        "scales": {
+                                            "y": {
+                                            "grid": {
+                                                "display": false,
+                                                "drawBorder": false
+                                            },
+                                            "ticks": {
+                                                "display": false,
+                                                "max": 100,
+                                                "beginAtZero": true
+                                            }
+                                            },
+                                            "x": {
+                                            "grid": {
+                                                "display": false,
+                                                "drawBorder": false
+                                            },
+                                            "ticks": {
+                                                "display": false,
+                                                "max": 100,
+                                                "beginAtZero": true
+                                            }
+                                            }
+                                        },
+                                        "plugins": {
+                                            "tooltip": false
+                                        }
+                                    }
+                                }'></canvas>
                         </div>
                         <!-- End Chart -->
 
                         <div class="row justify-content-center">
-                            <div class="col-auto">
-                                <span class="legend-indicator bg-primary"></span> New
-                            </div>
-                            <!-- End Col -->
-
-                            <div class="col-auto">
-                                <span class="legend-indicator" style="background-color: #7000f2;"></span> Pending
-                            </div>
-                            <!-- End Col -->
-
-                            <div class="col-auto">
-                                <span class="legend-indicator bg-info"></span> Failed
-                            </div>
+                            @foreach ($transactionChartData2 as $key => $transaction)
+                                <div class="col-auto">
+                                    <span class="legend-indicator" style="background-color: {{ $colors[$key] }};"></span>
+                                    {{ $transaction->titre }}
+                                </div>
+                            @endforeach
                             <!-- End Col -->
                         </div>
                         <!-- End Row -->
@@ -697,13 +685,13 @@
                         <h4 class="card-header-title">Reports overview</h4>
 
                         <!-- Dropdown -->
-                        <div class="dropdown">
+                        {{-- <div class="dropdown">
                             <button type="button" class="btn btn-ghost-secondary btn-icon btn-sm rounded-circle"
                                 id="reportsOverviewDropdown1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi-three-dots-vertical"></i>
                             </button>
 
-                            <div class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="reportsOverviewDropdown1">
+                            <div class="mt-1 dropdown-menu dropdown-menu-end" aria-labelledby="reportsOverviewDropdown1">
                                 <span class="dropdown-header">Settings</span>
 
                                 <a class="dropdown-item" href="#">
@@ -724,29 +712,45 @@
                                     <i class="bi-chat-left-dots dropdown-item-icon"></i> Report
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
                         <!-- End Dropdown -->
                     </div>
                     <!-- End Header -->
 
                     <!-- Body -->
                     <div class="card-body">
-                        <span class="h1 d-block mb-4">$7,431.14 USD</span>
+                        @php
+                            $sommeReel = $transactionChartData2
+                                ->map(function ($statut) {
+                                    return $statut->titre == 'Payée' ? $statut->transactions : null;
+                                })
+                                ->reject(function ($transaction) {
+                                    return $transaction == null;
+                                });
+                            $sommeReel = $sommeReel->sum('montant');
+                            $totalTrans = 0;
+                        @endphp
+                        <span class="mb-4 h1 d-block">
+                            {{ $sommeReel }} USD
+                        </span>
 
                         <!-- Progress -->
-                        <div class="progress rounded-pill mb-2">
-                            <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25"
-                                aria-valuemin="0" aria-valuemax="100" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="Gross value"></div>
-                            <div class="progress-bar opacity-50" role="progressbar" style="width: 33%"
-                                aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" data-bs-toggle="tooltip"
-                                data-bs-placement="top" title="Net volume from sales"></div>
-                            <div class="progress-bar opacity-25" role="progressbar" style="width: 9%" aria-valuenow="9"
-                                aria-valuemin="0" aria-valuemax="100" data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="New volume from sales"></div>
+                        <div class="mb-2 progress rounded-pill">
+                            @foreach ($transactionChartData2 as $key => $statut)
+                                @php
+                                    $sommeTrans = $statut->tansactions?->sum('montant') ?? 0;
+                                    $totalTrans += $sommeTrans;
+                                    $pourc = $sommeTrans > 0 ? round(($sommeTrans * 100) / $totalTrans, 0) : 0;
+                                @endphp
+                                <div class="progress-bar opacity-{{ round((($loop->count - $key) * 100) / count($transactionChartData2), 0) }}"
+                                    role="progressbar" style="width: {{ $pourc }}%"
+                                    aria-valuenow="{{ $pourc }}" aria-valuemin="0" aria-valuemax="100"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $transaction->titre }}">
+                                </div>
+                            @endforeach
                         </div>
 
-                        <div class="d-flex justify-content-between mb-4">
+                        <div class="mb-4 d-flex justify-content-between">
                             <span>0%</span>
                             <span>100%</span>
                         </div>
@@ -754,46 +758,33 @@
 
                         <!-- Table -->
                         <div class="table-responsive">
-                            <table class="table table-lg table-nowrap card-table mb-0">
-                                <tr>
-                                    <th scope="row">
-                                        <span class="legend-indicator bg-primary"></span>Gross value
-                                    </th>
-                                    <td>$3,500.71</td>
-                                    <td>
-                                        <span class="badge bg-soft-success text-success">+12.1%</span>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row">
-                                        <span class="legend-indicator bg-primary opacity-50"></span>Net volume from sales
-                                    </th>
-                                    <td>$2,980.45</td>
-                                    <td>
-                                        <span class="badge bg-soft-warning text-warning">+6.9%</span>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row">
-                                        <span class="legend-indicator bg-primary opacity-25"></span>New volume from sales
-                                    </th>
-                                    <td>$950.00</td>
-                                    <td>
-                                        <span class="badge bg-soft-danger text-danger">-1.5%</span>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <th scope="row">
-                                        <span class="legend-indicator"></span>Other
-                                    </th>
-                                    <td>32</td>
-                                    <td>
-                                        <span class="badge bg-soft-success text-success">1.9%</span>
-                                    </td>
-                                </tr>
+                            <table class="table mb-0 table-lg table-nowrap card-table">
+                                @foreach ($transactionChartData2 as $key => $statut)
+                                    @php
+                                        $sommeTrans = $statut->tansactions?->sum('montant') ?? 0;
+                                        $totalTrans += $sommeTrans;
+                                        $pourc = $sommeTrans > 0 ? round(($sommeTrans * 100) / $totalTrans, 0) : 0;
+                                    @endphp
+                                    <tr>
+                                        <th scope="row">
+                                            <span
+                                                class="legend-indicator bg-primary opacity-{{ round((($loop->count - $key) * 100) / count($transactionChartData2), 0) }}"></span>
+                                            {{ $statut->titre }}
+                                        </th>
+                                        <td>{{ $sommeTrans }}$</td>
+                                        <td>
+                                            <span @class([
+                                                'badge',
+                                                'bg-soft-secondary text-secondary' => $statut->id == 1,
+                                                'bg-soft-success text-success' => $statut->id == 3,
+                                                'bg-soft-warning text-warning' => $statut->id == 2,
+                                                'bg-soft-danger text-danger' => $statut->id == 4,
+                                            ])>
+                                                {{ $pourc }}%
+                                            </span>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </table>
                         </div>
                         <!-- End Table -->
@@ -806,21 +797,19 @@
 
         <div class="row">
             <div class="col-12">
-                <div class="card overflow-hidden">
+                <div class="overflow-hidden card">
                     <!-- Header -->
                     <div class="card-header card-header-content-between">
-                        <h4 class="card-header-title">Audience overview <i class="bi-patch-check-fill text-primary"
-                                data-bs-toggle="tooltip" data-bs-placement="top"
-                                title="This report is based on 100% of sessions."></i></h4>
+                        <h4 class="card-header-title">Audience</h4>
 
                         <!-- Dropdown -->
-                        <div class="dropdown">
+                        {{-- <div class="dropdown">
                             <button type="button" class="btn btn-ghost-secondary btn-icon btn-sm rounded-circle"
                                 id="reportsOverviewDropdown2" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi-three-dots-vertical"></i>
                             </button>
 
-                            <div class="dropdown-menu dropdown-menu-end mt-1" aria-labelledby="reportsOverviewDropdown2">
+                            <div class="mt-1 dropdown-menu dropdown-menu-end" aria-labelledby="reportsOverviewDropdown2">
                                 <span class="dropdown-header">Settings</span>
 
                                 <a class="dropdown-item" href="#">
@@ -841,7 +830,7 @@
                                     <i class="bi-chat-left-dots dropdown-item-icon"></i> Report
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
                         <!-- End Dropdown -->
                     </div>
                     <!-- End Header -->
@@ -857,11 +846,67 @@
                                     </div>
 
                                     <div class="flex-grow-1 ms-lg-3">
-                                        <span class="d-block fs-6">Users</span>
+                                        <span class="d-block fs-6">
+                                            Clients réel
+                                            <i class="bi-patch-check-fill text-primary" data-bs-toggle="tooltip"
+                                                data-bs-placement="top"
+                                                title="This report is based on 100% of sessions."></i>
+                                        </span>
                                         <div class="d-flex align-items-center">
-                                            <h3 class="mb-0">34,413</h3>
+                                            <h3 class="mb-0">{{ $sumClient['reel'] }}</h3>
                                             <span class="badge bg-soft-success text-success ms-2">
-                                                <i class="bi-graph-up"></i> 12.5%
+                                                {{-- <i class="bi-graph-up"></i> --}}
+                                                12.5%
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Stats -->
+                            </div>
+                            <div class="col-sm-3">
+                                <!-- Stats -->
+                                <div class="d-lg-flex align-items-md-center">
+                                    <div class="flex-shrink-0">
+                                        <i class="bi-person fs-1 text-primary"></i>
+                                    </div>
+
+                                    <div class="flex-grow-1 ms-lg-3">
+                                        <span class="d-block fs-6">
+                                            Clients Potentiel
+                                            <i class="bi-patch-check text-secondary" data-bs-toggle="tooltip"
+                                                data-bs-placement="top"
+                                                title="This report is based on 100% of sessions."></i>
+                                        </span>
+                                        <div class="d-flex align-items-center">
+                                            <h3 class="mb-0">{{ $sumClient['potentiel'] }}</h3>
+                                            <span class="badge bg-soft-success text-success ms-2">
+                                                {{-- <i class="bi-graph-up"></i> --}}
+                                                12.5%
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Stats -->
+                            </div>
+                            <div class="col-sm-3">
+                                <!-- Stats -->
+                                <div class="d-lg-flex align-items-md-center">
+                                    <div class="flex-shrink-0">
+                                        <i class="bi-person fs-1 text-primary"></i>
+                                    </div>
+
+                                    <div class="flex-grow-1 ms-lg-3">
+                                        <span class="d-block fs-6">
+                                            Clients Simple
+                                            <i class="bi-patch-check text-warning" data-bs-toggle="tooltip"
+                                                data-bs-placement="top"
+                                                title="This report is based on 100% of sessions."></i>
+                                        </span>
+                                        <div class="d-flex align-items-center">
+                                            <h3 class="mb-0">{{ $sumClient['simple'] }}</h3>
+                                            <span class="badge bg-soft-success text-success ms-2">
+                                                {{-- <i class="bi-graph-up"></i> --}}
+                                                12.5%
                                             </span>
                                         </div>
                                     </div>
@@ -873,47 +918,13 @@
                                 <!-- Stats -->
                                 <div class="d-lg-flex align-items-md-center">
                                     <div class="flex-shrink-0">
-                                        <i class="bi-clock-history fs-1 text-primary"></i>
+                                        <i class="bi-globe fs-1 text-primary"></i>
                                     </div>
 
                                     <div class="flex-grow-1 ms-lg-3">
-                                        <span class="d-block fs-6">Avg. session duration</span>
+                                        <span class="d-block fs-6">Pays couvert</span>
                                         <div class="d--flex align-items-center">
-                                            <h3 class="mb-0">1m 3s</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Stats -->
-                            </div>
-
-                            <div class="col-sm-3">
-                                <!-- Stats -->
-                                <div class="d-lg-flex align-items-md-center">
-                                    <div class="flex-shrink-0">
-                                        <i class="bi-files-alt fs-1 text-primary"></i>
-                                    </div>
-
-                                    <div class="flex-grow-1 ms-lg-3">
-                                        <span class="d-block fs-6">Pages/Sessions</span>
-                                        <div class="d--flex align-items-center">
-                                            <h3 class="mb-0">1.78</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End Stats -->
-                            </div>
-
-                            <div class="col-sm-3">
-                                <!-- Stats -->
-                                <div class="d-lg-flex align-items-md-center">
-                                    <div class="flex-shrink-0">
-                                        <i class="bi-pie-chart fs-1 text-primary"></i>
-                                    </div>
-
-                                    <div class="flex-grow-1 ms-lg-3">
-                                        <span class="d-block fs-6">Bounce rate</span>
-                                        <div class="d--flex align-items-center">
-                                            <h3 class="mb-0">62.9%</h3>
+                                            <h3 class="mb-0">{{ $clients->count() }}</h3>
                                         </div>
                                     </div>
                                 </div>
@@ -928,32 +939,32 @@
                     <div class="jsvectormap-custom-wrapper">
                         <div class="js-jsvectormap jsvectormap-custom"
                             data-hs-js-vector-map-options='{
-                              "focusOn": {
+                                "focusOn": {
                                     "coords": [25, 12],
                                     "scale": 1.5,
                                     "animate": true
                                 },
-                              "regionStyle": {
-                                "initial": {
-                                  "fill": "rgba(55, 125, 255, .3)"
+                                "regionStyle": {
+                                    "initial": {
+                                        "fill": "rgba(55, 125, 255, .3)"
+                                    },
+                                    "hover": {
+                                        "fill": "#377dff"
+                                    }
                                 },
-                                "hover": {
-                                  "fill": "#377dff"
+                                "markerStyle": {
+                                    "initial": {
+                                        "stroke-width": 2,
+                                        "fill": "rgba(255,255,255,.5)",
+                                        "stroke": "rgba(255,255,255,.5)",
+                                        "r": 6
+                                    },
+                                    "hover": {
+                                        "fill": "#fff",
+                                        "stroke": "#fff"
+                                    }
                                 }
-                              },
-                              "markerStyle": {
-                                "initial": {
-                                  "stroke-width": 2,
-                                  "fill": "rgba(255,255,255,.5)",
-                                  "stroke": "rgba(255,255,255,.5)",
-                                  "r": 6
-                                },
-                                "hover": {
-                                  "fill": "#fff",
-                                  "stroke": "#fff"
-                                }
-                              }
-                                            }'>
+                            }'>
                         </div>
                     </div>
                     <!-- End Vector Map -->
@@ -1019,6 +1030,7 @@
         // INITIALIZATION OF DATATABLES
         // =======================================================
         HSCore.components.HSDatatables.init($('#datatable'), {
+            dom: "t",
             select: {
                 style: 'multi',
                 selector: 'td:first-child input[type="checkbox"]',
@@ -1029,11 +1041,11 @@
                 }
             },
             language: {
-                zeroRecords: `<div class="text-center p-4">
-              <img class="mb-3" src="./assets/svg/illustrations/oc-error.svg" alt="Image Description" style="width: 10rem;" data-hs-theme-appearance="default">
-              <img class="mb-3" src="./assets/svg/illustrations-light/oc-error.svg" alt="Image Description" style="width: 10rem;" data-hs-theme-appearance="dark">
-            <p class="mb-0">No data to show</p>
-            </div>`
+                zeroRecords: `<div class="p-4 text-center">
+                    <img class="mb-3" src="{{ asset('assets/svg/illustrations/oc-error.svg') }}" alt="Image Description" style="width: 10rem;" data-hs-theme-appearance="default">
+                    <img class="mb-3" src="{{ asset('assets/svg/illustrations-light/oc-error.svg') }}" alt="Image Description" style="width: 10rem;" data-hs-theme-appearance="dark">
+                    <p class="mb-0">{{ __('No data to show') }}</p>
+                </div>`
             }
         });
 
@@ -1055,67 +1067,6 @@
         // INITIALIZATION OF CHARTJS
         // =======================================================
         HSCore.components.HSChartJS.init('.js-chart')
-
-
-        // INITIALIZATION OF CHARTJS
-        // =======================================================
-        // HSCore.components.HSChartJS.init('#updatingBarChart')
-        // const updatingBarChart = HSCore.components.HSChartJS.getItem('updatingBarChart')
-
-        // // Call when tab is clicked
-        // document.querySelectorAll('[data-bs-toggle="chart-bar"]').forEach(item => {
-        //     item.addEventListener('click', e => {
-        //         let keyDataset = e.currentTarget.getAttribute('data-datasets')
-
-        //         const styles = HSCore.components.HSChartJS.getTheme('updatingBarChart',
-        //             HSThemeAppearance.getAppearance())
-
-        //         if (keyDataset === 'lastWeek') {
-        //             updatingBarChart.data.labels = [
-        //                 "Apr 22", "Apr 23", "Apr 24", "Apr 25",
-        //                 "Apr 26", "Apr 27", "Apr 28", "Apr 29", "Apr 30", "Apr 31"
-        //             ];
-        //             updatingBarChart.data.datasets = [{
-        //                     "data": [120, 250, 300, 200, 300, 290, 350, 100, 125, 320],
-        //                     "backgroundColor": styles.data.datasets[0].backgroundColor,
-        //                     "hoverBackgroundColor": styles.data.datasets[0].hoverBackgroundColor,
-        //                     "borderColor": styles.data.datasets[0].borderColor,
-        //                     "maxBarThickness": 10
-        //                 },
-        //                 {
-        //                     "data": [250, 130, 322, 144, 129, 300, 260, 120, 260, 245, 110],
-        //                     "backgroundColor": styles.data.datasets[1].backgroundColor,
-        //                     "borderColor": styles.data.datasets[1].borderColor,
-        //                     "maxBarThickness": 10
-        //                 }
-        //             ];
-        //             updatingBarChart.update();
-        //         } else {
-        //             updatingBarChart.data.labels = [
-        //                 "May 1", "May 2", "May 3", "May 4",
-        //                 "May 5", "May 6", "May 7", "May 8", "May 9", "May 10"
-        //             ];
-        //             updatingBarChart.data.datasets = [{
-        //                     "data": [200, 300, 290, 350, 150, 350, 300, 100, 125, 220],
-        //                     "backgroundColor": styles.data.datasets[0].backgroundColor,
-        //                     "hoverBackgroundColor": styles.data.datasets[0]
-        //                         .hoverBackgroundColor,
-        //                     "borderColor": styles.data.datasets[0].borderColor,
-        //                     "maxBarThickness": 10
-        //                 },
-        //                 {
-        //                     "data": [150, 230, 382, 204, 169, 290, 300, 100, 300, 225,
-        //                         120
-        //                     ],
-        //                     "backgroundColor": styles.data.datasets[1].backgroundColor,
-        //                     "borderColor": styles.data.datasets[1].borderColor,
-        //                     "maxBarThickness": 10
-        //                 }
-        //             ]
-        //             updatingBarChart.update();
-        //         }
-        //     })
-        // })
 
 
         // INITIALIZATION OF CHARTJS
@@ -1169,26 +1120,15 @@
         // =======================================================
         HSCore.components.HSClipboard.init('.js-clipboard')
 
-        // [
-        //     [18, 51, 60, 38, 88, 50, 40, 52, 88, 80, 60, 70],
-        //     [27, 38, 60, 77, 40, 50, 49, 29, 42, 27, 42, 50],
-        //     [27, 38, 60, 78, 40, 50, 49, 29, 49, 27, 42, 50],
-        // ],
-        // [
-        //     [77, 40, 50, 49, 27, 38, 60, 42, 50, 29, 42, 27],
-        //     [60, 38, 18, 51, 88, 50, 40, 52, 60, 70, 88, 80],
-        //     [60, 38, 18, 51, 88, 50, 40, 52, 60, 70, 88, 80],
-        // ],
         // INITIALIZATION OF CHARTJS
         // =======================================================
         var updatingChartDatasets = [
             [
                 @foreach ($projectStatuts as $key => $statut)
-                {{ isset($projectMainChartData[$key]) ? $projectMainChartData[$key] : 0 }},
+                    {{ isset($projectMainChartData[$key]) ? $projectMainChartData[$key] : 0 }},
                 @endforeach
             ]
         ]
-
 
         // INITIALIZATION OF CHARTJS
         // =======================================================
@@ -1242,102 +1182,38 @@
 
         // INITIALIZATION OF VECTOR MAP
         // =======================================================
-        const markers = [{
-                "coords": [38, -97],
-                "name": "United States",
-                "active": 200,
-                "new": 40,
-                "flag": "./assets/vendor/flag-icon-css/flags/1x1/us.svg",
-                "code": "US"
-            },
-            {
-                "coords": [20, 77],
-                "name": "India",
-                "active": 300,
-                "new": 100,
-                "flag": "./assets/vendor/flag-icon-css/flags/1x1/in.svg",
-                "code": "IN"
-            },
-            {
-                "coords": [60, -105],
-                "name": "Canada",
-                "active": 400,
-                "new": 500,
-                "flag": "./assets/vendor/flag-icon-css/flags/1x1/ca.svg",
-                "code": "CA"
-            },
-            {
-                "coords": [51, 9],
-                "name": "Germany",
-                "active": 120,
-                "new": 600,
-                "flag": "./assets/vendor/flag-icon-css/flags/1x1/de.svg",
-                "code": "DE"
-            },
-            {
-                "coords": [54, -2],
-                "name": "United Kingdom",
-                "active": 140,
-                "new": 100,
-                "flag": "./assets/vendor/flag-icon-css/flags/1x1/gb.svg",
-                "code": "GB"
-            },
-            {
-                "coords": [1.3, 103.8],
-                "name": "Singapore",
-                "active": 56,
-                "new": 0,
-                "flag": "./assets/vendor/flag-icon-css/flags/1x1/sg.svg",
-                "code": "SG"
-            },
-            {
-                "coords": [9.0, 8.6],
-                "name": "Nigeria",
-                "active": 34,
-                "new": 2,
-                "flag": "./assets/vendor/flag-icon-css/flags/1x1/ng.svg",
-                "code": "NG"
-            },
-            {
-                "coords": [61.5, 105.3],
-                "name": "Russia",
-                "active": 135,
-                "new": 46,
-                "flag": "./assets/vendor/flag-icon-css/flags/1x1/ru.svg",
-                "code": "RU"
-            },
-            {
-                "coords": [35.8, 104.1],
-                "name": "China",
-                "active": 325,
-                "new": 75,
-                "flag": "./assets/vendor/flag-icon-css/flags/1x1/cn.svg",
-                "code": "CN"
-            },
-            {
-                "coords": [-10, -51],
-                "name": "Brazil",
-                "active": 242,
-                "new": 17,
-                "flag": "./assets/vendor/flag-icon-css/flags/1x1/br.svg",
-                "code": "BR"
-            }
+        const markers = [
+            @foreach ($clients as $client)
+                {
+                    "coords": {{ $client->coords ?? "[]" }},
+                    "name": "{{ $client->name }}",
+                    "reel": "{{ $client->reel }}",
+                    "simple": "{{ $client->simple }}",
+                    "potentiel": "{{ $client->potentiel }}",
+                    "flag": "./assets/vendor/flag-icon-css/flags/1x1/{{ Str::lower($client->code) }}.svg",
+                    "code": "{{ $client->code }}"
+                },
+            @endforeach
         ];
         const tooltipTemplate = function(marker) {
             return `
-                        <span class="d-flex align-items-center mb-2">
-                            <img class="avatar avatar-xss avatar-circle" src="${marker.flag}" alt="Flag">
-                            <span class="h5 ms-2 mb-0">${marker.name}</span>
-                        </span>
-                        <div class="d-flex justify-content-between" style="max-width: 10rem;">
-                            <strong>Active:</strong>
-                            <span class="ms-2">${marker.active}</span>
-                        </div>
-                        <div class="d-flex justify-content-between" style="max-width: 10rem;">
-                            <strong>New:</strong>
-                            <span class="ms-2">${marker.new}</span>
-                        </div>
-                    `;
+                <span class="mb-2 d-flex align-items-center">
+                    <img class="avatar avatar-xss avatar-circle" src="${marker.flag}" alt="Flag">
+                    <span class="mb-0 h5 ms-2">${marker.name}</span>
+                </span>
+                <div class="d-flex justify-content-between" style="max-width: 10rem;">
+                    <strong>Réel:</strong>
+                    <span class="ms-2">${marker.reel}</span>
+                </div>
+                <div class="d-flex justify-content-between" style="max-width: 10rem;">
+                    <strong>Simple:</strong>
+                    <span class="ms-2">${marker.simple}</span>
+                </div>
+                <div class="d-flex justify-content-between" style="max-width: 10rem;">
+                    <strong>Potentiel:</strong>
+                    <span class="ms-2">${marker.potentiel}</span>
+                </div>
+            `;
         };
 
         HSCore.components.HSJsVectorMap.init('.js-jsvectormap', {

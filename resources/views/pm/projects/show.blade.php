@@ -257,7 +257,7 @@
                                 @if ($project->partenaire->image)
                                     <div class="flex-shrink-0">
                                         <div class="avatar avatar-lg avatar-circle">
-                                            <img class="avatar-img" src="{{ iamge($project->partenaire->image) }}"
+                                            <img class="avatar-img" src="{{ image($project->partenaire->image) }}"
                                                 alt="Image Description">
                                         </div>
                                     </div>

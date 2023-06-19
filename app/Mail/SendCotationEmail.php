@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Auth;
 
-class SendFactureEmail extends Mailable
+class SendCotationEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -43,6 +43,6 @@ class SendFactureEmail extends Mailable
                     ->attachFromStorage($this->pdfFilePath,'facture.pdf',[
                         'mime' => 'application/pdf',
                     ])
-                    ->markdown('emails.factures.client');
+                    ->markdown('emails.cotations.client');
     }
 }

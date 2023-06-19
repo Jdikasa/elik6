@@ -59,23 +59,32 @@ class FactureController extends Controller
             $facture->total_net = doubleval(Str::replaceArray('.', [''], $request->total_net));
             $facture->save();
 
+            $transanction = PayTransaction::create([
+                'user_id' => Auth::user()->id,
+                'facture_id' => $facture->id,
+                'montant' => doubleval(Str::replaceArray('.', [''], $request->post_pay ?? 0)),
+                'description' => 'paiement de ' . $request->post_pay . '$ pour la facture <a href="' . route("pm.fin.factures.show", $facture) . '">#' . str_pad($facture->id, 6, '0', 0) . '</a>',
+            ]);
             if (doubleval($request->post_pay) > 0) {
-                PayTransaction::create([
-                    'user_id' => Auth::user()->id,
-                    'facture_id' => $facture->id,
-                    'montant' => doubleval(Str::replaceArray('.', [''], $request->post_pay)),
-                    'description' => 'paiement de ' . $request->post_pay . '$ pour la facture <a href="' . route("pm.fin.factures.show", $facture) . '">#' . str_pad($facture->id, 6, '0', 0) . '</a>',
-                ]);
                 if ($request->post_pay == doubleval(Str::replaceArray('.', [''], $facture->total_net))) {
                     $facture->statut_id = 3;
                     $facture->save();
+
+                    $transanction->statut_id = 3;
+                    $transanction->save();
                 } else {
                     $facture->statut_id = 2;
                     $facture->save();
+
+                    $transanction->statut_id = 2;
+                    $transanction->save();
                 }
             } else {
                 $facture->statut_id = 1;
                 $facture->save();
+
+                $transanction->statut_id = 1;
+                $transanction->save();
             }
 
             foreach ($items as $key => $item) {

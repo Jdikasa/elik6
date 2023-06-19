@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Certificat;
+use App\Models\Country;
 use App\Models\Customer;
+use App\Models\FacturesStatut;
 use App\Models\Note;
 use App\Models\NoteEtape;
 use App\Models\PayTransaction;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use stdClass;
 
 class HomeController extends Controller
 {
@@ -67,15 +70,39 @@ class HomeController extends Controller
             $projectMainChartData[$key] = Str::replace('}', '', Str::replace('{', '', json_encode(array_values($value)))) ;
         }
 
-        // dd($projectMainChartData);
-
         $projects = $projects->take(5);
 
         $transactions = PayTransaction::forCurrentTeam()->whereMonth('created_at', now())->get();
         $transactionMontant = $transactions->sum("montant");
         $transactionChartData = $this->transactionChartData($transactions);
+        $transactionChartData2 = FacturesStatut::with('transactions:montant')->withCount('transactions')->get();
 
-        // dd(now()->month(1)->isoFormat('MMM'));
+        // $countries = Country::whereHas('certificat');
+        // $clients = $countries->map(function ($country) {
+        //     $object = new stdClass();
+        //     $object->coords = $country->action;
+        //     $object->name = $country->name_fr;
+        //     $object->reel = $country->customers->where('type_id', 3)->count();
+        //     $object->simple = $country->customers->where('type_id', 1)->count();
+        //     $object->potentiel = $country->customers->where('type_id', 2)->count();
+        //     $object->code = $country->code;
+        //     return $object;
+        // });
+
+        $certificats = Certificat::forCurrentTeam()->with('country')->get();
+        $clients = $certificats->map(function ($certificat) {
+            $object = new stdClass();
+            $object->coords = $certificat->country->action;
+            $object->name = $certificat->country->name_fr;
+            $object->reel = $certificat->country->customers->where('type_id', 3)->count();
+            $object->simple = $certificat->country->customers->where('type_id', 1)->count();
+            $object->potentiel = $certificat->country->customers->where('type_id', 2)->count();
+            $object->code = $certificat->country->code;
+            return $object;
+        });
+        $sumClient['reel'] = $clients->sum('reel');
+        $sumClient['simple'] = $clients->sum('simple');
+        $sumClient['potentiel'] = $clients->sum('potentiel');
 
         return view('pm.dashboard.index')->with([
             'totalClients' => $totalClients,
@@ -89,8 +116,11 @@ class HomeController extends Controller
             'transactions' => $transactions,
             'transactionMontant' => $transactionMontant,
             'transactionChartData' => $transactionChartData,
+            'transactionChartData2' => $transactionChartData2,
             'projectStatuts' => $projectStatuts,
             'projectMainChartData' => $projectMainChartData,
+            'clients' => $clients,
+            'sumClient' => $sumClient,
         ]);
     }
 

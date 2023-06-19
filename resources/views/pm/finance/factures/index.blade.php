@@ -8,7 +8,7 @@
     </style>
 @endsection
 
-@section('titre', 'ELIK6 - Liste des clients')
+@section('titre', 'ELIK6 - Liste des factures')
 
 @section('body')
 
@@ -16,7 +16,7 @@
         <!--breadcrumb-->
         <div class="page-header card card-lg">
             <div class="text-star">
-                <h1>Liste des Clients</h1>
+                <h1>Liste des Factures</h1>
                 <div class="page-breadcrumb d-none d-sm-flex align-items-center">
                     <div class="">
                         <nav aria-label="breadcrumb">
@@ -354,7 +354,7 @@
                                         <a class="js-export-print dropdown-ite" href="{{ route('pm.fin.factures.show', $facture) }}">
                                             <i class="bi bi-eye-fill dropdown-item-icon text-primary"></i>
                                         </a>
-                                        <a class="dropdown-ite  delete-toggle" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#delete-modal"
+                                        <a class="dropdown-ite delete-toggle" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#delete-modal"
                                             data-id="{{ $facture->id }}" >
                                             <i class="bi-trash dropdown-item-icon text-danger"></i>
                                         </a>

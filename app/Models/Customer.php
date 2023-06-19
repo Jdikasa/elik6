@@ -20,7 +20,7 @@ class Customer extends Model
     protected $historyLimit = 700;
     protected $revisionCreationsEnabled = true;
     protected $revisionForceDeleteEnabled = true;
-    //
+    
     protected $keepRevisionOf = [
         'societe_id', 'adresse_id', 'type_id', 'logo', 'contrat',
         'nda', 'autre_doc', 'description', 'created_at',

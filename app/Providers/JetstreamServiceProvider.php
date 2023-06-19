@@ -49,7 +49,7 @@ class JetstreamServiceProvider extends ServiceProvider
         Jetstream::defaultApiTokenPermissions(['read']);
 
         foreach (Role::all() as $role) {
-            Jetstream::role($role->key, $role->name, $role->permissions->toArray())->description($role->description);
+            Jetstream::role($role->key, $role->name, $role->permissions->toArray())->description($role->description ?? '');
         }
 
 

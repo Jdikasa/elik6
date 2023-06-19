@@ -112,19 +112,23 @@
 
                     @can('view finance')
                         <div class="nav-item">
+                            @php
+                                $collapsed = Route::is('pm.fin.cotations.index') ||
+                                    Str::contains(route('pm.fin.cotations.index'), request()->segment(1)) ||
+                                    Route::is('pm.fin.factures.index') || Str::contains(route('pm.fin.factures.index'), request()->segment(2)) ||
+                                    Route::is('pm.fin.banques.index') || Str::contains(route('pm.fin.banques.index'), request()->segment(2));
+                            @endphp
                             <a @class([
-                                'nav-link dropdown-toggle ',
-                                'collapse' =>
-                                    !Route::is('pm.fin.cotations.index') &&
-                                    !Str::contains(route('pm.fin.cotations.index'), request()->segment(1)),
+                                'nav-link dropdown-toggle',
+                                'collapsed' => !$collapsed,
                             ]) href="#navbarVerticalMenuPagesAccountMenu" role="button"
                                 data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuPagesAccountMenu"
-                                aria-expanded="false" aria-controls="navbarVerticalMenuPagesAccountMenu">
+                                aria-expanded="{{ $collapsed ? "true" : "false" }}" aria-controls="navbarVerticalMenuPagesAccountMenu">
                                 <i class="bi-cash-coin nav-icon"></i>
                                 <span class="nav-link-title">Finance</span>
                             </a>
 
-                            <div id="navbarVerticalMenuPagesAccountMenu" class="nav-collapse collapser "
+                            <div id="navbarVerticalMenuPagesAccountMenu" @class(["nav-collapse collapse", "show" => $collapsed])
                                 data-bs-parent="#navbarVerticalMenuPagesMenu" hs-parent-area="#navbarVerticalMenu">
                                 @can('view cotations')
                                     <a class="nav-link @if (Route::is('pm.fin.cotations.index') || Str::contains(route('pm.fin.cotations.index'), request()->segment(2))) active @endif"
