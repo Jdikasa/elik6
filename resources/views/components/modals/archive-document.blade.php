@@ -10,7 +10,7 @@
         </div>
         <div class="modal-body">
             <div class="form-group row g-4">
-                <form action="{{ route('arsp.documents.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('pm.documents.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="dossier_id" value="{{ $dossier->id }}">
                     <div class="">

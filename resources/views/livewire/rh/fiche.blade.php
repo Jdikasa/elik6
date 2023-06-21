@@ -363,7 +363,7 @@
                                                     <div class="col-lg-3">
                                                         <div class="d-flex align-items-center position-relative">
                                                             <div class="icon-lg text-star" style="position: initial">
-                                                                {{-- <a href="{{ route('arsp.documents.show', $document) }}" class="stretched-link">
+                                                                {{-- <a href="{{ route('pm.documents.show', $document) }}" class="stretched-link">
                                                                     <img src="{{ fileIcon($document->document) }}" alt="" class="me-2 img-file" style="width: 30px">
                                                                 </a> --}}
                                                                 <a href="{{ files($document->document)->link }}"

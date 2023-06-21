@@ -103,7 +103,7 @@
                             <h5>Etes-vous sûr de vouloir supprimer ce classeur ?</h5>
                             <p>Cette action est irrémédiable</p>
                         </div>
-                        <form action="{{ route('arsp.classeurs.destroy', $classeur) }}" method="POST">
+                        <form action="{{ route('pm.classeurs.destroy', $classeur) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <div class="mb-3 block-btn d-flex justify-content-center">

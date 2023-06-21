@@ -90,6 +90,6 @@ class AddCourrierTacheModal extends Component
             $content
         );
 
-        return redirect()->route('arsp.courriers.index');
+        return redirect()->route('pm.courriers.index');
     }
 }

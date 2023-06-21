@@ -264,7 +264,7 @@
                                                         alt="photo de profil {{ Auth::user()->agent->prenom . ' ' . Auth::user()->agent->nom }}">
                                                 </div>
                                                 <form method="post"
-                                                    action="{{ route('arsp.taches.commentaire.store') }}"
+                                                    action="{{ route('pm.taches.commentaire.store') }}"
                                                     id="form-message">
                                                     @csrf
                                                     <div class="form-group row g-2">
@@ -328,7 +328,7 @@
                                                     alt="photo de profil {{ Auth::user()->agent->prenom . ' ' . Auth::user()->agent->nom }}">
                                             </div>
                                             <form method="post"
-                                                action="{{ route('arsp.taches.commentaire.fichier.store') }}">
+                                                action="{{ route('pm.taches.commentaire.fichier.store') }}">
                                                 @csrf
                                                 <div class="form-group row g-2 align-items-center">
                                                     <div class="col-lg-10">
@@ -371,7 +371,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        {{-- <form method="post" action="{{ route('arsp.taches.objectifs.store') }}">
+                        {{-- <form method="post" action="{{ route('pm.taches.objectifs.store') }}">
                             @csrf
                             <div class="form-group row g-4">
                                 <div class="col-lg-12">
@@ -511,7 +511,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        {{-- <form method="post" action="{{ route('arsp.taches.update', $tache) }}">
+                        {{-- <form method="post" action="{{ route('pm.taches.update', $tache) }}">
                             @csrf
                             <div class="form-group row g-4">
                                 <div class="col-lg-12">

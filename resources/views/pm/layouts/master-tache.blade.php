@@ -10,7 +10,7 @@
     <title>Elik6 | Administration Digital System</title>
     <!-- Styles -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.3.0/alpine-ie11.js"></script>
-    @include('arsp.layouts.partials.head.styles')
+    @include('pm.layouts.partials.head.styles')
     @yield('styles')
     @livewireStyles()
 </head>
@@ -21,7 +21,7 @@
         <x-sidebar />
 
         <div class="wrapper">
-            @include('arsp.layouts.partials.header.navbar')
+            @include('pm.layouts.partials.header.navbar')
             <div class="content">
                 @yield('content')
             </div>
@@ -193,7 +193,7 @@
 
     @endif
 
-    @include('arsp.layouts.partials.head.scripts')
+    @include('pm.layouts.partials.head.scripts')
 
     <script>
         $(document).scroll(function(){

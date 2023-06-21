@@ -162,7 +162,7 @@ class DossierController extends Controller
                 'session',
                 $content
             );
-            return redirect()->route('arsp.dossiers.show', $dossier);
+            return redirect()->route('pm.dossiers.show', $dossier);
         }
 
         $content = json_encode([
@@ -307,6 +307,6 @@ class DossierController extends Controller
             $content
         );
 
-        return redirect()->route('arsp.classeurs.show', $dossier->classeur);
+        return redirect()->route('pm.classeurs.show', $dossier->classeur);
     }
 }

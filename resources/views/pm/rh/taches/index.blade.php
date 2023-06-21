@@ -1,4 +1,4 @@
-@extends('arsp.layouts.master')
+@extends('pm.layouts.master')
 
 @section('styles')
     <style>
@@ -289,7 +289,7 @@
                                                     <img src="{{ imageOrDefault(Auth::user()->agent->image) }}"
                                                         alt="photo de profil {{ Auth::user()->agent->prenom . ' ' . Auth::user()->agent->nom }}">
                                                 </div>
-                                                <form method="post" action="{{ route('arsp.taches.commentaire.store') }}"
+                                                <form method="post" action="{{ route('pm.taches.commentaire.store') }}"
                                                     id="form-message">
                                                     @csrf
                                                     <div class="form-group row g-2">
@@ -354,7 +354,7 @@
                                                     alt="photo de profil {{ Auth::user()->agent->prenom . ' ' . Auth::user()->agent->nom }}">
                                             </div>
                                             <form method="post"
-                                                action="{{ route('arsp.taches.commentaire.fichier.store') }}">
+                                                action="{{ route('pm.taches.commentaire.fichier.store') }}">
                                                 @csrf
                                                 <div class="form-group row g-2 align-items-center">
                                                     <div class="col-lg-10">
@@ -397,7 +397,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="post" action="{{ route('arsp.taches.objectifs.store') }}">
+                        <form method="post" action="{{ route('pm.taches.objectifs.store') }}">
                             @csrf
                             <div class="form-group row g-4">
                                 <div class="col-lg-12">
@@ -426,7 +426,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="post" action="{{ route('arsp.taches.participants.store') }}">
+                        <form method="post" action="{{ route('pm.taches.participants.store') }}">
                             @csrf
                             <div class="form-group row g-4">
                                 <div class="col-lg-12">
@@ -465,7 +465,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="post" action="{{ route('arsp.taches.update', $tache) }}">
+                        <form method="post" action="{{ route('pm.taches.update', $tache) }}">
                             @csrf
                             <div class="form-group row g-4">
                                 {{-- @php
@@ -481,7 +481,7 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-4">
-                                        <a class="text-danger" href="{{ route('arsp.taches.participants.delete',[$pivotusertache->id]) }}">supprimer</a>
+                                        <a class="text-danger" href="{{ route('pm.taches.participants.delete',[$pivotusertache->id]) }}">supprimer</a>
                                     </div>
                                 @endforeach
                             </div>
@@ -502,7 +502,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="post" action="{{ route('arsp.taches.update', $tache) }}">
+                        <form method="post" action="{{ route('pm.taches.update', $tache) }}">
                             @csrf
                             <div class="form-group row g-4">
                                 @foreach ($tache->objectifs as $cible)
@@ -515,7 +515,7 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <a class="text-danger"
-                                            href="{{ route('arsp.taches.objectif.delete', [$cible->id]) }}">supprimer</a>
+                                            href="{{ route('pm.taches.objectif.delete', [$cible->id]) }}">supprimer</a>
                                     </div>
                                 @endforeach
                             </div>
@@ -536,7 +536,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="post" action="{{ route('arsp.taches.update', $tache) }}">
+                        <form method="post" action="{{ route('pm.taches.update', $tache) }}">
                             @csrf
                             <div class="form-group row g-4">
                                 <div class="col-lg-12">
@@ -651,7 +651,7 @@
         // });
 
         $('.delete').on('click', function (e) {
-            $('#delete_form')[0].action = '{{ route('arsp.taches.destroy', '__id') }}'.replace('__id', $(this).data('id'));
+            $('#delete_form')[0].action = '{{ route('pm.taches.destroy', '__id') }}'.replace('__id', $(this).data('id'));
             $('#modal-delete').modal('show');
         });
 

@@ -1,6 +1,6 @@
 <div class="col-lg-12">
     <div class="mb-3 d-flex justify-content-between align-items-center">
-        {{-- @if(count($dossiers)){{ route('arsp.archive-classeurs.index', $dossiers[0]->classeur->created_at->format('Y')) }}@else  @endif --}}
+        {{-- @if(count($dossiers)){{ route('pm.archive-classeurs.index', $dossiers[0]->classeur->created_at->format('Y')) }}@else  @endif --}}
         <a href="{{ url()->previous() }}" class="back">
             <i class="bi bi-chevron-left"></i> Retour
         </a>

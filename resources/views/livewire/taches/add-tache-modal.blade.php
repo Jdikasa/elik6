@@ -9,7 +9,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('arsp.taches.store') }}">
+                <form method="post" action="{{ route('pm.taches.store') }}">
                     @csrf
                     <div class="form-group row g-2">
                         <div class="col-lg-12">

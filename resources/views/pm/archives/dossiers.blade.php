@@ -618,7 +618,7 @@
             </div>
             <div class="modal-body">
                 <div class="form-group row g-4">
-                    <form action="{{ route('arsp.dossiers.store')}}" method="post">
+                    <form action="{{ route('pm.dossiers.store')}}" method="post">
                         @csrf
                         <input type="hidden" name="classeur_id" id="" value="{{ $classeur->id }}">
                         <div>
