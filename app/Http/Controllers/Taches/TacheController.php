@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers\Taches;
 
+use App\Events\TacheCreated;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\File;
 use App\Models\Agent;
+use App\Models\ArchivePermission;
 use App\Models\Cible;
+use App\Models\Classeur;
 use App\Models\Commentaire;
+use App\Models\Document;
+use App\Models\Dossier;
 use App\Models\Etat;
 use App\Models\Historique;
 use App\Models\PivotUserTache;
@@ -15,6 +21,7 @@ use App\Models\TacheObjectif;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class TacheController extends Controller
 {
@@ -27,7 +34,13 @@ class TacheController extends Controller
     {
         $etats = Etat::where('statut_id', 1)->get();
         $taches = Tache::forCurrentTeam()->get();
-        $agents = Agent::forCurrentTeam()->get();
+        $users = Auth::user()->currentTeam->allUsers()->reject(function ($user) {
+            return $user->id == Auth::user()->id;
+        });
+        $agents = $users->map(function ($user) {
+            return $user->agent;
+        });
+        // Agent::forCurrentTeam()->get();
         $priorites = Priorite::all();
         $tacheEncours = Tache::forCurrentTeam()->encours()->get();
 
@@ -59,6 +72,7 @@ class TacheController extends Controller
     public function store(Request $request)
     {
         try {
+
             $tache = Tache::create([
                 'titre' => $request->libelle,
                 'description' => $request->description,
@@ -75,27 +89,7 @@ class TacheController extends Controller
                 $tache->executants()->attach($request->agents);
             }
 
-            // if ($request->has('taches') && count($request->taches)) {
-            //     foreach ($request->taches as $key => $value) {
-            //         PivotUserTache::create([
-            //             'tache_id' => $tache->id,
-            //             'agent_id' => $key,
-            //             'user_id' => Auth::user()->id,
-            //             'statut_id' => 1,
-            //         ]);
-
-            //         foreach ($value as $objectif) {
-            //             TacheObjectif::create([
-            //                 'libelle' => $objectif,
-            //                 'tache_id' => $tache->id,
-            //                 'user_id' => Auth::user()->id,
-            //                 'statut' => 1,
-            //                 'agent_id' => $key
-            //             ]);
-
-            //         }
-            //     }
-            // }
+            event(new TacheCreated($tache));
 
             $content = json_encode([
                 'name' => 'Gestion de tâche',
@@ -104,6 +98,7 @@ class TacheController extends Controller
             ]);
 
         } catch (\Throwable $th) {
+            dd($th);
             $content = json_encode([
                 'name' => 'Ressources humaines',
                 'statut' => 'error',
@@ -298,18 +293,83 @@ class TacheController extends Controller
         return response()->json($taches, 200);
     }
 
-    // public function storecommentaire(Request $request)
-    // {
-    //     $commentaire = Commentaire::create([
-    //         'message' => $request->message,
-    //         'tache_id' => $request->tache_id,
-    //         'user_id' => Auth::user()->id,
-    //         'statut_id' => '1',
-    //     ]);
+    public function storefichier(Request $request) {
+        try {
 
-    //     $commentaires = $commentaire->tache->commentaires;
+            if ($request->hasFile('document')) {
+                $tache = Tache::find($request->tache_id);
+                $classer = Classeur::firstOrCreate(
+                    [
+                        'departement_id' => Auth::user()->agent?->fonction()?->service?->division?->departement?->id ?? Auth::user()->current_team_id,
+                        'titre' => 'Classeur gestion des tâches',
+                        'team_id' => Auth::user()->current_team_id,
+                        'reference' => 'TACHE/' . Str::upper(Str::replace(' ', '', Auth::user()->currentTeam->name)) . '/DOCS/' . str_pad(Auth::user()->current_team_id, 6, '0', STR_PAD_RIGHT),
+                    ],
+                    [
+                        'description' => 'Classeur pour les documents en rapport avec la gestion des tâche',
+                        'created_by' => Auth::user()->id,
+                        'updated_by' => Auth::user()->id,
+                    ]
+                );
 
-    //     return back();
-    // }
+                $dossier = Dossier::firstOrCreate([
+                    'classeur_id' => $classer->id,
+                    'titre' => 'Dossier du tâche : ' . $tache->titre,
+                    'reference' => 'TACHE/' . $tache->created_at->format('d/m/Y'),
+                    'team_id' => Auth::user()->current_team_id,
+                ], [
+                    'description' => 'Dossier pour les documents en rapport avec la gestion du tâche : ' . $tache->titre,
+                    'confidentiel' => 0,
+                    'created_by' => Auth::user()->id,
+                    'updated_by' => Auth::user()->id,
+                ]);
+
+                $document = Document::create([
+                    'dossier_id' => $dossier->id,
+                    'libelle' => $tache->titre,
+                    'category_id' => 4,
+                    'reference' => 'TACHE/' .$tache->id.'/'. $tache->created_at->format('d/m/Y'),
+                    'type' => 3,
+                    'document' => (new File())->handle($request, 'document', 'documents'),
+                    'user_id' => Auth::user()->id,
+                    'statut_id' => 1,
+                    'created_by' => Auth::user()->id,
+                    'team_id' => Auth::user()->current_team_id,
+                ]);
+
+                $tache->document_id = $document->id;
+                $tache->save();
+
+                $content = json_encode([
+                    'name' => 'Document',
+                    'statut' => 'success',
+                    'message' => 'Document enregistré avec succès !',
+                ]);
+
+            }else {
+                $content = json_encode([
+                    'name' => 'Document',
+                    'statut' => 'error',
+                    'message' => 'Impossible de créer le document, une erreur s\'est produite',
+                ]);
+            }
+
+
+        } catch (\Throwable $th) {
+            dd($th);
+            $content = json_encode([
+                'name' => 'Document',
+                'statut' => 'error',
+                'message' => 'Impossible de créer le document, une erreur s\'est produite',
+            ]);
+        }
+
+        session()->flash(
+            'session',
+            $content
+        );
+
+        return redirect()->back();
+    }
 
 }

@@ -15,6 +15,7 @@ class IndexTache extends Component
     public $users;
     public $agents;
     public $page = 1;
+    public $selectedTache;
 
     protected $queryString = [
         'page' => [
@@ -43,5 +44,12 @@ class IndexTache extends Component
     public function switchPage($num)
     {
         $this->page = $num;
+    }
+
+    public function selectTache($id, $tab)
+    {
+        $this->emit('selectTache', $id, $tab);
+        // $this->selectedTache = Tache::find($id);
+        // $this->page = $page;
     }
 }

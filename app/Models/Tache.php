@@ -27,6 +27,15 @@ class Tache extends Model
         'date_fin' => 'date',
     ];
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'parent_id', 'user_id', 'document_id', 'statut_id', 'priorite_id', 'titre', 'description', 'date_debut', 'date_fin', 'team_id',
+    ];
+
     public function commentaires()
     {
         return $this->hasMany(Commentaire::class);
@@ -41,9 +50,9 @@ class Tache extends Model
         return $this->belongsTo(Etat::class);
     }
 
-    public function fichiers()
+    public function fichier()
     {
-        return $this->hasMany(Fichier::class);
+        return $this->belongsTo(Document::class, 'document_id');
     }
 
     // public function pivotusertaches()
@@ -58,7 +67,7 @@ class Tache extends Model
      */
     public function executants()
     {
-        return $this->belongsToMany(Agent::class, PivotUserTache::class, 'agent_id', 'tache_id');
+        return $this->belongsToMany(Agent::class, PivotUserTache::class, 'agent_id', 'tache_id')->withTimestamps();
     }
 
     public function user()
