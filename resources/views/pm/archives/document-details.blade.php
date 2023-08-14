@@ -7,7 +7,7 @@
 
 @section('body')
 
-    <div class="content container-fluid">
+    <div class="content container-fluid pb-5">
         <div class="page-header card card-lg">
             <div class="text-star">
                 <h1 class="mb-0">{{ Str::ucfirst($dossier->titre) }}</h1>
@@ -20,7 +20,7 @@
                 <div class="circle-white"></div>
             </div>
         </div>
-        
+
         <div class="row g-lg-3">
             @livewire('archivage.document', ['dossier' => $dossier])
         </div>

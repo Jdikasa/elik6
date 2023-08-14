@@ -54,6 +54,16 @@ class PayTransaction extends Model
     }
 
     /**
+     * Get the autor that owns the PayTransaction
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function autor(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    /**
      * Scope a query to only include for current team
      *
      * @param  \Illuminate\Database\Eloquent\Builder $query

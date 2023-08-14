@@ -1,7 +1,7 @@
 @extends('pm.layouts.master')
 
 @section('body')
-    <div class="content container-fluid">
+    <div class="content container-fluid p- pb-5">
         <div class="page-header card card-lg">
             <div class="text-star">
                 <h1>Affichage du pays</h1>

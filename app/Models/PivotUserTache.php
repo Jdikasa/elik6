@@ -11,7 +11,7 @@ class PivotUserTache extends Model
     protected $guarded = [];
 
     public function employe() {
-        return $this->belongsTo(User::class, 'employe_id');
+        return $this->belongsTo(Agent::class, 'agent_id');
     }
 
     public function tache() {

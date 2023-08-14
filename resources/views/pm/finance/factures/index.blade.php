@@ -12,37 +12,37 @@
 
 @section('body')
 
-    <div class="content container-fluid">
-        <!--breadcrumb-->
-        <div class="page-header card card-lg">
-            <div class="text-star">
-                <h1>Liste des Factures</h1>
-                <div class="page-breadcrumb d-none d-sm-flex align-items-center">
-                    <div class="">
-                        <nav aria-label="breadcrumb">
-                            <ol class="p-0 mb-0 breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">Factures</li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <div class="ms-auto">
-                        <a href="{{ route('pm.fin.factures.create') }}" class="btn btn-light rounded-pill">
-                            <i class="bi bi-plus-circle-fill"></i>
-                            Créer une facture
-                        </a>
-                    </div>
-                </div>
+<!--breadcrumb-->
+<div class="page-header card card-lg">
+    <div class="text-star">
+        <h1>Liste des Factures</h1>
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center">
+            <div class="">
+                <nav aria-label="breadcrumb">
+                    <ol class="p-0 mb-0 breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Factures</li>
+                    </ol>
+                </nav>
             </div>
-            <div class="block-circle">
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
+            <div class="ms-auto">
+                <a href="{{ route('pm.fin.factures.create') }}" class="btn btn-light rounded-pill">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    Créer une facture
+                </a>
             </div>
         </div>
-        <!--end breadcrumb-->
+    </div>
+    <div class="block-circle">
+        <div class="circle-white"></div>
+        <div class="circle-white"></div>
+        <div class="circle-white"></div>
+    </div>
+</div>
+<!--end breadcrumb-->
+    <div class="content container-fluid pb-5">
 
         {{-- <div class="mb-3 row justify-content-end">
             <div class="col-lg">
@@ -331,8 +331,8 @@
                                 </td>
                                 <td>{{ $facture->date_limit_paie->format('d/m/Y') }}</td>
                                 <td class="text-wrap" style="min-width: 150px">
-                                    <a class="text-body" href="{{ route('pm.clients.show', $facture->client->id) }}">
-                                        {{ $facture->client->societe->nom }}
+                                    <a class="text-body" href="{{ $facture->client ? route('pm.clients.show', $facture->client->id) : '#' }}">
+                                        {{ $facture->client?->societe?->nom }}
                                     </a>
                                 </td>
                                 <td>

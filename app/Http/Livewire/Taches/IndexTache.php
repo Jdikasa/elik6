@@ -3,53 +3,94 @@
 namespace App\Http\Livewire\Taches;
 
 use App\Models\Tache;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 use Livewire\Component;
 
 class IndexTache extends Component
 {
     public $taches;
+    public $assignees;
+    public $tab;
     public $newTaches;
     public $tacheEncours;
+    public $horsDelais;
+    public $endTaches;
     public $users;
-    public $agents;
-    public $page = 1;
-    public $selectedTache;
 
-    protected $queryString = [
-        'page' => [
-            'except' => 1,
-            'as' => 'p',
-        ],
-    ];
+    protected $listeners = ['reloadComponent' => '$refresh'];
 
+    public function mount()
+    {
+        if (Auth::user()->id == 1) {
+            # code...
+            $this->tab = 1;
+        } else {
+            # code...
+            $this->tab = 2;
+        }
+
+    }
+    public function refresh()
+    {
+        $this->reset();
+    }
+
+    public function updateStatut($id)
+    {
+        $tache = Tache::findOrFail($id);
+        if ($tache->pourcentage == 0) {
+            # code...
+            $tache->update([
+                "tache_statut_id" => 2,
+                "pourcentage" => 1
+            ]);
+        } else {
+            $tache->update([
+                "tache_statut_id" => 2,
+            ]);
+        }
+        $this->tab = 3;
+    }
+    public function changeTab($value)
+    {
+        $this->tab = $value;
+    }
     public function render()
     {
-        $this->users = Auth::user()->currentTeam->usersAll;
-        $this->newTaches = Tache::forCurrentTeam()->initiale()->orderBy('created_at', 'desc')->get();
-        $this->tacheEncours = Tache::forCurrentTeam()->encours()->orderBy('created_at', 'desc')->get();
-        $this->taches = Tache::forCurrentTeam()->orderBy('created_at', 'desc')->get();
+        switch ($this->tab) {
+            case 1:
+                $this->tab = 1;
+                break;
+            case 2:
+                $this->tab = 2;
+                break;
+            case 3:
+                $this->tab = 3;
+                break;
+            case 4:
+                $this->tab = 4;
+                break;
+            case 5:
+                $this->tab = 5;
+                break;
+            default:
+                # code...
+                break;
+        }
+        if (Auth::user()->id == 1) {
+            # code...
+            $taches = Tache::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
+            $this->taches = $taches;
+        } else {
+            # code...
+            $assignees = Tache::getTachesForCurrentUser();
+            $this->assignees = $assignees;
+            $this->newTaches = $this->assignees->where('tache_statut_id', '1')->sortByDesc('id');
+            $this->tacheEncours = $this->assignees->where('tache_statut_id', '2')->sortByDesc('id');
+            $this->endTaches = $this->assignees->where('tache_statut_id', '3')->sortByDesc('id');
+            $this->horsDelais = $this->assignees->where('tache_statut_id', '4')->sortByDesc('id');
+        }
 
         return view('livewire.taches.index-tache');
-    }
-
-    public function startTraitement($id)
-    {
-        $tache = Tache::find($id);
-        $tache->statut_id = 2;
-        $tache->save();
-    }
-
-    public function switchPage($num)
-    {
-        $this->page = $num;
-    }
-
-    public function selectTache($id, $tab)
-    {
-        $this->emit('selectTache', $id, $tab);
-        // $this->selectedTache = Tache::find($id);
-        // $this->page = $page;
     }
 }

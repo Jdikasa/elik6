@@ -399,7 +399,7 @@
                             // $taxe += ($total * 16) / 100;
                             $total_taxe += $total + $taxe;
                             $post_pay += $item['post_pay'];
-                            $total_net = $total_taxe - $post_pay;
+                            $total_net = $total_taxe; //- $post_pay;
                         }
                     @endphp
                     <div class="mb-5 col-md-5 ps-0">

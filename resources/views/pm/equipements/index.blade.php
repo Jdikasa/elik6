@@ -6,37 +6,37 @@
 @endsection
 
 @section('body')
-    <div class="content container-fluid">
-        <!--breadcrumb-->
-        <div class="page-header card card-lg">
-            <div class="text-star">
-                <h1>Liste d'Équipements</h1>
-                <div class="page-breadcrumb d-none d-sm-flex align-items-center">
-                    <div class="">
-                        <nav aria-label="breadcrumb">
-                            <ol class="p-0 mb-0 breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">Équipements</li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <div class="ms-auto">
-                        <a href="{{ route('pm.products.create') }}" class="btn btn-light rounded-pill">
-                            <i class="bi bi-plus-circle-fill"></i>
-                            Ajouter un équipement
-                        </a>
-                    </div>
+    <!--breadcrumb-->
+    <div class="page-header card card-lg">
+        <div class="text-star">
+            <h1>Liste d'Équipements</h1>
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center">
+                <div class="">
+                    <nav aria-label="breadcrumb">
+                        <ol class="p-0 mb-0 breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Équipements</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="ms-auto">
+                    <a href="{{ route('pm.products.create') }}" class="btn btn-light rounded-pill">
+                        <i class="bi bi-plus-circle-fill"></i>
+                        Ajouter un équipement
+                    </a>
                 </div>
             </div>
-            <div class="block-circle">
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-            </div>
         </div>
-        <!--end breadcrumb-->
+        <div class="block-circle">
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+        </div>
+    </div>
+    <!--end breadcrumb-->
+    <div class="content container-fluid pb-5">
         <div class="card">
             <!-- Header -->
             <div class="card-header card-header-content-sm-between">
@@ -63,7 +63,7 @@
                                 Selectionné
                             </span>
                             <a class="btn btn-sm btn-outline-danger rounded-pill bulk-delete-toggle" href="javascript:;"
-                            data-bs-target="#bulkDestroy" data-bs-toggle="modal">
+                                data-bs-target="#bulkDestroy" data-bs-toggle="modal">
                                 <i class="bi-trash"></i> Supprimer
                             </a>
                         </div>
@@ -72,42 +72,48 @@
 
                     <!-- Dropdown -->
                     <div class="dropdown me-2">
-                        <button type="button" class="btn btn-white btn-sm rounded-pill dropdown-toggle" id="usersExportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi-download me-2"></i> Exporter
+                        <button type="button" class="btn btn-white btn-sm rounded-pill dropdown-toggle"
+                            id="usersExportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi-download me-2"></i> Exporter
                         </button>
 
                         <div class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="usersExportDropdown">
-                        <span class="dropdown-header">Options</span>
-                        <a id="export-copy" class="dropdown-item" href="javascript:;">
-                            <img class="avatar avatar-xss avatar-4x3 me-2" src="../assets/svg/illustrations/copy-icon.svg" alt="Image Description">
-                            Copier
-                        </a>
-                        <a id="export-print" class="dropdown-item" href="javascript:;">
-                            <img class="avatar avatar-xss avatar-4x3 me-2" src="../assets/svg/illustrations/print-icon.svg" alt="Image Description">
-                            Imprimer
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <span class="dropdown-header">Format de téléchargement</span>
-                        <a id="export-excel" class="dropdown-item" href="javascript:;">
-                            <img class="avatar avatar-xss avatar-4x3 me-2" src="../assets/svg/brands/excel-icon.svg" alt="Image Description">
-                            Excel
-                        </a>
-                        <a id="export-csv" class="dropdown-item" href="javascript:;">
-                            <img class="avatar avatar-xss avatar-4x3 me-2" src="../assets/svg/components/placeholder-csv-format.svg" alt="Image Description">
-                            .CSV
-                        </a>
-                        <a id="export-pdf" class="dropdown-item" href="javascript:;">
-                            <img class="avatar avatar-xss avatar-4x3 me-2" src="../assets/svg/brands/pdf-icon.svg" alt="Image Description">
-                            PDF
-                        </a>
+                            <span class="dropdown-header">Options</span>
+                            <a id="export-copy" class="dropdown-item" href="javascript:;">
+                                <img class="avatar avatar-xss avatar-4x3 me-2"
+                                    src="../assets/svg/illustrations/copy-icon.svg" alt="Image Description">
+                                Copier
+                            </a>
+                            <a id="export-print" class="dropdown-item" href="javascript:;">
+                                <img class="avatar avatar-xss avatar-4x3 me-2"
+                                    src="../assets/svg/illustrations/print-icon.svg" alt="Image Description">
+                                Imprimer
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <span class="dropdown-header">Format de téléchargement</span>
+                            <a id="export-excel" class="dropdown-item" href="javascript:;">
+                                <img class="avatar avatar-xss avatar-4x3 me-2" src="../assets/svg/brands/excel-icon.svg"
+                                    alt="Image Description">
+                                Excel
+                            </a>
+                            <a id="export-csv" class="dropdown-item" href="javascript:;">
+                                <img class="avatar avatar-xss avatar-4x3 me-2"
+                                    src="../assets/svg/components/placeholder-csv-format.svg" alt="Image Description">
+                                .CSV
+                            </a>
+                            <a id="export-pdf" class="dropdown-item" href="javascript:;">
+                                <img class="avatar avatar-xss avatar-4x3 me-2" src="../assets/svg/brands/pdf-icon.svg"
+                                    alt="Image Description">
+                                PDF
+                            </a>
                         </div>
                     </div>
                     <!-- End Dropdown -->
 
                     <!-- Dropdown -->
                     <div class="dropdown">
-                        <button type="button" class="btn btn-white btn-sm rounded-pill w-100" id="showHideDropdown" data-bs-toggle="dropdown"
-                            aria-expanded="false" data-bs-auto-close="outside">
+                        <button type="button" class="btn btn-white btn-sm rounded-pill w-100" id="showHideDropdown"
+                            data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                             <i class="bi-table me-1"></i> Columns <span
                                 class="badge bg-soft-dark text-dark rounded-circle ms-1">6</span>
                         </button>
@@ -183,8 +189,8 @@
                                                 <span class="me-2">Action</span>
                                             </span>
                                             <span class="col-4 col-sm-3 text-end">
-                                                <input type="checkbox" class="form-check-input"
-                                                    id="toggleColumn_actions" checked>
+                                                <input type="checkbox" class="form-check-input" id="toggleColumn_actions"
+                                                    checked>
                                             </span>
                                         </label>
                                         <!-- End Form Switch -->
@@ -240,12 +246,13 @@
                     <tbody>
                         @foreach ($products as $product)
                             @php
-                                $random = rand(1,4);
+                                $random = rand(1, 4);
                             @endphp
                             <tr>
                                 <td class="table-column-pe-0">
                                     <div class="form-check">
-                                        <input type="checkbox" name="ids[]" class="form-check-input users-data-check" value="{{ $product->id }}" id="usersDataCheck{{ $product->id }}">
+                                        <input type="checkbox" name="ids[]" class="form-check-input users-data-check"
+                                            value="{{ $product->id }}" id="usersDataCheck{{ $product->id }}">
                                         <label class="form-check-label" for="usersDataCheck{{ $product->id }}"></label>
                                     </div>
                                 </td>
@@ -254,11 +261,13 @@
                                         <div class="flex-shrink-0">
                                             @if ($product->image)
                                                 <div class="avatar avatar-circle">
-                                                    <img class="avatar-img" src="{{ asset('storage') . '/' . $product->image }}"
+                                                    <img class="avatar-img"
+                                                        src="{{ asset('storage') . '/' . $product->image }}"
                                                         alt="Image Description">
                                                 </div>
                                             @else
-                                                <div class="avatar @if($random == 1) avatar-soft-primary @elseif($random == 2) avatar-soft-dark @elseif($random == 3) avatar-soft-info @else avatar-soft-danger @endif  avatar-circle">
+                                                <div
+                                                    class="avatar @if ($random == 1) avatar-soft-primary @elseif($random == 2) avatar-soft-dark @elseif($random == 3) avatar-soft-info @else avatar-soft-danger @endif  avatar-circle">
                                                     <span class="avatar-initials">{{ Str::upper($product->nom[0]) }}</span>
                                                 </div>
                                             @endif
@@ -303,10 +312,12 @@
                                             data-bs-original-title="Edit info" aria-label="Edit"><i
                                                 class="bi bi-pencil-fill"></i>
                                         </a>
-                                        <a href="javascript:void(0)" class="text-danger delete-toggle" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal" data-id="{{ $product->id }}">
-                                            <i class="bi bi-trash-fill" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                                                title="" data-bs-original-title="Delete" aria-label="Delete"></i>
+                                        <a href="javascript:void(0)" class="text-danger delete-toggle"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                            data-id="{{ $product->id }}">
+                                            <i class="bi bi-trash-fill" data-bs-toggle="tooltip"
+                                                data-bs-placement="bottom" title="" data-bs-original-title="Delete"
+                                                aria-label="Delete"></i>
                                         </a>
                                     </div>
                                 </td>
@@ -382,7 +393,7 @@
             </form>
         </div>
     </div>
-    
+
     <div class="modal fade" id="bulkDestroy" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <form class="modal-content" action="#" method="POST" id="bulk-delete-form">
@@ -446,23 +457,23 @@
 
             // const exportDatatable = HSCore.components.HSDatatables.getItem('exportDatatable')
 
-            document.getElementById('export-copy').addEventListener('click', function () {
+            document.getElementById('export-copy').addEventListener('click', function() {
                 datatable.button('.buttons-copy').trigger()
             })
 
-            document.getElementById('export-excel').addEventListener('click', function () {
+            document.getElementById('export-excel').addEventListener('click', function() {
                 datatable.button('.buttons-excel').trigger()
             })
 
-            document.getElementById('export-csv').addEventListener('click', function () {
+            document.getElementById('export-csv').addEventListener('click', function() {
                 datatable.button('.buttons-csv').trigger()
             })
 
-            document.getElementById('export-pdf').addEventListener('click', function () {
+            document.getElementById('export-pdf').addEventListener('click', function() {
                 datatable.button('.buttons-pdf').trigger()
             })
 
-            document.getElementById('export-print').addEventListener('click', function () {
+            document.getElementById('export-print').addEventListener('click', function() {
                 datatable.button('.buttons-print').trigger()
             })
 
@@ -590,7 +601,8 @@
                     ids.push($(input).val());
                 });
                 // console.log(ids);
-                bulkDeleteForm.attr('action', '{{ route('pm.products.bulkDestroy', '__ids') }}'.replace('__ids', ids));
+                bulkDeleteForm.attr('action', '{{ route('pm.products.bulkDestroy', '__ids') }}'.replace(
+                    '__ids', ids));
             });
 
         });

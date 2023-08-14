@@ -13,24 +13,21 @@ class BanqueController extends Controller
 {
     public function index()
     {
-        $banks = Bank::select('id', 'nom')->where('team_id', Auth::user()->current_team_id)->get();
+        $banks = Bank::forCurrentTeam()->select('id', 'nom')->get();
         $countries = Country::all();
-        $comptes = Compte::select('*')->where('team_id', Auth::user()->current_team_id)->get();
-        $total = PayTransaction::where('team_id', Auth::user()->current_team_id)->sum('montant');
+        $comptes = Compte::forCurrentTeam()->select('*')->get();
+        $total = PayTransaction::forCurrentTeam()->sum('montant');
         $this_year = PayTransaction::whereYear('created_at', now()->year)
         ->where('team_id', Auth::user()->current_team_id)
         ->sum('montant');
-        $last_year = PayTransaction::whereYear('created_at', '<', now()->year)
+        $last_year = PayTransaction::forCurrentTeam()->whereYear('created_at', '<', now()->year)
             ->whereYear('created_at', '>=', (now()->subYear(1)->year))
-            ->where('team_id', Auth::user()->current_team_id)
             ->sum('montant');
 
-        $total_count = PayTransaction::where('team_id', Auth::user()->current_team_id)->count();
-        $this_year_count = PayTransaction::whereYear('created_at', now()->year)
-        ->where('team_id', Auth::user()->current_team_id)->count();
-        $last_year_count = PayTransaction::whereYear('created_at', '<', now()->year)
+        $total_count = PayTransaction::forCurrentTeam()->count();
+        $this_year_count = PayTransaction::forCurrentTeam()->whereYear('created_at', now()->year)->count();
+        $last_year_count = PayTransaction::forCurrentTeam()->whereYear('created_at', '<', now()->year)
             ->whereYear('created_at', '>=', (now()->subYear(1)->year))
-            ->where('team_id', Auth::user()->current_team_id)
             ->count();
 
         return view('pm.finance.bancks.index')->with([

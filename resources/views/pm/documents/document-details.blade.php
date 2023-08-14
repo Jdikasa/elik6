@@ -6,7 +6,7 @@
 @section('titre', 'ELIK6 - Documents')
 
 @section('body')
-    <div class="content container-fluid">
+    <div class="content container-fluid pb-5">
         <a href="{{ route('pm.classeurs.show', $dossier->classeur) }}" class="back">
             <i class="bi bi-chevron-left"></i> Retour
         </a>

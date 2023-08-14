@@ -82,8 +82,14 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::post('documents/to/archives', [DocumentController::class, 'archive'])->name('documents.archive');
         Route::post('documents/desarchiver/from/arches', [DocumentController::class, 'desarchiver'])->name('documents.desarchiver');
 
+        // taches
         Route::resource('taches', TacheController::class);
-        Route::post('/taches/objectifs', [TacheController::class, 'storeobjectif'])->name('taches.objectifs.store');
+        Route::post('/taches/objectifs/store', [TacheObjectifController::class, 'store'])->name('taches.objectifs.store');
+        Route::post('/taches/objectifs/update/{id}', [TacheObjectifController::class, 'update'])->name('taches.objectifs.update');
+        Route::get('/taches/objectifs/delete/{id}', [TacheObjectifController::class, 'delete'])->name('taches.objectifs.delete');
+        Route::post('/taches/commentaires/store', [TacheObjectifController::class, 'store'])->name('taches.commentaires.store');
+        Route::post('/taches/commentaires/update/{id}', [TacheObjectifController::class, 'update'])->name('taches.commentaires.update');
+        Route::get('/taches/commentaires/delete/{id}', [TacheObjectifController::class, 'delete'])->name('taches.commentaires.delete');
         Route::post('/taches/participants', [TacheController::class, 'storeparticipants'])->name('taches.participants.store');
         Route::get('/gestion-taches/taches/objectif/delete/{id}', [TacheController::class, 'deleteobjectif'])->name('taches.objectif.delete');
         Route::get('/gestion-taches/taches/participant/delete/{id}', [TacheController::class, 'deleteparticipants'])->name('taches.participants.delete');

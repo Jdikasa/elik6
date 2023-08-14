@@ -30,6 +30,9 @@ class Facture extends Model
      * @var array
      */
     protected $dates = ['created_at', 'updated_at', 'deleted_at', 'date_limit_paie'];
+    protected $casts = [
+        'date_limit_paie' => 'date'
+    ];
 
     /**
      * The projects that belong to the Facture

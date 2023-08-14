@@ -5,7 +5,7 @@
 
 @section('body')
     <div class="bg-dark" style="border-radius:24px 0px 0px 0px">
-        <div class="content header-content container-fluid" style="height: 25rem;border-radius:24px 0px 0px 0px">
+        <div class="content header-content container-fluid pb-5" style="height: 25rem;border-radius:24px 0px 0px 0px">
             <!-- Page Header -->
             <div class="page-header page-header-light">
                 <div class="row align-items-center g-3">
@@ -30,7 +30,7 @@
         </div>
     </div>
 
-    <div class="pt-0 content container-fluid" style="margin-top: -17rem;">
+    <div class="pt-0 content container-fluid pb-5" style="margin-top: -17rem;">
         <!-- Stats -->
         <div class="mb-3 row g-3">
             <div class="col-sm-6 col-lg-3">

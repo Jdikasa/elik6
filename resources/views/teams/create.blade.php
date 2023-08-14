@@ -1,6 +1,6 @@
 <x-app-layout>
     @section('titre', 'ELIK6 - ' . __('Create Team'))
-    <div class="content container-fluid">
+    <div class="content container-fluid pb-5">
         <!--breadcrumb-->
         <div class="page-header card card-lg">
             <div class="text-star">

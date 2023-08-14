@@ -32,24 +32,12 @@ class TacheController extends Controller
      */
     public function index()
     {
-        $etats = Etat::where('statut_id', 1)->get();
-        $taches = Tache::forCurrentTeam()->get();
-        $users = Auth::user()->currentTeam->allUsers()->reject(function ($user) {
-            return $user->id == Auth::user()->id;
-        });
-        $agents = $users->map(function ($user) {
-            return $user->agent;
-        });
-        // Agent::forCurrentTeam()->get();
-        $priorites = Priorite::all();
-        $tacheEncours = Tache::forCurrentTeam()->encours()->get();
+        $taches = Tache::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
+        $agents = Agent::all();
 
         return view('pm.taches.index')->with([
             'agents' => $agents,
             'taches' => $taches,
-            'etats' => $etats,
-            'priorites' => $priorites,
-            'tacheEncours' => $tacheEncours,
         ]);
     }
 
@@ -58,9 +46,20 @@ class TacheController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $data = [
+            'agents' => Agent::select('id', 'nom', 'prenom')->where('id', '!=', Auth::id())->get(),
+            'priorites' => Priorite::select('id', 'titre')->get(),
+        ];
+        if ($request->doc != null) {
+            $id = intval($request->doc);
+            $document = Document::findOrFail($id);
+            $data['document'] = $document;
+        } else {
+            $data['document'] = null;
+        }
+        return view('arsp.pages.taches.new-task', $data);
     }
 
     /**
@@ -72,21 +71,101 @@ class TacheController extends Controller
     public function store(Request $request)
     {
         try {
-
+            // dd($request->hasFile('documents'));
             $tache = Tache::create([
-                'titre' => $request->libelle,
+                'titre' => $request->titre,
                 'description' => $request->description,
-                'date_debut' => $request->debut,
-                'date_fin' => $request->fin,
+                'date_debut' => $request->date_debut,
+                'date_fin' => $request->date_fin,
                 'priorite_id' => $request->priorite_id,
                 'user_id' => Auth::user()->id,
-                'document_id' => $request->document_id,
-                'team_id' => Auth::user()->currentTeam->id,
-                'statut_id' => 1,
+                'tache_statut_id' => '1',
             ]);
 
-            if (count($request->agents ?? [])) {
-                $tache->executants()->attach($request->agents);
+            $agents = $request->input('agent_id');
+            $objects = $request->input('objects');
+
+            if ($request->has('agent_id') && $request->has('objects')) {
+                foreach ($agents as $index => $agentId) {
+                    PivotUserTache::create([
+                        'tache_id' => $tache->id,
+                        'agent_id' => $agentId,
+                        'user_id' => Auth::user()->id,
+                        'statut_id' => 1,
+                    ]);
+                }
+
+                foreach ($agents as $index => $agentId) {
+                    TacheObjectif::create([
+                        'libelle' => $objects[$index],
+                        'tache_id' => $tache->id,
+                        'user_id' => Auth::user()->id,
+                        'statut' => 0,
+                        'agent_id' => $agentId
+                    ]);
+
+                }
+            }
+            if ($request->has('doc_id')) {
+                $newDoc = Document::findOrFail($request->doc_id);
+                $tache->documents()->attach($newDoc->id);
+            }
+
+            if ($request->hasFile('documents')) {
+
+                $classer = Classeur::firstOrCreate(
+                    [
+                        'service_id' => Auth::user()->agent?->fonction()->service?->division?->departement->id ?? 4,
+                        'titre' => 'Classeur tâches',
+                        'reference' => 'CT/DEP-' . (Auth::user()->agent?->fonction()->service?->division?->departement->id ?? 4) . '/DOCS',
+                    ],
+                    [
+                        'description' => 'Classeur pour les documents des tâches',
+                        'created_by' => Auth::user()->agent->id,
+                        'updated_by' => Auth::user()->agent->id,
+                    ]
+                );
+
+                $dossier = Dossier::firstOrCreate(
+                    [
+                        'classeur_id' => $classer->id,
+                        'titre' => 'Dossier de l\'agent ' . Auth::user()->agent?->prenom . ' ' . Auth::user()->agent?->nom,
+                        'reference' => 'DT/' . Auth::user()->agent?->matricule,
+                    ],
+                    [
+                        'description' => 'Dossier pour les documents tache de l\'agent ' . Auth::user()->agent?->nom,
+                        'confidentiel' => 0,
+                        'created_by' => Auth::user()->agent->id,
+                        'updated_by' => Auth::user()->agent->id,
+                    ]
+                );
+
+                foreach ($request->file('documents') as $key => $doc) {
+                    // $path = "documents" . DIRECTORY_SEPARATOR . date('FY') . DIRECTORY_SEPARATOR;
+                    // $name = Str::random(20);
+                    // $ext = $doc->getClientOriginalExtension(); // Utiliser getgetClientOriginalExtension() au lieu de getClientOriginalExtension()
+
+                    $document = Document::create([
+                        'dossier_id' => $dossier->id,
+                        'libelle' => Str::beforeLast($doc->getClientOriginalName(), '.'),
+                        'category_id' => 9,
+                        'reference' => 'DT/' . Auth::user()->agent?->matricule,
+                        'type' => 3,
+                        'document' => (new File)->handle($doc, 'document', 'documents'),
+                        'user_id' => Auth::user()->id,
+                        'statut_id' => 1,
+                        'created_by' => Auth::user()->agent->id,
+                    ]);
+
+                    ArchivePermission::create([
+                        'agent_id' => Auth::user()->agent->id,
+                        'permissionable_id' => $document->id,
+                        'permissionable_type' => 'App\Models\Document',
+                        'key' => 'view_document',
+                    ]);
+
+                    $tache->documents()->attach($document->id);
+                }
             }
 
             event(new TacheCreated($tache));
@@ -98,7 +177,6 @@ class TacheController extends Controller
             ]);
 
         } catch (\Throwable $th) {
-            dd($th);
             $content = json_encode([
                 'name' => 'Ressources humaines',
                 'statut' => 'error',
@@ -111,7 +189,7 @@ class TacheController extends Controller
             $content
         );
 
-        return back();
+        return redirect()->route('arsp.taches.index');
     }
 
     /**
@@ -120,10 +198,10 @@ class TacheController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+    // public function show($id)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -133,7 +211,26 @@ class TacheController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tache = Tache::findOrFail($id);
+        if ($tache->user_id == Auth::user()->id) {
+            # code...
+            $agents = Agent::select('id', 'nom', 'prenom')->get();
+            $priorites = Priorite::select('id', 'titre')->get();
+            return view('arsp.pages.taches.edit-task', compact('tache', 'priorites', 'agents'));
+        } else {
+            # code...
+            $content = json_encode([
+                'name' => 'Ressources humaines',
+                'statut' => 'error',
+                'message' => 'Accès non autorisé !',
+            ]);
+            session()->flash(
+                'session',
+                $content
+            );
+            return back();
+        }
+
     }
 
     /**
@@ -145,7 +242,47 @@ class TacheController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            //code...
+            $tache = Tache::findOrFail($id);
+            if ($tache->user_id == Auth::user()->id) {
+                # code...
+                $tache->update([
+                    'titre' => $request->titre,
+                    'description' => $request->description,
+                    'date_debut' => $request->date_debut,
+                    'date_fin' => $request->date_fin,
+                    'priorite_id' => $request->priorite_id,
+                    'user_id' => Auth::user()->id,
+                    'tache_statut_id' => '1',
+                ]);
+
+                $content = json_encode([
+                    'name' => 'Gestion de tâche',
+                    'statut' => 'success',
+                    'message' => 'La modification de la tâche a réussi avec succès !',
+                ]);
+            } else {
+                $content = json_encode([
+                    'name' => 'Ressources humaines',
+                    'statut' => 'error',
+                    'message' => 'Accès non autorisé !',
+                ]);
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+            $content = json_encode([
+                'name' => 'Ressources humaines',
+                'statut' => 'error',
+                'message' => 'La modification de la tâche a échoué !',
+            ]);
+        }
+        session()->flash(
+            'session',
+            $content
+        );
+
+        return redirect()->route('arsp.taches.index');
     }
 
     /**
@@ -160,7 +297,7 @@ class TacheController extends Controller
             'statut_id' => '4',
         ]);
 
-        if($tache == 1){
+        if ($tache == 1) {
             $content = json_encode([
                 'name' => 'Ressources humaines',
                 'statut' => 'success',
@@ -182,194 +319,129 @@ class TacheController extends Controller
         return back();
     }
 
-    public function deleteobjectif($id)
-    {
-        Cible::where('id', $id)->delete([]);
+    // public function deleteobjectif($id)
+    // {
+    //     Cible::where('id', $id)->delete([]);
 
-        return back();
-    }
+    //     return back();
+    // }
 
-    public function storeobjectif(Request $request)
-    {
-        Cible::create([
-            'libelle' => $request->libelle,
-            'tache_id' => $request->tache_id,
-            'user_id' => Auth::user()->id,
-        ]);
+    // public function storeobjectif(Request $request)
+    // {
+    //     Cible::create([
+    //         'libelle' => $request->libelle,
+    //         'tache_id' => $request->tache_id,
+    //         'user_id' => Auth::user()->id,
+    //     ]);
 
-        return back();
-    }
+    //     return back();
+    // }
 
-    public function storeparticipants(Request $request)
-    {
-        $tache = PivotUserTache::create([
-            'tache_id' => $request->tache_id,
-            'agent_id' => $request->agent_id,
-            'user_id' => Auth::user()->id,
-            'statut_id' => '1',
-        ]);
+    // public function storeparticipants(Request $request)
+    // {
+    //     $tache = PivotUserTache::create([
+    //         'tache_id' => $request->tache_id,
+    //         'agent_id' => $request->agent_id,
+    //         'user_id' => Auth::user()->id,
+    //         'statut_id' => '1',
+    //     ]);
 
-        if($tache->id != null){
-            $content = json_encode([
-                'name' => 'Ressources humaines',
-                'statut' => 'success',
-                'message' => 'L\'ajout du participant à la tâche a réussi avec succès !',
-            ]);
-        } else {
-            $content = json_encode([
-                'name' => 'Ressources humaines',
-                'statut' => 'error',
-                'message' => 'L\'ajout du participant à la tâche a échoué !',
-            ]);
-        }
+    //     if ($tache->id != null) {
+    //         $content = json_encode([
+    //             'name' => 'Ressources humaines',
+    //             'statut' => 'success',
+    //             'message' => 'L\'ajout du participant à la tâche a réussi avec succès !',
+    //         ]);
+    //     } else {
+    //         $content = json_encode([
+    //             'name' => 'Ressources humaines',
+    //             'statut' => 'error',
+    //             'message' => 'L\'ajout du participant à la tâche a échoué !',
+    //         ]);
+    //     }
 
-        session()->flash(
-            'session',
-            $content
-        );
+    //     session()->flash(
+    //         'session',
+    //         $content
+    //     );
 
-        return back();
-    }
+    //     return back();
+    // }
 
-    public function deleteparticipants($id)
-    {
-        $pivotusertache = PivotUserTache::where('id', $id)->delete();
+    // public function deleteparticipants($id)
+    // {
+    //     $pivotusertache = PivotUserTache::where('id', $id)->delete();
 
-        if($pivotusertache == 1){
-            $content = json_encode([
-                'name' => 'Ressources humaines',
-                'statut' => 'success',
-                'message' => 'La suppression du participant à la tâche a réussie avec succès !',
-            ]);
-        } else {
-            $content = json_encode([
-                'name' => 'Ressources humaines',
-                'statut' => 'error',
-                'message' => 'La suppression du participant à la tâche a échouée !',
-            ]);
-        }
+    //     if ($pivotusertache == 1) {
+    //         $content = json_encode([
+    //             'name' => 'Ressources humaines',
+    //             'statut' => 'success',
+    //             'message' => 'La suppression du participant à la tâche a réussie avec succès !',
+    //         ]);
+    //     } else {
+    //         $content = json_encode([
+    //             'name' => 'Ressources humaines',
+    //             'statut' => 'error',
+    //             'message' => 'La suppression du participant à la tâche a échouée !',
+    //         ]);
+    //     }
 
-        session()->flash(
-            'session',
-            $content
-        );
+    //     session()->flash(
+    //         'session',
+    //         $content
+    //     );
 
-        return back();
-    }
+    //     return back();
+    // }
 
-    public function storecommentaire(Request $request)
-    {
-        $commentaire = Commentaire::create([
-            'message' => $request->message,
-            'tache_id' => $request->tache_id,
-            'user_id' => Auth::user()->id,
-            'statut_id' => '1',
-        ]);
+    // public function storecommentaire(Request $request)
+    // {
+    //     $commentaire = Commentaire::create([
+    //         'message' => $request->message,
+    //         'tache_id' => $request->tache_id,
+    //         'user_id' => Auth::user()->id,
+    //         'statut_id' => '1',
+    //     ]);
 
-        $commentaires = $commentaire->tache->commentaires;
+    //     $commentaires = $commentaire->tache->commentaires;
 
-        return back();
-    }
+    //     return back();
+    // }
 
-    public function updateciblechecked(Request $request)
-    {
-        Cible::where('id', $request->id)->update([
-            'statut' => '1'
-        ]);
+    // public function updateciblechecked(Request $request)
+    // {
+    //     Cible::where('id', $request->id)->update([
+    //         'statut' => '1'
+    //     ]);
 
-        $taches = Tache::all();
+    //     $taches = Tache::all();
 
-        return response()->json($taches, 200);
-    }
+    //     return response()->json($taches, 200);
+    // }
 
-    public function updatecibleunchecked(Request $request)
-    {
-        Cible::where('id', $request->id)->update([
-            'statut' => '0'
-        ]);
+    // public function updatecibleunchecked(Request $request)
+    // {
+    //     Cible::where('id', $request->id)->update([
+    //         'statut' => '0'
+    //     ]);
 
-        $taches = Tache::all();
+    //     $taches = Tache::all();
 
-        return response()->json($taches, 200);
-    }
+    //     return response()->json($taches, 200);
+    // }
 
-    public function storefichier(Request $request) {
-        try {
+    // public function storecommentaire(Request $request)
+    // {
+    //     $commentaire = Commentaire::create([
+    //         'message' => $request->message,
+    //         'tache_id' => $request->tache_id,
+    //         'user_id' => Auth::user()->id,
+    //         'statut_id' => '1',
+    //     ]);
 
-            if ($request->hasFile('document')) {
-                $tache = Tache::find($request->tache_id);
-                $classer = Classeur::firstOrCreate(
-                    [
-                        'departement_id' => Auth::user()->agent?->fonction()?->service?->division?->departement?->id ?? Auth::user()->current_team_id,
-                        'titre' => 'Classeur gestion des tâches',
-                        'team_id' => Auth::user()->current_team_id,
-                        'reference' => 'TACHE/' . Str::upper(Str::replace(' ', '', Auth::user()->currentTeam->name)) . '/DOCS/' . str_pad(Auth::user()->current_team_id, 6, '0', STR_PAD_RIGHT),
-                    ],
-                    [
-                        'description' => 'Classeur pour les documents en rapport avec la gestion des tâche',
-                        'created_by' => Auth::user()->id,
-                        'updated_by' => Auth::user()->id,
-                    ]
-                );
+    //     $commentaires = $commentaire->tache->commentaires;
 
-                $dossier = Dossier::firstOrCreate([
-                    'classeur_id' => $classer->id,
-                    'titre' => 'Dossier du tâche : ' . $tache->titre,
-                    'reference' => 'TACHE/' . $tache->created_at->format('d/m/Y'),
-                    'team_id' => Auth::user()->current_team_id,
-                ], [
-                    'description' => 'Dossier pour les documents en rapport avec la gestion du tâche : ' . $tache->titre,
-                    'confidentiel' => 0,
-                    'created_by' => Auth::user()->id,
-                    'updated_by' => Auth::user()->id,
-                ]);
-
-                $document = Document::create([
-                    'dossier_id' => $dossier->id,
-                    'libelle' => $tache->titre,
-                    'category_id' => 4,
-                    'reference' => 'TACHE/' .$tache->id.'/'. $tache->created_at->format('d/m/Y'),
-                    'type' => 3,
-                    'document' => (new File())->handle($request, 'document', 'documents'),
-                    'user_id' => Auth::user()->id,
-                    'statut_id' => 1,
-                    'created_by' => Auth::user()->id,
-                    'team_id' => Auth::user()->current_team_id,
-                ]);
-
-                $tache->document_id = $document->id;
-                $tache->save();
-
-                $content = json_encode([
-                    'name' => 'Document',
-                    'statut' => 'success',
-                    'message' => 'Document enregistré avec succès !',
-                ]);
-
-            }else {
-                $content = json_encode([
-                    'name' => 'Document',
-                    'statut' => 'error',
-                    'message' => 'Impossible de créer le document, une erreur s\'est produite',
-                ]);
-            }
-
-
-        } catch (\Throwable $th) {
-            dd($th);
-            $content = json_encode([
-                'name' => 'Document',
-                'statut' => 'error',
-                'message' => 'Impossible de créer le document, une erreur s\'est produite',
-            ]);
-        }
-
-        session()->flash(
-            'session',
-            $content
-        );
-
-        return redirect()->back();
-    }
+    //     return back();
+    // }
 
 }

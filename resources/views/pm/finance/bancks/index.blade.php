@@ -12,37 +12,37 @@
 
 @section('body')
 
-    <div class="content container-fluid">
-        <!--breadcrumb-->
-        <div class="page-header card card-lg">
-            <div class="text-star">
-                <h1>Banck</h1>
-                <div class="page-breadcrumb d-none d-sm-flex align-items-center">
-                    <div class="mt-3">
-                        <nav aria-label="breadcrumb">
-                            <ol class="p-0 mb-0 breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">Banck</li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <div class="ms-auto">
-                        <a href="javascript:void(0)" class="btn btn-light rounded-pill" data-bs-toggle="modal" data-bs-target="#new-banque">
-                            <i class="bi bi-plus-circle-fill"></i>
-                            Ajouter une banque
-                        </a>
-                    </div>
-                </div>
+<!--breadcrumb-->
+<div class="page-header card card-lg">
+    <div class="text-star">
+        <h1>Banck</h1>
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center">
+            <div class="mt-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="p-0 mb-0 breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Banck</li>
+                    </ol>
+                </nav>
             </div>
-            <div class="block-circle">
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
+            <div class="ms-auto">
+                <a href="javascript:void(0)" class="btn btn-light rounded-pill" data-bs-toggle="modal" data-bs-target="#new-banque">
+                    <i class="bi bi-plus-circle-fill"></i>
+                    Ajouter une banque
+                </a>
             </div>
         </div>
-        <!--end breadcrumb-->
+    </div>
+    <div class="block-circle">
+        <div class="circle-white"></div>
+        <div class="circle-white"></div>
+        <div class="circle-white"></div>
+    </div>
+</div>
+<!--end breadcrumb-->
+    <div class="content container-fluid pb-5">
 
         <div class="row justify-content-lg-center">
             <div class="col-lg-12">

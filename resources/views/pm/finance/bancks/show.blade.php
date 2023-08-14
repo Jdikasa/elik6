@@ -761,31 +761,31 @@
 
 @section('body')
 
-    <div class="content container-fluid">
-        <!--breadcrumb-->
-        <div class="page-header card card-lg">
-            <div class="text-star">
-                <h1>Banck</h1>
-                <div class="page-breadcrumb d-none d-sm-flex align-items-center">
-                    <div class="mt-3">
-                        <nav aria-label="breadcrumb">
-                            <ol class="p-0 mb-0 breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">Banck</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <div class="block-circle">
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
+<!--breadcrumb-->
+<div class="page-header card card-lg">
+    <div class="text-star">
+        <h1>Banck</h1>
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center">
+            <div class="mt-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="p-0 mb-0 breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Banck</li>
+                    </ol>
+                </nav>
             </div>
         </div>
-        <!--end breadcrumb-->
+    </div>
+    <div class="block-circle">
+        <div class="circle-white"></div>
+        <div class="circle-white"></div>
+        <div class="circle-white"></div>
+    </div>
+</div>
+<!--end breadcrumb-->
+    <div class="content container-fluid pb-5">
 
         <div class="row justify-content-lg-center">
             <div class="col-lg-12">
@@ -810,7 +810,7 @@
                                         </div>
                                         <div class="flex-grow-1 ms-3">
                                             <div class="fs-4 fw-bold">
-                                                {!! $compte->num_compte !!}
+                                                {!! number_format($compte->num_compte, 0, ' ', ' ')  !!}
                                             </div>
                                             <div class="fs-6 fw-semibold text-gray-400">
                                                 {{ $compte->intitule }}
@@ -827,7 +827,7 @@
 
                                 <div class="d-flex flex-column flex-grow-1">
 
-                                    <div class="d-flex flex-wrap gap-2">
+                                    <div class="d-flex gap-2">
                                         @php
                                             $total_net = $compte->factures->sum('total_net');
                                             $montant_recu = $compte->transactions->sum('montant');
@@ -835,7 +835,7 @@
                                             $balance = $montant_recu;
                                         @endphp
 
-                                        <div class="card-dashed rounded py-3 px-4 mb-3 border-success broder-2">
+                                        <div class="card-dashed rounded py-3 px-4 mb-3 border-success broder-2 flex-fill">
                                             <div class="d-flex align-items-center mb-2">
                                                 <span class="svg-icon svg-icon-3 svg-icon-success me-2">
                                                     <svg class="" width="24" height="24" viewBox="0 0 24 24"
@@ -861,7 +861,7 @@
                                             <div class="fw-semibold fs-6 text-gray-400">Balance actuele</div>
                                         </div>
 
-                                        <div class="card-dashed rounded py-3 px-4 mb-3 border-danger broder-2">
+                                        <div class="card-dashed rounded py-3 px-4 mb-3 border-danger broder-2 flex-fill">
                                             <div class="d-flex align-items-center mb-2">
                                                 <span class="svg-icon svg-icon-3 svg-icon-danger me-2">
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -888,7 +888,7 @@
                                             <div class="fw-semibold fs-6 text-gray-400">Paiement en attante</div>
                                         </div>
 
-                                        <div class="card-dashed rounded py-3 px-4 mb-3 border-info broder-2">
+                                        {{-- <div class="card-dashed rounded py-3 px-4 mb-3 border-info broder-2">
                                             <div class="d-flex align-items-center mb-2">
                                                 <span class="svg-icon svg-icon-3 svg-icon-success me-2">
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -914,7 +914,7 @@
                                                 </div>
                                             </div>
                                             <div class="fw-semibold fs-6 text-gray-400">Paiement effectué</div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
 
@@ -974,7 +974,7 @@
                             <th>Montant Payé</th>
                             <th>Montant Restant</th>
                             <th>Date</th>
-                            {{-- <th>Facture</th> --}}
+                            <th>Enregistré par</th>
                             {{-- <th></th> --}}
                         </tr>
                     </thead>
@@ -982,7 +982,9 @@
                     <tbody>
                         @foreach ($compte->transactions as $transaction)
                             <tr>
-                                <td><a href="#">{{ $transaction->facture->client?->societe?->nom }}</a></td>
+                                <td>
+                                    <a href="#">{{ $transaction->facture->client?->societe?->nom }}</a>
+                                </td>
                                 <td>
                                     <span class="badge bg-soft-success text-success fs-6">
                                         {{ $transaction->montant }} $
@@ -994,11 +996,12 @@
                                     </span>
                                 </td>
                                 <td>{{ $transaction->created_at->format('d/m/Y') }}</td>
-                                {{-- <td>
-                                    <a class="btn btn-white btn-sm" href="#">
+                                <td>
+                                    {{ $transaction->autor?->agent?->prenom.' '.$transaction->autor?->agent?->nom }}
+                                    {{-- <a class="btn btn-white btn-sm" href="#">
                                         <i class="bi-file-earmark-arrow-down-fill me-1"></i> PDF
-                                    </a>
-                                </td> --}}
+                                    </a> --}}
+                                </td>
                                 {{-- <td>
                                     <a class="btn btn-white btn-sm" href="javascript:;" data-bs-toggle="modal"
                                         data-bs-target="#accountInvoiceReceiptModal">

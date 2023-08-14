@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Document;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 
 class Tache extends Model
@@ -16,24 +16,9 @@ class Tache extends Model
      *
      * @var array
      */
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'date_debut' => 'date',
-        'date_fin' => 'date',
-    ];
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'parent_id', 'user_id', 'document_id', 'statut_id', 'priorite_id', 'titre', 'description', 'date_debut', 'date_fin', 'team_id',
+        'date_fin' => 'date'
     ];
 
     public function commentaires()
@@ -41,24 +26,65 @@ class Tache extends Model
         return $this->hasMany(Commentaire::class);
     }
 
-    // public function objectifs() {
-    //     return $this->hasMany(TacheObjectif::class, 'tache_id');
+    // public function updatePourcentage()
+    // {
+    //     $totalTacheObjectifs = $this->objectifs()->count();
+    //     $termineTacheObjectifs = $this->objectifs()->where('statut', 0)->count();
+
+    //     if ($totalTacheObjectifs > 0) {
+    //         $pourcentage = ($termineTacheObjectifs / $totalTacheObjectifs) * 100;
+    //     } else {
+    //         $pourcentage = 0;
+    //     }
+
+    //     $this->pourcentage = $pourcentage;
+    //     $this->save();
     // }
+
+    public function updateTacheStatutId()
+    {
+        if ($this->pourcentage >= 100) {
+            $this->tache_statut_id = 3;
+            $this->save();
+        }
+    }
+
+    public function objectifs()
+    {
+        return $this->hasMany(TacheObjectif::class);
+    }
+
+
+    public static function getTachesForCurrentUser()
+    {
+        $agent_id = Auth::user()->agent->id;
+
+        return self::whereHas('objectifs', function ($query) use ($agent_id) {
+            $query->where('agent_id', $agent_id);
+        })
+            ->get();
+    }
+
 
     public function etat()
     {
         return $this->belongsTo(Etat::class);
     }
 
-    public function fichier()
+    public function tache_statut()
     {
-        return $this->belongsTo(Document::class, 'document_id');
+        return $this->belongsTo(TachesStatut::class);
     }
 
-    // public function pivotusertaches()
-    // {
-    //     return $this->hasMany(PivotUserTache::class);
-    // }
+    public function fichiers()
+    {
+        return $this->hasMany(Fichier::class);
+    }
+
+    public function pivotusertaches()
+    {
+        return $this->hasMany(PivotUserTache::class);
+    }
 
     /**
      * The executants that belong to the Tache
@@ -67,7 +93,7 @@ class Tache extends Model
      */
     public function executants()
     {
-        return $this->belongsToMany(Agent::class, PivotUserTache::class, 'agent_id', 'tache_id')->withTimestamps();
+        return $this->belongsToMany(Agent::class, PivotUserTache::class, 'agent_id', 'tache_id');
     }
 
     public function user()
@@ -113,23 +139,12 @@ class Tache extends Model
     }
 
     /**
-     * Scope a query to only include for current team
+     * Get the document that owns the Tache
      *
-     * @param  \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function scopeForCurrentTeam($query)
+    public function documents()
     {
-        return $query->where('team_id', Auth::user()->current_team_id);
-    }
-
-    /**
-     * Get all of the sous_taches for the Tache
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function sous_taches(): HasMany
-    {
-        return $this->hasMany(Tache::class, 'parent_id');
+        return $this->belongsToMany(Document::class, 'tache_documents', 'tache_id', 'document_id');
     }
 }

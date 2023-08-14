@@ -733,35 +733,35 @@
 @section('titre', 'ELIK6 - Nouveau client')
 
 @section('body')
-    <div class="content container-fluid">
-        <div class="page-header card card-lg">
-            <div class="text-star">
-                <h1>Facturation</h1>
-                <div class="mt-2 page-breadcrumb d-none d-sm-flex align-items-center">
-                    <div class="">
-                        <nav aria-label="breadcrumb">
-                            <ol class="p-0 mb-0 breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.home') }}">
-                                        <i class="bi bi-house-fill"></i>
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="#">Finance</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">Facture</li>
-                            </ol>
-                        </nav>
-                    </div>
+    <div class="page-header card card-lg">
+        <div class="text-star">
+            <h1>Facturation</h1>
+            <div class="mt-2 page-breadcrumb d-none d-sm-flex align-items-center">
+                <div class="">
+                    <nav aria-label="breadcrumb">
+                        <ol class="p-0 mb-0 breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.home') }}">
+                                    <i class="bi bi-house-fill"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.fin.factures.index') }}">Finance</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Facture</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
-            <div class="block-circle">
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-            </div>
         </div>
+        <div class="block-circle">
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+        </div>
+    </div>
 
+    <div class="content container-fluid pb-5">
         <div class="row">
 
             <div class="mb-5 col-lg-9 mb-lg-0">
@@ -1035,9 +1035,9 @@
                         wire:ignore.self>
 
                         <div class="gap-2 mb-2 d-grid gap-sm-3 mb-sm-3">
-                            <a class="btn btn-primary" href="javascript:;" id="btn-send-mail">
+                            <button class="btn btn-primary" id="btn-send-mail">
                                 <i class="bi-cursor-fill me-1"></i> Envoyer
-                            </a>
+                            </button>
 
                         </div>
 
@@ -1061,12 +1061,13 @@
                             <!-- End Col -->
                         </div>
                         <!-- End Row -->
-
-                        <div class="gap-2 mt-3 d-grid gap-sm-3">
-                            <a class="btn btn-success" href="javascript:;" id=""  data-bs-toggle="modal" data-bs-target="#paiement-modal">
-                                <i class="bi-coin me-1"></i> Payer
-                            </a>
-                        </div>
+                        @if ($facture->total_net > $facture->transactions->sum('montant'))
+                            <div class="gap-2 mt-3 d-grid gap-sm-3">
+                                <button class="btn btn-success" id=""  data-bs-toggle="modal" data-bs-target="#paiement-modal">
+                                    <i class="bi-coin me-1"></i> Payer
+                                </button>
+                            </div>
+                        @endif
 
                     </div>
                 </div>
@@ -1296,7 +1297,6 @@
                             processData: false,
                             contentType: false,
                             success: function(data) {
-                                console.log(data)
 
                                 $('#layer-main-wrap').addClass('done');
                                 const myModal = new bootstrap.Modal('#email-modal', {
@@ -1318,7 +1318,6 @@
                     width: 19, // Target width in the PDF document
                     windowWidth: 75 // Window width in CSS pixels
                 });
-
 
             }
 

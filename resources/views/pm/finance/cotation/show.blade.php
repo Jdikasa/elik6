@@ -733,7 +733,7 @@
 @section('titre', 'ELIK6 - Nouveau client')
 
 @section('body')
-    <div class="content container-fluid">
+    <div class="content container-fluid ppb-5">
         <div class="page-header card card-lg">
             <div class="text-star">
                 <h1>Cotation</h1>

@@ -11,7 +11,7 @@
 @endsection
 
 @section('body')
-    <div class="content container-fluid">
+    <div class="content container-fluid pb-5">
         <div class="page-header card card-lg">
             <div class="text-star">
                 <h1>Affichage de l'équipement</h1>

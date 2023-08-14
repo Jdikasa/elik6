@@ -7,7 +7,7 @@
 
 @section('body')
 
-    <div class="content container-fluid">
+    <div class="content container-fluid pb-5">
         <a href="{{ route('pm.documents.index') }}" class="back">
             <i class="bi bi-chevron-left"></i> Retour
         </a>

@@ -172,6 +172,8 @@ class FactureController extends Controller
                 'user_id' => Auth::user()->id,
                 'facture_id' => $facture->id,
                 'montant' => doubleval(Str::replaceArray('.', [''], $request->montant)),
+                'created_by' => Auth::user()->id,
+                'team_id' => Auth::user()->current_team_id,
                 'description' => $request->description,
             ]);
 
@@ -188,7 +190,7 @@ class FactureController extends Controller
                 'statut' => 'success',
                 'message' => 'L\'enregistrement du paiement a réussi avec succès !',
             ]);
-        } catch (\Throwable$th) {
+        } catch (\Throwable $th) {
             $content = json_encode([
                 'name' => 'Finance / facturation',
                 'statut' => 'error',

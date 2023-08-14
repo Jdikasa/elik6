@@ -49,7 +49,7 @@
     @include('pm.common.sidebar')
 
     <!-- Page Content -->
-    <main id="content" role="main" class="page-content main">
+    <div id="content" role="main" class="page-content main me-2">
         @yield('body')
         <div class="footer">
             <div class="row justify-content-between align-items-center">
@@ -88,7 +88,7 @@
             </div>
             <!-- End Row -->
         </div>
-    </main>
+    </div>
 
     @stack('modals')
 
@@ -123,6 +123,32 @@
         setTimeout(() => {
             $('.message-flash').removeClass('show')
         }, 5000);
+
+        var lis = document.querySelectorAll(".nav-tache li");
+
+        if (window.matchMedia("(max-width: 576px)").matches) {
+            var linkItems = document.querySelectorAll(".nav-tache li");
+            linkItems.forEach((linkItem, index) => {
+                var width = $(linkItem).width();
+
+                linkItem.addEventListener("click", () => {
+                    $(linkItem).parent().css("transform", "translateX(" + (index * width) + ")")
+                    // indicator.style.top = `${index * 53 + 88}px`;
+                    // $(indicator).text(text.innerHTML)
+                    // $(indicator).addClass('show')
+                })
+            })
+
+        }
+        var linkItems = document.querySelectorAll(".nav-folder li");
+            var indicator = document.querySelector(".indicator-nav");
+            linkItems.forEach((linkItem, index) => {
+                linkItem.addEventListener("click", () => {
+                    var width = $(linkItem).width();
+                    var leftOffset = linkItem.offsetLeft;
+                    indicator.style.left = `${leftOffset + ((width / 2 ) - 20)}px`;
+                })
+            })
     </script>
 
     @livewireScripts

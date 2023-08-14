@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class TachesStatut extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function taches()
+    {
+        return $this->hasMany(Tache::class);
+    }
 }

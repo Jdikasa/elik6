@@ -404,6 +404,7 @@
             .ms-1 {
                 margin-left: .25rem !important;
             }
+
             .me-4 {
                 margin-right: 1.5rem !important;
             }
@@ -732,34 +733,34 @@
 @section('titre', 'ELIK6 - Nouveau client')
 
 @section('body')
-    <div class="content container-fluid">
-        <div class="page-header card card-lg">
-            <div class="text-star">
-                <h1>Facturation</h1>
-                <div class="mt-2 page-breadcrumb d-none d-sm-flex align-items-center">
-                    <div class="">
-                        <nav aria-label="breadcrumb">
-                            <ol class="p-0 mb-0 breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.home') }}">
-                                        <i class="bi bi-house-fill"></i>
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="#">Finance</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">Facture</li>
-                            </ol>
-                        </nav>
-                    </div>
+    <div class="page-header card card-lg">
+        <div class="text-star">
+            <h1>Facturation</h1>
+            <div class="mt-2 page-breadcrumb d-none d-sm-flex align-items-center">
+                <div class="">
+                    <nav aria-label="breadcrumb">
+                        <ol class="p-0 mb-0 breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.home') }}">
+                                    <i class="bi bi-house-fill"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="#">Finance</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Facture</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
-            <div class="block-circle">
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-            </div>
         </div>
+        <div class="block-circle">
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+        </div>
+    </div>
+    <div class="content container-fluid pb-5">
 
         @livewire('finances.facture.facture-form')
 

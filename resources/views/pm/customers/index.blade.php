@@ -9,37 +9,37 @@
 
 @section('body')
 
-    <div class="content container-fluid">
-        <!--breadcrumb-->
-        <div class="page-header card card-lg">
-            <div class="text-star">
-                <h1>Liste des Clients</h1>
-                <div class="page-breadcrumb d-none d-sm-flex align-items-center">
-                    <div class="">
-                        <nav aria-label="breadcrumb">
-                            <ol class="p-0 mb-0 breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">Clients</li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <div class="ms-auto">
-                        <a href="{{ route('pm.clients.create') }}" class="btn btn-light rounded-pill">
-                            <i class="bi bi-plus-circle-fill"></i>
-                            Créer un client
-                        </a>
-                    </div>
+    <!--breadcrumb-->
+    <div class="page-header card card-lg">
+        <div class="text-star">
+            <h1>Liste des Clients</h1>
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center">
+                <div class="">
+                    <nav aria-label="breadcrumb">
+                        <ol class="p-0 mb-0 breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Clients</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="ms-auto">
+                    <a href="{{ route('pm.clients.create') }}" class="btn btn-light rounded-pill">
+                        <i class="bi bi-plus-circle-fill"></i>
+                        Créer un client
+                    </a>
                 </div>
             </div>
-            <div class="block-circle">
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-            </div>
         </div>
-        <!--end breadcrumb-->
+        <div class="block-circle">
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+        </div>
+    </div>
+    <!--end breadcrumb-->
+    <div class="content container-fluid pb-5">
 
         <div class="card">
             <!-- Header -->
@@ -76,42 +76,49 @@
 
                     <!-- Dropdown -->
                     <div class="dropdown me-2">
-                        <button type="button" class="btn btn-white btn-sm rounded-pill dropdown-toggle" id="usersExportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button type="button" class="btn btn-white btn-sm rounded-pill dropdown-toggle"
+                            id="usersExportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi-download me-2"></i> Exporter
                         </button>
 
                         <div class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="usersExportDropdown">
-                        <span class="dropdown-header">Options</span>
-                        <a id="export-copy" class="dropdown-item" href="javascript:;">
-                            <img class="avatar avatar-xss avatar-4x3 me-2" src="{{ asset('assets/svg/illustrations/copy-icon.svg') }}" alt="Image Description">
-                            Copier
-                        </a>
-                        <a id="export-print" class="dropdown-item" href="javascript:;">
-                            <img class="avatar avatar-xss avatar-4x3 me-2" src="{{ asset('assets/svg/illustrations/print-icon.svg') }}" alt="Image Description">
-                            Imprimer
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <span class="dropdown-header">Format de téléchargement</span>
-                        <a id="export-excel" class="dropdown-item" href="javascript:;">
-                            <img class="avatar avatar-xss avatar-4x3 me-2" src="{{ asset('assets/svg/brands/excel-icon.svg') }}" alt="Image Description">
-                            Excel
-                        </a>
-                        <a id="export-csv" class="dropdown-item" href="javascript:;">
-                            <img class="avatar avatar-xss avatar-4x3 me-2" src="{{ asset('assets/svg/components/placeholder-csv-format.svg') }}" alt="Image Description">
-                            .CSV
-                        </a>
-                        <a id="export-pdf" class="dropdown-item" href="javascript:;">
-                            <img class="avatar avatar-xss avatar-4x3 me-2" src="{{ asset('assets/svg/brands/pdf-icon.svg') }}" alt="Image Description">
-                            PDF
-                        </a>
+                            <span class="dropdown-header">Options</span>
+                            <a id="export-copy" class="dropdown-item" href="javascript:;">
+                                <img class="avatar avatar-xss avatar-4x3 me-2"
+                                    src="{{ asset('assets/svg/illustrations/copy-icon.svg') }}" alt="Image Description">
+                                Copier
+                            </a>
+                            <a id="export-print" class="dropdown-item" href="javascript:;">
+                                <img class="avatar avatar-xss avatar-4x3 me-2"
+                                    src="{{ asset('assets/svg/illustrations/print-icon.svg') }}" alt="Image Description">
+                                Imprimer
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <span class="dropdown-header">Format de téléchargement</span>
+                            <a id="export-excel" class="dropdown-item" href="javascript:;">
+                                <img class="avatar avatar-xss avatar-4x3 me-2"
+                                    src="{{ asset('assets/svg/brands/excel-icon.svg') }}" alt="Image Description">
+                                Excel
+                            </a>
+                            <a id="export-csv" class="dropdown-item" href="javascript:;">
+                                <img class="avatar avatar-xss avatar-4x3 me-2"
+                                    src="{{ asset('assets/svg/components/placeholder-csv-format.svg') }}"
+                                    alt="Image Description">
+                                .CSV
+                            </a>
+                            <a id="export-pdf" class="dropdown-item" href="javascript:;">
+                                <img class="avatar avatar-xss avatar-4x3 me-2"
+                                    src="{{ asset('assets/svg/brands/pdf-icon.svg') }}" alt="Image Description">
+                                PDF
+                            </a>
                         </div>
                     </div>
                     <!-- End Dropdown -->
 
                     <!-- Dropdown -->
                     <div class="dropdown">
-                        <button type="button" class="btn btn-white btn-sm rounded-pill w-100" id="showHideDropdown" data-bs-toggle="dropdown"
-                            aria-expanded="false" data-bs-auto-close="outside">
+                        <button type="button" class="btn btn-white btn-sm rounded-pill w-100" id="showHideDropdown"
+                            data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                             <i class="bi-table me-1"></i> Columns
                             <span class="badge bg-soft-dark text-dark rounded-circle ms-1">8</span>
                         </button>
@@ -187,8 +194,7 @@
                                                 <span class="me-2">Type</span>
                                             </span>
                                             <span class="col-4 col-sm-3 text-end">
-                                                <input type="checkbox" class="form-check-input" id="toggleColumn_orders"
-                                                    >
+                                                <input type="checkbox" class="form-check-input" id="toggleColumn_orders">
                                             </span>
                                         </label>
                                         <!-- End Form Switch -->
@@ -239,7 +245,8 @@
                         <tr>
                             <th scope="col" class="table-column-pe-0">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="datatableCheckAll">
+                                    <input class="form-check-input" type="checkbox" value=""
+                                        id="datatableCheckAll">
                                     <label class="form-check-label" for="datatableCheckAll"></label>
                                 </div>
                             </th>
@@ -261,20 +268,25 @@
                             <tr>
                                 <td class="table-column-pe-0">
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input users-data-check" value="{{ $customer->id }}" id="usersDataCheck{{ $customer->id }}">
+                                        <input type="checkbox" class="form-check-input users-data-check"
+                                            value="{{ $customer->id }}" id="usersDataCheck{{ $customer->id }}">
                                         <label class="form-check-label" for="usersDataCheck{{ $customer->id }}"></label>
                                     </div>
                                 </td>
                                 <td class="table-column-ps-0" style="max-width: 180px">
-                                    <a class="d-flex align-items-center" href="{{ route('pm.clients.show', $customer) }}">
+                                    <a class="d-flex align-items-center"
+                                        href="{{ route('pm.clients.show', $customer) }}">
                                         <div class="flex-shrink-0">
                                             @if ($customer->logo)
                                                 <div class="avatar avatar-circle">
-                                                    <img class="avatar-img" src="{{ image($customer->logo) }}" alt="Image Description" style="object-fit: cover">
+                                                    <img class="avatar-img" src="{{ image($customer->logo) }}"
+                                                        alt="Image Description" style="object-fit: cover">
                                                 </div>
                                             @else
-                                                <div class="avatar @if($random == 1) avatar-soft-primary @elseif($random == 2) avatar-soft-dark @elseif($random == 3) avatar-soft-info @else avatar-soft-danger @endif  avatar-circle">
-                                                    <span class="avatar-initials">{{ Str::upper($customer->societe->nom[0]) }}</span>
+                                                <div
+                                                    class="avatar @if ($random == 1) avatar-soft-primary @elseif($random == 2) avatar-soft-dark @elseif($random == 3) avatar-soft-info @else avatar-soft-danger @endif  avatar-circle">
+                                                    <span
+                                                        class="avatar-initials">{{ Str::upper($customer->societe->nom[0]) }}</span>
                                                 </div>
                                             @endif
                                         </div>
@@ -282,10 +294,8 @@
                                             <span class="h6 text-inherit">
                                                 {{ Str::ucfirst($customer->societe->nom) }}
                                                 @if ($customer->type->id == 3)
-                                                    <i class="bi-patch-check-fill text-primary"
-                                                        data-bs-toggle="tooltip"
-                                                        data-bs-placement="top"
-                                                        title="Client réel"></i>
+                                                    <i class="bi-patch-check-fill text-primary" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Client réel"></i>
                                                 @endif
                                             </span>
                                         </div>
@@ -293,8 +303,9 @@
                                 </td>
                                 <td>{{ $customer->adresse?->country?->name_fr }}</td>
                                 <td>
-                                    @foreach (collect(json_decode($customer->adresse->phone ?? '[]',true)) as $phone)
-                                        <span class="legend-indicator bg-success"></span> {{ $phone['type'].': '. $phone['num']}}
+                                    @foreach (collect(json_decode($customer->adresse->phone ?? '[]', true)) as $phone)
+                                        <span class="legend-indicator bg-success"></span>
+                                        {{ $phone['type'] . ': ' . $phone['num'] }}
                                         @if (!$loop->last)
                                             <br>
                                         @endif
@@ -309,15 +320,13 @@
                                 <td>
                                     <div class="gap-3 d-flex align-items-center fs-6">
                                         <a href="{{ route('pm.clients.show', ['client' => $customer]) }}"
-                                            class="text-primary" data-bs-toggle="tooltip"
-                                            data-bs-placement="bottom" title=""
-                                            data-bs-original-title="View detail" aria-label="Views">
+                                            class="text-primary" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                            title="" data-bs-original-title="View detail" aria-label="Views">
                                             <i class="bi bi-eye-fill"></i>
                                         </a>
                                         <a href="{{ route('pm.clients.edit', ['client' => $customer]) }}"
-                                            class="text-warning" data-bs-toggle="tooltip"
-                                            data-bs-placement="bottom" title=""
-                                            data-bs-original-title="Edit info" aria-label="Edit">
+                                            class="text-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                            title="" data-bs-original-title="Edit info" aria-label="Edit">
                                             <i class="bi bi-pencil-fill"></i>
                                         </a>
                                         {{-- tooltip --}}
@@ -325,8 +334,8 @@
                                             data-bs-toggle="modal" data-bs-target="#exampleModal"
                                             data-id="{{ $customer->id }}">
                                             <i class="bi bi-trash-fill" data-bs-toggle="tooltip"
-                                                data-bs-placement="bottom" title=""
-                                                data-bs-original-title="Delete" aria-label="Delete"></i>
+                                                data-bs-placement="bottom" title="" data-bs-original-title="Delete"
+                                                aria-label="Delete"></i>
                                         </a>
                                     </div>
                                 </td>
@@ -466,7 +475,8 @@
                     ids.push($(input).val());
                 });
                 // console.log(ids);
-                bulkDeleteForm.attr('action', '{{ route('pm.clients.bulkDestroy', '__ids') }}'.replace('__ids', ids));
+                bulkDeleteForm.attr('action', '{{ route('pm.clients.bulkDestroy', '__ids') }}'.replace(
+                    '__ids', ids));
             });
         });
     </script>
@@ -506,23 +516,23 @@
 
             // const exportDatatable = HSCore.components.HSDatatables.getItem('exportDatatable')
 
-            document.getElementById('export-copy').addEventListener('click', function () {
+            document.getElementById('export-copy').addEventListener('click', function() {
                 datatable.button('.buttons-copy').trigger()
             })
 
-            document.getElementById('export-excel').addEventListener('click', function () {
+            document.getElementById('export-excel').addEventListener('click', function() {
                 datatable.button('.buttons-excel').trigger()
             })
 
-            document.getElementById('export-csv').addEventListener('click', function () {
+            document.getElementById('export-csv').addEventListener('click', function() {
                 datatable.button('.buttons-csv').trigger()
             })
 
-            document.getElementById('export-pdf').addEventListener('click', function () {
+            document.getElementById('export-pdf').addEventListener('click', function() {
                 datatable.button('.buttons-pdf').trigger()
             })
 
-            document.getElementById('export-print').addEventListener('click', function () {
+            document.getElementById('export-print').addEventListener('click', function() {
                 datatable.button('.buttons-print').trigger()
             })
 
