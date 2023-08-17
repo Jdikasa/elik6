@@ -6,34 +6,34 @@
 @section('titre', 'ELIK6 - Nouveau projet')
 
 @section('body')
-    <div class="content container-fluid pb-5">
-        <div class="page-header card card-lg">
-            <div class="text-star">
-                <h1>Projets</h1>
-                <div class="mt-2 page-breadcrumb d-none d-sm-flex align-items-center">
-                    <div class="">
-                        <nav aria-label="breadcrumb">
-                            <ol class="p-0 mb-0 breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.home') }}">
-                                        <i class="bi bi-house-fill"></i>
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.projects.index') }}">Projets</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">Créer un projets</li>
-                            </ol>
-                        </nav>
-                    </div>
+    <div class="page-header card card-lg">
+        <div class="text-star">
+            <h1>Projets</h1>
+            <div class="mt-2 page-breadcrumb d-none d-sm-flex align-items-center">
+                <div class="">
+                    <nav aria-label="breadcrumb">
+                        <ol class="p-0 mb-0 breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.home') }}">
+                                    <i class="bi bi-house-fill"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.projects.index') }}">Projets</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Créer un projets</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
-            <div class="block-circle">
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-            </div>
         </div>
+        <div class="block-circle">
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+        </div>
+    </div>
+    <div class="pb-5 content container-fluid">
         @livewire('projet.create', ['clients' => $clients, 'certificats' => $certificats])
     </div>
 @endsection
