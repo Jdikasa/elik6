@@ -32,7 +32,7 @@
         <div class="tab-pane fade {{ $tab == 1 ? 'show active' : '' }}" id="new-tache" role="tabpanel"
             aria-labelledby="new-tache">
             <div class="px-0 pt-3 card card-table" style="overflow: inherit">
-                <div class="row px-lg-4 px-3 align-items-center">
+                <div class="px-3 row px-lg-4 align-items-center">
                     <div class="col-lg-6 col-6">
                         <h4 class="no-padding no-margin">Liste des tâches</h4>
                     </div>
@@ -98,7 +98,7 @@
 
                                         </div>
                                     </td>
-                                    <td> {{ $tache->tache_statut->titre }} </td>
+                                    <td> {{ $tache->tache_statut?->titre }} </td>
                                     <td>
                                         <div class="d-flex align-items-center btns-action-table">
                                             {{-- <a href="#" class="p-2 text-white btn btn-primary" data-bs-toggle="modal"
@@ -212,7 +212,7 @@
                         </div>
                     </div>
                 @empty
-                    <div class="col-lg-12 mx-auto">
+                    <div class="mx-auto col-lg-12">
                         <div class="card card-table">
                             <div class="text-center col-12">
                                 <img src="{{ asset('assets/images/sad.gif') }}" alt="" class=""
@@ -307,7 +307,7 @@
                         </div>
                     </div>
                 @empty
-                    <div class="col-lg-12 mx-auto">
+                    <div class="mx-auto col-lg-12">
                         <div class="card card-table">
                             <div class="text-center col-12">
                                 <img src="{{ asset('assets/images/sad.gif') }}" alt="" class=""
@@ -392,7 +392,7 @@
                         </div>
                     </div>
                 @empty
-                    <div class="col-lg-12 mx-auto">
+                    <div class="mx-auto col-lg-12">
                         <div class="card card-table">
                             <div class="text-center col-12">
                                 <img src="{{ asset('assets/images/sad.gif') }}" alt="" class=""
@@ -488,7 +488,7 @@
                         </div>
                     </div>
                 @empty
-                    <div class="col-lg-12 mx-auto">
+                    <div class="mx-auto col-lg-12">
                         <div class="card card-table">
                             <div class="text-center col-12">
                                 <img src="{{ asset('assets/images/sad.gif') }}" alt="" class=""
