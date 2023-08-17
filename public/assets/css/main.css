@@ -302,7 +302,7 @@ body {
 
 .global-div {
     width: 100%;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     overflow-x: hidden;
 }
 
@@ -340,7 +340,7 @@ body {
     position: fixed;
     left: 0;
     top: 0;
-    width: 250px;
+    width: 261px;
     height: 100%;
     background: var(--whiteColor);
     z-index: 1040;
@@ -837,7 +837,7 @@ body {
     font-size: 14px;
     font-weight: 600;
     margin-right: 20px;
-    color: var(--whiteColor);
+    /* color: var(--whiteColor); */
     transition: .5s;
 }
 
@@ -845,7 +845,7 @@ body {
     margin-right: 0;
 }
 
-.btns-actions .btn:first-child {
+/* .btns-actions .btn:first-child {
     color: #17e3a9;
     border: 1px solid #17e3a9;
 }
@@ -856,7 +856,7 @@ body {
     position: relative;
     z-index: 1;
     font-size: 12px;
-}
+} */
 .btns-actions .btn-switch span{
     color: var(--whiteColor);
 }
@@ -973,22 +973,23 @@ body {
 .btns-actions .btn-switch span{
     padding: 7px 14px;
 }
-.btns-actions .btn:first-child:hover {
+/* .btns-actions .btn:first-child:hover {
     color: var(--whiteColor);
     background: #17e3a9;
-}
+} */
 
 .btns-actions .btn {
     width: auto;
     padding: 7px 18px;
     border-radius: 8px;
+    font-weight: 100;
 }
 
-.btns-actions .btn .fi {
+.btns-actions .btn .bi {
     margin-right: 5px;
 }
 
-.btns-actions .btn:last-child {
+/* .btns-actions .btn:last-child {
     color: var(--primaryColor);
     border: 1px solid var(--primaryColor);
 }
@@ -996,7 +997,7 @@ body {
 .btns-actions .btn:last-child:hover {
     color: var(--whiteColor);
     background: var(--primaryColor);
-}
+} */
 
 .content .card-sm .prog {
     width: 100%;
@@ -1253,9 +1254,9 @@ body {
     padding: 7px 10px;
 }
 
-.sidebar .all-person li button.active::before {
+/* .sidebar .all-person li button.active::before {
     display: block;
-}
+} */
 
 .sidebar .all-person li button .block-detail-person .avatar-person {
     width: 36px;
@@ -5979,6 +5980,7 @@ visibility: visible;
     color: var(--colorTitre);
     font-weight: 600;
     border-radius: 8px;
+    padding: 0px 10px;
 }
 
 .nav-tabs:not(.nav-vertical) .nav-link {

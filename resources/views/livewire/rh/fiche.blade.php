@@ -1,7 +1,7 @@
 <div>
-    <div class="sidebar navbar-vertical-content">
-        <div class="pt-5 content-sidebar">
-            <div class="top-0 bg-white logo position-fixed" style="width: 250px;">
+    <div class="sidebar">
+        <div class="content-sidebar d-flex flex-column" style="overflow: hidden">
+            <div class="logo normal" style="width: 250px;">
                 <a href="{{ route('pm.home') }}" class="navbar-brand">
                     <div class="block-logo">
                         <img class="navbar-brand-logo" src="{{ asset('assets/svg/logos/logo.png') }}" alt="Logo"
@@ -11,7 +11,7 @@
                     </div>
                 </a>
             </div>
-            <div class="pt-5 mt-5 block-btn">
+            <div class="block-btn">
                 <button class="btn-add btn w-100" data-bs-toggle="modal" data-bs-target="#modal-new-personnel">
                     <i class="fi fi-rr-plus"></i> Ajouter un employé
                 </button>
@@ -32,9 +32,9 @@
                     <ul class="nav nav-tabs all-person" id="list-contact">
                         @forelse ($actifAgents as $actifAgent)
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link click @if ($agent && $agent->id == $actifAgent->id) active @endif"
+                                <button class="nav-link click link-user-tab @if ($agent && $agent->id == $actifAgent->id) active @endif"
                                     wire:click="showUser({{ $actifAgent->id }})">
-                                    <div class="overflow-hidden block-detail-person d-flex align-items-center">
+                                    <div class="block-detail-person d-flex align-items-center w-100">
                                         <div class="avatar-person">
                                             <img src="{{ imageOrDefault($actifAgent?->image) }}" alt="photo profil">
                                         </div>
@@ -43,8 +43,7 @@
                                             <p>{{ $actifAgent?->fonction()?->titre }}</p>
                                         </div>
                                         @if (Auth::user()->agent->id == $actifAgent->id)
-                                            <small class="pt-1 badge bg-success rounded-pill ms-2"
-                                                style="font-size: 9px">Vous</small>
+                                            <small class="badge bg-info ms-3" style="font-size:8px">Vous</small>
                                         @endif
                                     </div>
                                 </button>
@@ -61,16 +60,18 @@
     <div class="container-fluid px-lg-4">
         <a href="javascript:history.back()" class="back">
             <i class="bi bi-chevron-left"></i>
-            Retour
+            <div class="tooltip-indicator">
+                Retour
+            </div>
         </a>
         <div class="tab-content" id="myTabContent">
 
             <div class="tab-pane fade show active" id="block-details-person" role="tabpanel" aria-labelledby="home-tab">
 
-                <div class="mt-3 mb-3 d-flex justify-content-between align-items-center">
-                    <h1 class="mb-0">Fiche de l'employé</h1>
-                    @if ($agent)
-                        <div>
+                @if ($agent)
+                    <div class="mt-3 mb-3 d-flex justify-content-between align-items-center">
+                        <h1 class="mb-0">Fiche de l'employé</h1>
+                        <div class="block-btns btns-actions ">
                             @if (Auth::user()->id === $agent->user?->id)
                                 <!-- Leave Team -->
                                 <button class="py-1 rounded-2 btn btn-outline btn-outline-danger"
@@ -87,12 +88,12 @@
                                 </button>
                             @endif
                         </div>
-                    @endif
-                </div>
+                    </div>
+                @endif
 
                 <div class="row g-lg-3">
 
-                    <div class="m-2 d-none position-absolute d-flex justify-content-center"
+                    <div class="m-2 d-none position-absolute loader-card d-flex justify-content-center"
                         style="z-index: 2; height:98%; width:100%; background-color: rgba(244,245,252,0.99)"
                         wire:loading wire:target="showUser" wire:loading.class.remove="d-none">
                         <div class="m-auto text-center">
@@ -105,81 +106,88 @@
                     @if ($agent == null)
                         <div class="col-12">
                             <div class="card card-table justify-content-center align-items-center"
-                                style="height: calc(100vh - 50px)">
+                            style="height: calc(100vh - 200px); background: transparent;box-shadow: none;">
                                 <img src="{{ asset('assets/img/icons/icon-employes.png') }}" alt=""
                                     class="img-icon">
+                                <p class="mt-3 mb-0" style="font-size: 12px;">
+                                    Veuillez cliquer sur un agent pour plus de détail
+                                </p>
                             </div>
                         </div>
                     @endif
 
                     <div class="col-lg-12 @if ($agent == null) d-none @endif">
-                        <div class="border-0 card card-table card-profil card-profil-sm h-100">
-                            <div class="card-body">
-                                <div class="block-user-info">
-                                    <div class="row g-3 align-items-center">
-                                        <div class="col-lg-4">
-                                            <div class="d-flex">
+                        <div class="card card-table card-profil card-profil-sm h-100">
+                            <div class="block-user-info">
+                                <div class="row g-3 align-items-center">
+                                    <div class="col-lg-4">
+                                        <div class="d-flex">
 
-                                                <div class="avatar-user">
-                                                    <span
-                                                        class="statut @if ($agent?->user?->statut_id == 1) on @else off @endif"></span>
-                                                    <img src="{{ imageOrDefault($agent?->image) }}" alt="photo profil">
-                                                </div>
+                                            <div class="avatar-user">
+                                                <span
+                                                    class="statut @if ($agent?->user?->statut_id == 1) on @else off @endif"></span>
+                                                <img src="{{ imageOrDefault($agent?->image) }}" alt="photo profil">
+                                            </div>
 
-                                                <div class="text-star">
-                                                    <h4>{{ $agent?->prenom }} {{ $agent?->nom }}</h4>
-                                                    <p class="mb-0">{{ $agent?->fonction()?->titre }}</p>
-                                                    <p class="mb-0">Matricule: {{ $agent?->matricule }}</p>
-                                                    <p class="mb-0">En emploi
-                                                        {{ $agent?->contrat?->date_debut?->diffForHumans() }}</p>
-                                                </div>
+                                            <div class="text-star">
+                                                <h4>{{ $agent?->prenom }} {{ $agent?->nom }}</h4>
+                                                <p class="mb-0">{{ $agent?->fonction()?->titre }}</p>
+                                                <p class="mb-0">Matricule: {{ $agent?->matricule }}</p>
+                                                {{-- <p class="mb-0">En emploi
+                                                    {{ $agent?->contrat?->date_debut?->diffForHumans() }}</p> --}}
                                             </div>
                                         </div>
+                                        <div class="row justify-content-center">
+                                            <div class="col-6 text-star">
+                                                <h5></h5>
 
-                                        <div class="col-lg-8">
-                                            <div class="details-contact">
-                                                <div class="details">
-                                                    <div class="row g-3">
-                                                        <div class="col-lg-4">
-                                                            <div class="block-detail-sm">
-                                                                <div class="icon">
-                                                                    <i class="bi bi-at"></i>
-                                                                </div>
-                                                                <div class="infos">
-                                                                    <p>Email</p>
-                                                                    <h6>
-                                                                        {{ $agent?->adresse?->agent_email ?? 'Non Specifié' }}
-                                                                    </h6>
-                                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-8">
+                                        <div class="details-contact">
+                                            <div class="details">
+                                                <div class="row g-3">
+                                                    <div class="col-lg-4">
+                                                        <div class="block-detail-sm">
+                                                            <div class="icon">
+                                                                <i class="bi bi-at"></i>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="block-detail-sm">
-                                                                <div class="icon">
-                                                                    <i class="bi bi-telephone"></i>
-                                                                </div>
-                                                                <div class="phone">
-                                                                    <p>Téléphone</p>
-                                                                    <h6>{{ $agent?->adresse?->agent_phone ?? 'Non Specifié' }}
-                                                                    </h6>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-4">
-                                                            <div class="block-detail-sm">
-                                                                <div class="icon">
-                                                                    <i class="bi bi-geo-alt"></i>
-                                                                </div>
-                                                                <div class="infos">
-                                                                    <p>Adresse</p>
-                                                                    <h6>{{ $agent?->adresse?->residence ?? 'Non Specifié' }}
-                                                                    </h6>
-                                                                </div>
+                                                            <div class="infos">
+                                                                <p>Email</p>
+                                                                <h6>
+                                                                    {{ $agent?->adresse?->agent_email ?? 'Non Specifié' }}
+                                                                </h6>
                                                             </div>
                                                         </div>
                                                     </div>
-
+                                                    <div class="col-lg-4">
+                                                        <div class="block-detail-sm">
+                                                            <div class="icon">
+                                                                <i class="bi bi-telephone"></i>
+                                                            </div>
+                                                            <div class="phone">
+                                                                <p>Téléphone</p>
+                                                                <h6>{{ $agent?->adresse?->agent_phone ?? 'Non Specifié' }}
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="block-detail-sm">
+                                                            <div class="icon">
+                                                                <i class="bi bi-geo-alt"></i>
+                                                            </div>
+                                                            <div class="infos">
+                                                                <p>Adresse</p>
+                                                                <h6>{{ $agent?->adresse?->residence ?? 'Non Specifié' }}
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -907,7 +915,7 @@
                                                 </div>
                                             </form> --}}
 
-                                            <x-form-section submit="updatePassword" class="card border-0 shadow-none">
+                                            <x-form-section submit="updatePassword" class="border-0 shadow-none card">
                                                 <x-slot name="title">
                                                     {{ __('Update Password') }}
                                                 </x-slot>
@@ -921,7 +929,7 @@
                                                         <x-label for="current_password"
                                                             value="{{ __('Current Password') }}" />
                                                         <x-input id="current_password" type="password"
-                                                            class="mt-1 block w-full"
+                                                            class="block w-full mt-1"
                                                             wire:model.defer="state.current_password"
                                                             autocomplete="current-password" />
                                                         <x-input-error for="current_password" class="mt-2" />
@@ -930,7 +938,7 @@
                                                     <div class="col-span-6 sm:col-span-4">
                                                         <x-label for="password" value="{{ __('New Password') }}" />
                                                         <x-input id="password" type="password"
-                                                            class="mt-1 block w-full"
+                                                            class="block w-full mt-1"
                                                             wire:model.defer="state.password"
                                                             autocomplete="new-password" />
                                                         <x-input-error for="password" class="mt-2" />
@@ -940,7 +948,7 @@
                                                         <x-label for="password_confirmation"
                                                             value="{{ __('Confirm Password') }}" />
                                                         <x-input id="password_confirmation" type="password"
-                                                            class="mt-1 block w-full"
+                                                            class="block w-full mt-1"
                                                             wire:model.defer="state.password_confirmation"
                                                             autocomplete="new-password" />
                                                         <x-input-error for="password_confirmation" class="mt-2" />
@@ -996,12 +1004,12 @@
                                                                     <label for="{{ Str::slug($module->name) }}">
                                                                         <strong>{{ __($module->name) }}</strong>
                                                                     </label>
-                                                                    <ul class="list-unstyled ms-4 mb-3">
+                                                                    <ul class="mb-3 list-unstyled ms-4">
                                                                         @foreach ($permission as $perm)
                                                                         {{-- @php
                                                                             dd($agent?->user?->can($perm->name))
                                                                         @endphp --}}
-                                                                            <li class="d-flex gap-2">
+                                                                            <li class="gap-2 d-flex">
                                                                                 <div class="form-check form-switch form-switch->sm">
                                                                                     <input type="checkbox" id="permission-{{ $perm->id }}"
                                                                                         class="form-check-input rounded-pill the-permission"

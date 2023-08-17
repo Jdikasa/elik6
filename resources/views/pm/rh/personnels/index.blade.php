@@ -12,6 +12,7 @@
 @endsection
 
 @section('content')
+
     @livewire('rh.fiche')
 
     @include('components.modals.personal-new')
