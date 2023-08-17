@@ -11,38 +11,38 @@
 @endsection
 
 @section('body')
-    <div class="content container-fluid pb-5">
-        <div class="page-header card card-lg">
-            <div class="text-star">
-                <h1>Affichage de l'équipement</h1>
-                <div class="page-breadcrumb d-none d-sm-flex align-items-center">
-                    <div class="mt-2">
-                        <nav aria-label="breadcrumb">
-                            <ol class="p-0 mb-0 breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.products.index') }}">Equipements</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">{{ $product->nom }}</li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <div class="ms-auto">
-                        <a href="{{ route('pm.products.edit', $product) }}" class="btn btn-light rounded-pill btn-sm">
-                            <i class="bi-pencil-fill"></i>
-                            Modifier
-                        </a>
-                    </div>
+    <div class="page-header card card-lg">
+        <div class="text-star">
+            <h1>Affichage de l'équipement</h1>
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center">
+                <div class="mt-2">
+                    <nav aria-label="breadcrumb">
+                        <ol class="p-0 mb-0 breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.products.index') }}">Equipements</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ $product->nom }}</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="ms-auto">
+                    <a href="{{ route('pm.products.edit', $product) }}" class="btn btn-light rounded-pill btn-sm">
+                        <i class="bi-pencil-fill"></i>
+                        Modifier
+                    </a>
                 </div>
             </div>
-            <div class="block-circle">
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-            </div>
         </div>
+        <div class="block-circle">
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+        </div>
+    </div>
+    <div class="pb-5 content container-fluid">
 
         <div class="row">
             <div class="col-lg-8">
@@ -62,7 +62,8 @@
                                     </div>
                                 </div>
                             @else
-                                <div class="avatar avatar-lg @if ($random == 1) avatar-soft-primary @elseif($random == 2) avatar-soft-dark @elseif($random == 3) avatar-soft-info @else avatar-soft-danger @endif  avatar-circle">
+                                <div
+                                    class="avatar avatar-lg @if ($random == 1) avatar-soft-primary @elseif($random == 2) avatar-soft-dark @elseif($random == 3) avatar-soft-info @else avatar-soft-danger @endif  avatar-circle">
                                     <span class="avatar-initials">{{ Str::upper($product->nom[0]) }}</span>
                                 </div>
                             @endif
@@ -103,25 +104,25 @@
                         <!-- End Media -->
 
                         <div class="row row-cols-3">
-                            <div class="flex-fill mb-4">
+                            <div class="mb-4 flex-fill">
                                 <div class="col d-flex justify-content-between align-items-center">
                                     <h5>Type de l'équipement</h5>
                                 </div>
                                 {{ Str::title($product->type->nom) }}
                             </div>
-                            <div class="col flex-fill mb-4">
+                            <div class="mb-4 col flex-fill">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h5>Marque de l'équipement</h5>
                                 </div>
                                 {{ Str::title($product->marque->marque) }}
                             </div>
-                            <div class="col flex-fill mb-4">
+                            <div class="mb-4 col flex-fill">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h5>Modèle de l'équipement</h5>
                                 </div>
                                 {{ Str::title($product->modele->modele) }}
                             </div>
-                            <div class="col flex-fill mb-4">
+                            <div class="mb-4 col flex-fill">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h5>Bande de fréquence</h5>
                                 </div>
@@ -133,7 +134,7 @@
                                     @endif
                                 @endforeach
                             </div>
-                            <div class="col flex-fill mb-4">
+                            <div class="mb-4 col flex-fill">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h5>Puissance</h5>
                                 </div>
@@ -145,7 +146,7 @@
                                     @endif
                                 @endforeach
                             </div>
-                            <div class="col flex-fill mb-4">
+                            <div class="mb-4 col flex-fill">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h5>Normes</h5>
                                 </div>
@@ -207,14 +208,17 @@
                             <!-- Nav -->
                             <ul class="nav nav-segment nav-fill">
                                 <li class="nav-item">
-                                    <a @class(['nav-link', 'active' => $stat == 0]) href="{{ route('pm.products.show', $product) }}">Tout</a>
+                                    <a @class(['nav-link', 'active' => $stat == 0])
+                                        href="{{ route('pm.products.show', $product) }}">Tout</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a @class(['nav-link', 'active' => $stat == 1]) href="{{ route('pm.products.show', $product) . '?project_stat=1' }}"
+                                    <a @class(['nav-link', 'active' => $stat == 1])
+                                        href="{{ route('pm.products.show', $product) . '?project_stat=1' }}"
                                         tabindex="-1">En cours</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a @class(['nav-link', 'active' => $stat == 2]) href="{{ route('pm.products.show', $product) . '?project_stat=2' }}"
+                                    <a @class(['nav-link', 'active' => $stat == 2])
+                                        href="{{ route('pm.products.show', $product) . '?project_stat=2' }}"
                                         tabindex="-1">Terminé</a>
                                 </li>
                             </ul>
@@ -373,7 +377,7 @@
                                             </h5>
                                             <ul class="list-inline list-separator small text-body">
                                                 <li class="list-inline-item">
-                                                    @if (Storage::exists('public/'.json_decode($product->rapport_rf)[0]->download_link))
+                                                    @if (Storage::exists('public/' . json_decode($product->rapport_rf)[0]->download_link))
                                                         {{ get_file_size(json_decode($product->rapport_rf)[0]->download_link) }}
                                                     @else
                                                         <small class="text-danger">Fichier introuvable dans le
@@ -432,7 +436,7 @@
                                             </h5>
                                             <ul class="list-inline list-separator small text-body">
                                                 <li class="list-inline-item">
-                                                    @if (Storage::exists('public/'.json_decode($product->rapport_safety)[0]->download_link))
+                                                    @if (Storage::exists('public/' . json_decode($product->rapport_safety)[0]->download_link))
                                                         {{ get_file_size(json_decode($product->rapport_safety)[0]->download_link) }}
                                                     @else
                                                         <small class="text-danger">Fichier introuvable dans le
@@ -491,7 +495,7 @@
                                             </h5>
                                             <ul class="list-inline list-separator small text-body">
                                                 <li class="list-inline-item">
-                                                    @if (Storage::exists('public/'.json_decode($product->rapport_emc)[0]->download_link))
+                                                    @if (Storage::exists('public/' . json_decode($product->rapport_emc)[0]->download_link))
                                                         {{ get_file_size(json_decode($product->rapport_emc)[0]->download_link) }}
                                                     @else
                                                         <small class="text-danger">Fichier introuvable dans le
@@ -550,7 +554,7 @@
                                             </h5>
                                             <ul class="list-inline list-separator small text-body">
                                                 <li class="list-inline-item">
-                                                    @if (Storage::exists('public/'.json_decode($product->rapport_sar)[0]->download_link))
+                                                    @if (Storage::exists('public/' . json_decode($product->rapport_sar)[0]->download_link))
                                                         {{ get_file_size(json_decode($product->rapport_sar)[0]->download_link) }}
                                                     @else
                                                         <small class="text-danger">Fichier introuvable dans le
@@ -609,7 +613,7 @@
                                             </h5>
                                             <ul class="list-inline list-separator small text-body">
                                                 <li class="list-inline-item">
-                                                    @if (Storage::exists('public/'.json_decode($product->declaration)[0]->download_link))
+                                                    @if (Storage::exists('public/' . json_decode($product->declaration)[0]->download_link))
                                                         {{ get_file_size(json_decode($product->declaration)[0]->download_link) }}
                                                     @else
                                                         <small class="text-danger">Fichier introuvable dans le
@@ -664,12 +668,12 @@
                                         <div class="col">
                                             <h5 class="mb-0">
                                                 {{-- <a class="text-dark" href="#"> --}}
-                                                    Autre document {{ $loop->iteration }}
+                                                Autre document {{ $loop->iteration }}
                                                 {{-- </a> --}}
                                             </h5>
                                             <ul class="list-inline list-separator small text-body">
                                                 <li class="list-inline-item">
-                                                    @if (Storage::exists('public/'.$doc->download_link))
+                                                    @if (Storage::exists('public/' . $doc->download_link))
                                                         {{ get_file_size($doc->download_link) }}
                                                     @else
                                                         <small class="text-danger">Fichier introuvable dans le
@@ -710,12 +714,13 @@
                                 </li>
                             @endforeach
 
-                            @if (!count(json_decode($product->autre_rapport ?? '[]')) &&
-                                !($product->declaration && $product->declaration != '[]') &&
-                                !($product->rapport_sar && $product->rapport_sar != '[]') &&
-                                !($product->rapport_emc && $product->rapport_emc != '[]') &&
-                                !($product->rapport_safety && $product->rapport_safety != '[]') &&
-                                !($product->rapport_rf && $product->rapport_rf != '[]'))
+                            @if (
+                                !count(json_decode($product->autre_rapport ?? '[]')) &&
+                                    !($product->declaration && $product->declaration != '[]') &&
+                                    !($product->rapport_sar && $product->rapport_sar != '[]') &&
+                                    !($product->rapport_emc && $product->rapport_emc != '[]') &&
+                                    !($product->rapport_safety && $product->rapport_safety != '[]') &&
+                                    !($product->rapport_rf && $product->rapport_rf != '[]'))
                                 <li class="list-group-item">
                                     <div class="p-4 text-center">
                                         <img class="mb-3" src="{{ asset('assets/svg/illustrations/oc-error.svg') }}"
@@ -750,19 +755,23 @@
                                 <!-- Step Item -->
                                 <li class="step-item">
                                     <div class="step-content-wrapper">
-                                        <small class="step-divider">{{ \Carbon\Carbon::parse($date)->isoFormat('LL')  }}</small>
+                                        <small
+                                            class="step-divider">{{ \Carbon\Carbon::parse($date)->isoFormat('LL') }}</small>
                                     </div>
                                 </li>
                                 <!-- End Step Item -->
-                                @foreach($histories as $history)
-                                    @if($history->key == 'created_at' && !$history->old_value)
+                                @foreach ($histories as $history)
+                                    @if ($history->key == 'created_at' && !$history->old_value)
                                         <!-- Step Item -->
                                         <li class="step-item">
                                             <div class="step-content-wrapper">
                                                 <span class="step-icon step-icon-soft-dark step-icon-pseudo"></span>
                                                 <div class="step-content">
-                                                    <h5 class="mb-1">{{ $history->userResponsible()->name }} a ajouté cette équipement.</h5>
-                                                    <p class="mb-0 fs-5">{{ \Carbon\Carbon::parse($history->newValue())->format('H:m:s') }}</p>
+                                                    <h5 class="mb-1">{{ $history->userResponsible()->name }} a ajouté
+                                                        cette équipement.</h5>
+                                                    <p class="mb-0 fs-5">
+                                                        {{ \Carbon\Carbon::parse($history->newValue())->format('H:m:s') }}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </li>
@@ -777,8 +786,11 @@
                                                     <h5 class="mb-1">
                                                         {{ $history->userResponsible()->name }} a changé
                                                         {{ $history->fieldName() }}, de
-                                                        <span class="text-danger">"{{ Str::limit($history->oldValue(), 50) }}"</span> à
-                                                        <span class="text-success">"{{ Str::limit($history->newValue(), 50) }}"</span>
+                                                        <span
+                                                            class="text-danger">"{{ Str::limit($history->oldValue(), 50) }}"</span>
+                                                        à
+                                                        <span
+                                                            class="text-success">"{{ Str::limit($history->newValue(), 50) }}"</span>
                                                     </h5>
                                                     <p class="mb-0 fs-5">{{ $history->created_at->format('H:m:s') }}</p>
                                                 </div>
@@ -824,7 +836,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body text-center">
+                <div class="text-center modal-body">
                     <h5>
                         <i class="bi bi-warning"></i>
                         Etez-vous sûr de vouloire supprimer cet équipement ?

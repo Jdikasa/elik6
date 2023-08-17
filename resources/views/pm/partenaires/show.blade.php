@@ -13,38 +13,38 @@
 @endsection
 
 @section('body')
-    <div class="content container-fluid pb-5">
-        <div class="page-header card card-lg">
-            <div class="text-star">
-                <h1>Affichage du Partenaire</h1>
-                <div class="page-breadcrumb d-none d-sm-flex align-items-center">
-                    <div class="mt-2">
-                        <nav aria-label="breadcrumb">
-                            <ol class="p-0 mb-0 breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.partenaires.index') }}">Partenaires</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">{{ $partenaire->societe->nom }}</li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <div class="ms-auto">
-                        <a href="{{ route('pm.partenaires.edit', $partenaire) }}" class="btn btn-light rounded-pill btn-sm">
-                            <i class="bi-pencil-fill"></i>
-                            Modifier
-                        </a>
-                    </div>
+    <div class="page-header card card-lg">
+        <div class="text-star">
+            <h1>Affichage du Partenaire</h1>
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center">
+                <div class="mt-2">
+                    <nav aria-label="breadcrumb">
+                        <ol class="p-0 mb-0 breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.partenaires.index') }}">Partenaires</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ $partenaire->societe->nom }}</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="ms-auto">
+                    <a href="{{ route('pm.partenaires.edit', $partenaire) }}" class="btn btn-light rounded-pill btn-sm">
+                        <i class="bi-pencil-fill"></i>
+                        Modifier
+                    </a>
                 </div>
             </div>
-            <div class="block-circle">
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-            </div>
         </div>
+        <div class="block-circle">
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+        </div>
+    </div>
+    <div class="pb-5 content container-fluid">
 
         <div class="row">
             <div class="col-lg-8">
@@ -112,7 +112,7 @@
                         </div>
                         <!-- End Media -->
 
-                        <div class="d-flex mb-2">
+                        <div class="mb-2 d-flex">
                             @if (count($partenaire->modalites))
                                 <div class="flex-fill">
                                     <div class="d-flex justify-content-between align-items-center">
@@ -139,7 +139,7 @@
                             </div>
                         </div>
 
-                        <div class="d-flex mb-2">
+                        <div class="mb-2 d-flex">
                             <div class="flex-fill">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h5>Contact</h5>
@@ -536,9 +536,7 @@
                                 </li>
                             @endforeach
 
-                            @if (!count(json_decode($partenaire->autre_doc ?? '[]')) &&
-                                !($partenaire->nda && $partenaire->nda != '[]') &&
-                                !($partenaire->contrat && $partenaire->contrat != '[]'))
+                            @if (!count(json_decode($partenaire->autre_doc ?? '[]')) && !($partenaire->nda && $partenaire->nda != '[]') && !($partenaire->contrat && $partenaire->contrat != '[]'))
                                 <li class="list-group-item">
                                     <div class="p-4 text-center">
                                         <img class="mb-3" src="{{ asset('assets/svg/illustrations/oc-error.svg') }}"

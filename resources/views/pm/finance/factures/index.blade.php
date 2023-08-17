@@ -12,37 +12,37 @@
 
 @section('body')
 
-<!--breadcrumb-->
-<div class="page-header card card-lg">
-    <div class="text-star">
-        <h1>Liste des Factures</h1>
-        <div class="page-breadcrumb d-none d-sm-flex align-items-center">
-            <div class="">
-                <nav aria-label="breadcrumb">
-                    <ol class="p-0 mb-0 breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page">Factures</li>
-                    </ol>
-                </nav>
-            </div>
-            <div class="ms-auto">
-                <a href="{{ route('pm.fin.factures.create') }}" class="btn btn-light rounded-pill">
-                    <i class="bi bi-plus-circle-fill"></i>
-                    Créer une facture
-                </a>
+    <!--breadcrumb-->
+    <div class="page-header card card-lg">
+        <div class="text-star">
+            <h1>Liste des Factures</h1>
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center">
+                <div class="">
+                    <nav aria-label="breadcrumb">
+                        <ol class="p-0 mb-0 breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Factures</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="ms-auto">
+                    <a href="{{ route('pm.fin.factures.create') }}" class="btn btn-light rounded-pill">
+                        <i class="bi bi-plus-circle-fill"></i>
+                        Créer une facture
+                    </a>
+                </div>
             </div>
         </div>
+        <div class="block-circle">
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+        </div>
     </div>
-    <div class="block-circle">
-        <div class="circle-white"></div>
-        <div class="circle-white"></div>
-        <div class="circle-white"></div>
-    </div>
-</div>
-<!--end breadcrumb-->
-    <div class="content container-fluid pb-5">
+    <!--end breadcrumb-->
+    <div class="pb-5 content container-fluid">
 
         {{-- <div class="mb-3 row justify-content-end">
             <div class="col-lg">
@@ -117,30 +117,31 @@
                         <div class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="usersExportDropdown">
                             <span class="dropdown-header">Options</span>
                             <a id="export-copy" class="dropdown-item" href="javascript:;">
-                                <img class="avatar avatar-xss avatar-4x3 me-2" src="{{ asset('assets/svg/illustrations/copy-icon.svg') }}"
-                                    alt="Image Description">
+                                <img class="avatar avatar-xss avatar-4x3 me-2"
+                                    src="{{ asset('assets/svg/illustrations/copy-icon.svg') }}" alt="Image Description">
                                 Copier
                             </a>
                             <a id="export-print" class="dropdown-item" href="javascript:;">
-                                <img class="avatar avatar-xss avatar-4x3 me-2" src="{{ asset('assets/svg/illustrations/print-icon.svg') }}"
-                                    alt="Image Description">
+                                <img class="avatar avatar-xss avatar-4x3 me-2"
+                                    src="{{ asset('assets/svg/illustrations/print-icon.svg') }}" alt="Image Description">
                                 Imprimmer
                             </a>
                             <div class="dropdown-divider"></div>
                             <span class="dropdown-header">Download options</span>
                             <a id="export-excel" class="dropdown-item" href="javascript:;">
-                                <img class="avatar avatar-xss avatar-4x3 me-2" src="{{ asset('assets/svg/brands/excel-icon.svg') }}"
-                                    alt="Image Description">
+                                <img class="avatar avatar-xss avatar-4x3 me-2"
+                                    src="{{ asset('assets/svg/brands/excel-icon.svg') }}" alt="Image Description">
                                 Excel
                             </a>
                             <a id="export-csv" class="dropdown-item" href="javascript:;">
                                 <img class="avatar avatar-xss avatar-4x3 me-2"
-                                    src="{{ asset('assets/svg/components/placeholder-csv-format.svg') }}" alt="Image Description">
+                                    src="{{ asset('assets/svg/components/placeholder-csv-format.svg') }}"
+                                    alt="Image Description">
                                 .CSV
                             </a>
                             <a id="export-pdf" class="dropdown-item" href="javascript:;">
-                                <img class="avatar avatar-xss avatar-4x3 me-2" src="{{ asset('assets/svg/brands/pdf-icon.svg') }}"
-                                    alt="Image Description">
+                                <img class="avatar avatar-xss avatar-4x3 me-2"
+                                    src="{{ asset('assets/svg/brands/pdf-icon.svg') }}" alt="Image Description">
                                 PDF
                             </a>
                         </div>
@@ -152,8 +153,7 @@
                         <button type="button" class="btn btn-white btn-sm w-100" id="showHideDropdown"
                             data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                             <i class="bi-table me-1"></i> Colones
-                            <span
-                                class="badge bg-soft-dark text-dark rounded-circle ms-1">7</span>
+                            <span class="badge bg-soft-dark text-dark rounded-circle ms-1">7</span>
                         </button>
 
                         <div class="dropdown-menu dropdown-menu-end dropdown-card" aria-labelledby="showHideDropdown"
@@ -261,7 +261,8 @@
                                                 <span class="me-2">Actions</span>
                                             </span>
                                             <span class="col-4 col-sm-3 text-end">
-                                                <input type="checkbox" class="form-check-input" id="toggleColumn_actions">
+                                                <input type="checkbox" class="form-check-input"
+                                                    id="toggleColumn_actions">
                                             </span>
                                         </label>
                                         <!-- End Form Switch -->
@@ -322,22 +323,37 @@
                             <tr>
                                 <td class="table-column-pe-0">
                                     <div class="form-check">
-                                        <input type="checkbox" name="ids" class="form-check-input" id="ordersCheck{{ $facture->id }}" value="{{ $facture->id }}">
+                                        <input type="checkbox" name="ids" class="form-check-input"
+                                            id="ordersCheck{{ $facture->id }}" value="{{ $facture->id }}">
                                         <label class="form-check-label" for="ordersCheck{{ $facture->id }}"></label>
                                     </div>
                                 </td>
                                 <td class="table-column-ps-0">
-                                    <a href="{{ route('pm.fin.factures.show', $facture->id) }}">#{{ str_pad($facture->id, 6, '0', 0) }}</a>
+                                    <a
+                                        href="{{ route('pm.fin.factures.show', $facture->id) }}">#{{ str_pad($facture->id, 6, '0', 0) }}</a>
                                 </td>
                                 <td>{{ $facture->date_limit_paie->format('d/m/Y') }}</td>
                                 <td class="text-wrap" style="min-width: 150px">
-                                    <a class="text-body" href="{{ $facture->client ? route('pm.clients.show', $facture->client->id) : '#' }}">
+                                    <a class="text-body"
+                                        href="{{ $facture->client ? route('pm.clients.show', $facture->client->id) : '#' }}">
                                         {{ $facture->client?->societe?->nom }}
                                     </a>
                                 </td>
                                 <td>
-                                    <span @class(["badge ", "bg-soft-danger" => ($facture->statut_id == 4), "bg-soft-success text-success" => ($facture->statut_id == 3), "bg-soft-danger text-danger" => $facture->statut_id == 1, "bg-soft-warning text-warning" => $facture->statut_id == 2])>
-                                        <span @class(["legend-indicator ", "bg-danger" => ($facture->statut_id == 4), "bg-success" => ($facture->statut_id == 3), "bg-danger" => $facture->statut_id == 1, "bg-warning" => $facture->statut_id == 2])></span>
+                                    <span @class([
+                                        'badge ',
+                                        'bg-soft-danger' => $facture->statut_id == 4,
+                                        'bg-soft-success text-success' => $facture->statut_id == 3,
+                                        'bg-soft-danger text-danger' => $facture->statut_id == 1,
+                                        'bg-soft-warning text-warning' => $facture->statut_id == 2,
+                                    ])>
+                                        <span @class([
+                                            'legend-indicator ',
+                                            'bg-danger' => $facture->statut_id == 4,
+                                            'bg-success' => $facture->statut_id == 3,
+                                            'bg-danger' => $facture->statut_id == 1,
+                                            'bg-warning' => $facture->statut_id == 2,
+                                        ])></span>
                                         {{ $facture->statut->titre }}
                                     </span>
                                 </td>
@@ -346,22 +362,26 @@
                                         {{ $facture->compte?->bank->nom }}
                                     </div>
                                 </td>
-                                <td>{{ number_format($facture->total_net, 2,'.', ' ') }}$</td>
-                                <td>{{ number_format($facture->transactions->sum('montant'), 2,'.', ' ') }}$</td>
-                                <td>{{ number_format($facture->total_net - $facture->transactions->sum('montant'), 2,'.', ' ') }}$</td>
+                                <td>{{ number_format($facture->total_net, 2, '.', ' ') }}$</td>
+                                <td>{{ number_format($facture->transactions->sum('montant'), 2, '.', ' ') }}$</td>
+                                <td>{{ number_format($facture->total_net - $facture->transactions->sum('montant'), 2, '.', ' ') }}$
+                                </td>
                                 <td>
                                     @if ($facture->total_net <= $facture->transactions->sum('montant'))
-                                        <a class="js-export-print dropdown-ite" href="{{ route('pm.fin.factures.show', $facture) }}">
+                                        <a class="js-export-print dropdown-ite"
+                                            href="{{ route('pm.fin.factures.show', $facture) }}">
                                             <i class="bi bi-eye-fill dropdown-item-icon text-primary"></i>
                                         </a>
-                                        <a class="dropdown-ite delete-toggle" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#delete-modal"
-                                            data-id="{{ $facture->id }}" >
+                                        <a class="dropdown-ite delete-toggle" href="javascript:void(0)"
+                                            data-bs-toggle="modal" data-bs-target="#delete-modal"
+                                            data-id="{{ $facture->id }}">
                                             <i class="bi-trash dropdown-item-icon text-danger"></i>
                                         </a>
                                     @else
                                         <div class="btn-group" role="group">
-                                            <a class="btn btn-white btn-sm text-success paiement-toggle" href="javascript:void(0)"
-                                                data-id="{{ $facture->id }}" data-bs-toggle="modal" data-bs-target="#paiement-modal">
+                                            <a class="btn btn-white btn-sm text-success paiement-toggle"
+                                                href="javascript:void(0)" data-id="{{ $facture->id }}"
+                                                data-bs-toggle="modal" data-bs-target="#paiement-modal">
                                                 <i class="bi-check"></i> Payer
                                             </a>
 
@@ -375,15 +395,17 @@
                                                 <div class="mt-1 dropdown-menu dropdown-menu-end"
                                                     aria-labelledby="ordersExportDropdown1">
                                                     {{-- <span class="dropdown-header">Options</span> --}}
-                                                    <a class="js-export-print dropdown-item" href="{{ route('pm.fin.factures.show', $facture) }}">
+                                                    <a class="js-export-print dropdown-item"
+                                                        href="{{ route('pm.fin.factures.show', $facture) }}">
                                                         <i class="bi bi-eye-fill"></i> Voir
                                                     </a>
                                                     {{-- <a class="js-export-print dropdown-item" href="{{ route('pm.fin.factures.edit', $facture) }}">
                                                         <i class="bi bi-pencil-fill"></i> Editer
                                                     </a> --}}
                                                     {{-- <div class="dropdown-divider"></div> --}}
-                                                    <a class="dropdown-item text-danger delete-toggle" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#delete-modal"
-                                                        data-id="{{ $facture->id }}" >
+                                                    <a class="dropdown-item text-danger delete-toggle"
+                                                        href="javascript:void(0)" data-bs-toggle="modal"
+                                                        data-bs-target="#delete-modal" data-id="{{ $facture->id }}">
                                                         <i class="bi-trash dropdown-item-icon"></i> Supprimer
                                                     </a>
                                                 </div>
@@ -519,14 +541,15 @@
             var deleteToggle = $('.delete-toggle');
             var deleteForm = $('#delete-form');
             deleteToggle.on('click', function() {
-                deleteForm.attr('action', '{{ route('pm.fin.factures.destroy', '__id') }}'.replace('__id', $(this).data('id')));
+                deleteForm.attr('action', '{{ route('pm.fin.factures.destroy', '__id') }}'.replace('__id',
+                    $(this).data('id')));
             });
 
             var paiementToggle = $('.paiement-toggle');
             var paiementForm = $('#paiement-form');
             paiementToggle.on('click', function() {
                 paiementForm.find('input[name=facture_id]').val($(this).data('id'));
-                paiementForm.attr('action', '{{ route("pm.fin.finances.savePaiement") }}');
+                paiementForm.attr('action', '{{ route('pm.fin.finances.savePaiement') }}');
             });
         });
     </script>
@@ -559,7 +582,7 @@
                         <p class="mb-0">Auccune facture disponible</p>
                     </div>`
                 },
-                responsive : true,
+                responsive: true,
             });
 
             const datatable = HSCore.components.HSDatatables.getItem('datatable')

@@ -761,31 +761,31 @@
 
 @section('body')
 
-<!--breadcrumb-->
-<div class="page-header card card-lg">
-    <div class="text-star">
-        <h1>Banck</h1>
-        <div class="page-breadcrumb d-none d-sm-flex align-items-center">
-            <div class="mt-3">
-                <nav aria-label="breadcrumb">
-                    <ol class="p-0 mb-0 breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page">Banck</li>
-                    </ol>
-                </nav>
+    <!--breadcrumb-->
+    <div class="page-header card card-lg">
+        <div class="text-star">
+            <h1>Banck</h1>
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center">
+                <div class="mt-3">
+                    <nav aria-label="breadcrumb">
+                        <ol class="p-0 mb-0 breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Banck</li>
+                        </ol>
+                    </nav>
+                </div>
             </div>
         </div>
+        <div class="block-circle">
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+        </div>
     </div>
-    <div class="block-circle">
-        <div class="circle-white"></div>
-        <div class="circle-white"></div>
-        <div class="circle-white"></div>
-    </div>
-</div>
-<!--end breadcrumb-->
-    <div class="content container-fluid pb-5">
+    <!--end breadcrumb-->
+    <div class="pb-5 content container-fluid">
 
         <div class="row justify-content-lg-center">
             <div class="col-lg-12">
@@ -794,9 +794,9 @@
                     <div class="row card-body">
 
                         <div class="col-12 col-lg-5">
-                            <div class="card card-dashed p-6 shadow-none border-info bg-soft-info">
-                                <div class="d-flex flex-column py-2">
-                                    <div class="d-flex align-items-center fs-4 fw-bold mb-4">
+                            <div class="p-6 shadow-none card card-dashed border-info bg-soft-info">
+                                <div class="py-2 d-flex flex-column">
+                                    <div class="mb-4 d-flex align-items-center fs-4 fw-bold">
                                         {{ $compte->bank->nom }}
                                         @if ($compte->is_primary)
                                             <span class="badge bg-soft-success text-success fs-7 ms-2">Principale</span>
@@ -806,13 +806,14 @@
                                         <div class="flex-shrink-0">
                                             {{-- <img class="avatar avatar-sm" src="assets/svg/brands/visa.svg" alt="Image Description"> --}}
                                             <img src="{{ image($compte->bank->image) }}" alt="Image Description"
-                                                class="bg-light px-2 avatar avatar-lg text-black-50" style="font-size: 11px; min-width:100px">
+                                                class="px-2 bg-light avatar avatar-lg text-black-50"
+                                                style="font-size: 11px; min-width:100px">
                                         </div>
                                         <div class="flex-grow-1 ms-3">
                                             <div class="fs-4 fw-bold">
-                                                {!! number_format($compte->num_compte, 0, ' ', ' ')  !!}
+                                                {!! number_format($compte->num_compte, 0, ' ', ' ') !!}
                                             </div>
-                                            <div class="fs-6 fw-semibold text-gray-400">
+                                            <div class="text-gray-400 fs-6 fw-semibold">
                                                 {{ $compte->intitule }}
                                             </div>
                                         </div>
@@ -823,11 +824,11 @@
 
                         <div class="col-12 col-lg-7">
 
-                            <div class="d-flex flex-wrap flex-stack mb-3">
+                            <div class="flex-wrap mb-3 d-flex flex-stack">
 
                                 <div class="d-flex flex-column flex-grow-1">
 
-                                    <div class="d-flex gap-2">
+                                    <div class="gap-2 d-flex">
                                         @php
                                             $total_net = $compte->factures->sum('total_net');
                                             $montant_recu = $compte->transactions->sum('montant');
@@ -835,8 +836,8 @@
                                             $balance = $montant_recu;
                                         @endphp
 
-                                        <div class="card-dashed rounded py-3 px-4 mb-3 border-success broder-2 flex-fill">
-                                            <div class="d-flex align-items-center mb-2">
+                                        <div class="px-4 py-3 mb-3 rounded card-dashed border-success broder-2 flex-fill">
+                                            <div class="mb-2 d-flex align-items-center">
                                                 <span class="svg-icon svg-icon-3 svg-icon-success me-2">
                                                     <svg class="" width="24" height="24" viewBox="0 0 24 24"
                                                         fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -849,7 +850,7 @@
                                                     </svg>
                                                 </span>
                                                 <div>
-                                                    <span class="js-counter h1 mb-0"
+                                                    <span class="mb-0 js-counter h1"
                                                         data-hs-counter-options='{
                                                         "isCommaSeparated": false
                                                     }'>
@@ -858,11 +859,11 @@
                                                     $
                                                 </div>
                                             </div>
-                                            <div class="fw-semibold fs-6 text-gray-400">Balance actuele</div>
+                                            <div class="text-gray-400 fw-semibold fs-6">Balance actuele</div>
                                         </div>
 
-                                        <div class="card-dashed rounded py-3 px-4 mb-3 border-danger broder-2 flex-fill">
-                                            <div class="d-flex align-items-center mb-2">
+                                        <div class="px-4 py-3 mb-3 rounded card-dashed border-danger broder-2 flex-fill">
+                                            <div class="mb-2 d-flex align-items-center">
                                                 <span class="svg-icon svg-icon-3 svg-icon-danger me-2">
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
@@ -876,7 +877,7 @@
                                                 </span>
                                                 <div class="fs-2 fw-bold counted" data-kt-countup="true"
                                                     data-kt-countup-value="{{ $montant_attent }}" data-kt-initialized="1">
-                                                    <span class="js-counter mb-0"
+                                                    <span class="mb-0 js-counter"
                                                         data-hs-counter-options='{
                                                         "isCommaSeparated": false
                                                     }'>
@@ -885,11 +886,11 @@
                                                     $
                                                 </div>
                                             </div>
-                                            <div class="fw-semibold fs-6 text-gray-400">Paiement en attante</div>
+                                            <div class="text-gray-400 fw-semibold fs-6">Paiement en attante</div>
                                         </div>
 
-                                        {{-- <div class="card-dashed rounded py-3 px-4 mb-3 border-info broder-2">
-                                            <div class="d-flex align-items-center mb-2">
+                                        {{-- <div class="px-4 py-3 mb-3 rounded card-dashed border-info broder-2">
+                                            <div class="mb-2 d-flex align-items-center">
                                                 <span class="svg-icon svg-icon-3 svg-icon-success me-2">
                                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                         xmlns="http://www.w3.org/2000/svg">
@@ -904,7 +905,7 @@
                                                 <div class="fs-2 fw-bold counted" data-kt-countup="true"
                                                     data-kt-countup-value="60" data-kt-countup-prefix="%"
                                                     data-kt-initialized="1">
-                                                    <span class="js-counter mb-0"
+                                                    <span class="mb-0 js-counter"
                                                         data-hs-counter-options='{
                                                         "isCommaSeparated": false
                                                     }'>
@@ -913,14 +914,14 @@
                                                     $
                                                 </div>
                                             </div>
-                                            <div class="fw-semibold fs-6 text-gray-400">Paiement effectué</div>
+                                            <div class="text-gray-400 fw-semibold fs-6">Paiement effectué</div>
                                         </div> --}}
                                     </div>
                                 </div>
 
                             </div>
-                            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-                                <span class="fw-semibold fs-5 text-gray-400">Etat des paiements</span>
+                            <div class="mt-auto mb-2 d-flex justify-content-between w-100">
+                                <span class="text-gray-400 fw-semibold fs-5">Etat des paiements</span>
                             </div>
 
                             <div class="progress bg-soft-secondary" style="height: 15px;">
@@ -934,7 +935,7 @@
                                     {{ round(($montant_recu * 100) / $total_net) }}%</div>
                             </div>
 
-                            <div class="d-flex align-items-center mt-1">
+                            <div class="mt-1 d-flex align-items-center">
                                 <div class="col-6"><span class="p-1 rounded-circle bg-danger d-inline-block"></span>
                                     Paiement en attante</div>
                                 <div class="col-6"><span class="p-1 rounded-circle bg-success d-inline-block"></span>
@@ -997,7 +998,7 @@
                                 </td>
                                 <td>{{ $transaction->created_at->format('d/m/Y') }}</td>
                                 <td>
-                                    {{ $transaction->autor?->agent?->prenom.' '.$transaction->autor?->agent?->nom }}
+                                    {{ $transaction->autor?->agent?->prenom . ' ' . $transaction->autor?->agent?->nom }}
                                     {{-- <a class="btn btn-white btn-sm" href="#">
                                         <i class="bi-file-earmark-arrow-down-fill me-1"></i> PDF
                                     </a> --}}
@@ -1061,7 +1062,7 @@
                                     <dl class="mb-0 d-flex justify-content-between align-items-center">
                                         <dt class="col-md text-sm-end mb-sm-0">Facture N° :</dt>
                                         <dd class="p-0 mb-0 border ms-1 col-md-auto border-bottom-0">
-                                            <span class="p-1 d-block text-center"
+                                            <span class="p-1 text-center d-block"
                                                 style="width: 110px">{{-- $stat['num_facture'] --}}</span>
                                         </dd>
                                     </dl>
@@ -1069,7 +1070,7 @@
                                     <dl class="mb-0 d-flex justify-content-between align-items-center">
                                         <dt class="col-md text-sm-end mb-sm-0">Date de la facture :</dt>
                                         <dd class="p-0 mb-0 border ms-1 col-md-auto border-bottom-0">
-                                            <span class="p-1 d-block text-center"
+                                            <span class="p-1 text-center d-block"
                                                 style="width: 110px">{{-- $stat['date_facute'] --}}</span>
                                         </dd>
                                     </dl>
@@ -1077,7 +1078,7 @@
                                     <dl class="mb-0 d-flex justify-content-between align-items-center">
                                         <dt class="col-md text-sm-end mb-sm-0">ID du Client :</dt>
                                         <dd class="p-0 mb-0 border ms-1 col-md-auto border-bottom-0">
-                                            <span class="p-1 d-block text-center" style="width: 110px">
+                                            <span class="p-1 text-center d-block" style="width: 110px">
                                                 {{-- @if (isset($selectedStat[0]))
                                                     {{ $selectedStat[0]['client_id'] == '' ? '####' : $selectedStat[0]['client_id'] }}
                                                 @else
@@ -1090,7 +1091,7 @@
                                     <dl class="d-flex justify-content-between align-items-center">
                                         <dt class="col-md text-sm-end mb-sm-0">Date du payement :</dt>
                                         <dd class="p-0 mb-0 border ms-1 col-md-auto">
-                                            <span class="p-1 d-block text-center" style="width: 110px">
+                                            <span class="p-1 text-center d-block" style="width: 110px">
                                                 {{-- @if (isset($selectedStat[0]))
                                                     {{ $selectedStat[0]['date_limit_paie'] == '' ? '####' : $selectedStat[0]['date_limit_paie'] }}
                                                 @else
@@ -1186,7 +1187,7 @@
                                 <!-- End Content -->
                             @empty --}}
                             <div class="mx-0 row flex-nowrap" style="width: 100%">
-                                <div class="py-2 col-12 border-start border-end border-bottom text-center">
+                                <div class="py-2 text-center col-12 border-start border-end border-bottom">
                                     <small>Aucun element ajouté</small>
                                 </div>
                                 <!-- End Col -->
@@ -1250,7 +1251,7 @@
                                     {{-- <dt class="border-3 border-success col-12 border-bottom ms-5 w-85"></dt> --}}
                                     <dt class="p-0 col-12">
                                         <div
-                                            class="border-3 border-success border-top p-2 bg-soft-success d-flex ms-auto w-85 justify-content-between">
+                                            class="p-2 border-3 border-success border-top bg-soft-success d-flex ms-auto w-85 justify-content-between">
                                             <h4 class="mt-1 mb-0 text-black-50 ">Total :</h4>
                                             <h4 class="mt-1 mb-0 text-black-50 ">
                                                 {{-- number_format($total_net,2,',','.') --}}$
@@ -1300,8 +1301,9 @@
             var deleteToggle = $('.delete-toggle');
             var deleteForm = $('#delete-form');
             deleteToggle.on('click', function() {
-                deleteForm.attr('action', '{{ route('pm.fin.comptes.destroy', '__id') }}'.replace('__id', $(
-                    this).data('id')));
+                deleteForm.attr('action', '{{ route('pm.fin.comptes.destroy', '__id') }}'.replace('__id',
+                    $(
+                        this).data('id')));
             });
 
             // edition

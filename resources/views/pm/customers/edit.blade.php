@@ -6,36 +6,37 @@
 @section('titre', 'ELIK6 - Editer un client')
 
 @section('body')
-    <div class="content container-fluid pb-5">
-        <div class="page-header card card-lg">
-            <div class="text-star">
-                <h1>Clients</h1>
-                <div class="mt-2 page-breadcrumb d-none d-sm-flex align-items-center">
-                    <div class="">
-                        <nav aria-label="breadcrumb">
-                            <ol class="p-0 mb-0 breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.home') }}">
-                                        <i class="bi bi-house-fill"></i>
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.clients.index') }}">Clients</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">Editer un client</li>
-                            </ol>
-                        </nav>
-                    </div>
+    <div class="page-header card card-lg">
+        <div class="text-star">
+            <h1>Clients</h1>
+            <div class="mt-2 page-breadcrumb d-none d-sm-flex align-items-center">
+                <div class="">
+                    <nav aria-label="breadcrumb">
+                        <ol class="p-0 mb-0 breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.home') }}">
+                                    <i class="bi bi-house-fill"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.clients.index') }}">Clients</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Editer un client</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
-            <div class="block-circle">
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-            </div>
         </div>
+        <div class="block-circle">
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+        </div>
+    </div>
+    <div class="pb-5 content container-fluid">
 
-        <form class="row g-2 dropzone" method="POST" action="{{ route('pm.clients.update', $customer) }}" enctype="multipart/form-data">
+        <form class="row g-2 dropzone" method="POST" action="{{ route('pm.clients.update', $customer) }}"
+            enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="col-lg-8">
@@ -52,7 +53,8 @@
                                     <select class="js-select form-select form-select-sm" autocomplete="off"
                                         data-hs-tom-select-options='{
                                             "placeholder": "Selectionnez un type..."
-                                        }' name="type_id">
+                                        }'
+                                        name="type_id">
                                         <option value="">Select a person...</option>
                                         @foreach ($customerTypes as $customerType)
                                             <option value="{{ $customerType->id }}" @selected($customer->type->id == $customerType->id)>
@@ -74,7 +76,8 @@
                                             "searchInDropdown": false
                                             {{-- "hidePlaceholderOnSearch": true --}}
                                             {{-- "placeholder": "Selectionnez une societé..." --}}
-                                        }' name="societe_id">
+                                        }'
+                                        name="societe_id">
                                         <option value="">Selectionnez une societe...</option>
                                         @foreach ($societes as $societe)
                                             <option value="{{ $societe->id }}" @selected($customer->societe->id == $societe->id)>
@@ -90,14 +93,15 @@
                                 <label for="country_id" class="form-label">Pays</label>
                                 <!-- Select -->
                                 <div class="mb-3 tom-select-custom">
-                                    <select class="js-select form-select" name="country_id" id="country_id" autocomplete="off"
+                                    <select class="js-select form-select" name="country_id" id="country_id"
+                                        autocomplete="off"
                                         data-hs-tom-select-options='{
                                             "placeholder": "Select country"
                                         }'>
-                                        <option value="" >Aland Islands</option>
+                                        <option value="">Aland Islands</option>
                                         @foreach ($countries as $country)
                                             <option value="{{ $country->id }}"
-                                                data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/'.Str::lower($country->code).'.svg') }}" alt="{{ $country->name_fr ?? $country->name_en }}" /><span class="text-truncate">{{ $country->name_fr ?? $country->name_en }}</span></span>'
+                                                data-option-template='<span class="d-flex align-items-center"><img class="avatar avatar-xss avatar-circle me-2" src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/' . Str::lower($country->code) . '.svg') }}" alt="{{ $country->name_fr ?? $country->name_en }}" /><span class="text-truncate">{{ $country->name_fr ?? $country->name_en }}</span></span>'
                                                 @selected($customer->adresse?->country->id == $country->id)>
                                                 {{ $country->name_fr ?? $country->name_en }}
                                             </option>
@@ -109,14 +113,15 @@
 
                             <div class="col-md-6">
                                 <label for="ville" class="form-label">Ville</label>
-                                <input type="text" class="form-control" name="ville" id="ville"
-                                    placeholder="Ville" aria-label="Ville" value="{{ $customer->adresse?->ville }}">
+                                <input type="text" class="form-control" name="ville" id="ville" placeholder="Ville"
+                                    aria-label="Ville" value="{{ $customer->adresse?->ville }}">
                             </div>
 
                             <div class="col-12">
                                 <label for="adresse_1" class="form-label">Adresse 1</label>
                                 <input type="text" class="form-control" name="adresse_1" id="adresse_1" required
-                                    placeholder="Votre adresse" aria-label="Votre adresse" value="{{ $customer->adresse?->adresse_1 }}">
+                                    placeholder="Votre adresse" aria-label="Votre adresse"
+                                    value="{{ $customer->adresse?->adresse_1 }}">
                             </div>
 
                             <div class="col-12">
@@ -124,13 +129,15 @@
                                     Adresse 2 <span class="form-label-secondary">(Optional)</span>
                                 </label>
                                 <input type="text" class="form-control" name="adresse_2" id="adresse_2"
-                                    placeholder="Votre adresse" aria-label="Votre adresse" value="{{ $customer->adresse?->adresse_2 }}">
+                                    placeholder="Votre adresse" aria-label="Votre adresse"
+                                    value="{{ $customer->adresse?->adresse_2 }}">
                             </div>
 
                             <div class="col-md-12">
                                 <label for="emailLabel" class="form-label">Email</label>
                                 <input type="email" class="form-control" name="email" id="emailLabel" required
-                                    placeholder="clarice@site.com" aria-label="clarice@site.com" value="{{ $customer->adresse?->email }}">
+                                    placeholder="clarice@site.com" aria-label="clarice@site.com"
+                                    value="{{ $customer->adresse?->email }}">
                             </div>
 
                             <div class="col-12 js-add-field"
@@ -142,41 +149,47 @@
                                 <label for="phoneLabel" class="form-label">Téléphone</label>
                                 <!-- Container For Input Field -->
                                 <div id="addPhoneFieldContainer">
-                                    @foreach (collect(json_decode($customer->adresse->phone ?? '[]',true)) as $phone)
-                                    <div class="input-group-add-field">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" name="phone[]"
-                                                id="phoneLabel" placeholder="Téléphone" aria-label="Téléphone"
-                                                {{-- data-hs-mask-options='{js-input-mask
+                                    @foreach (collect(json_decode($customer->adresse->phone ?? '[]', true)) as $phone)
+                                        <div class="input-group-add-field">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="phone[]"
+                                                    id="phoneLabel" placeholder="Téléphone" aria-label="Téléphone"
+                                                    {{-- data-hs-mask-options='{js-input-mask
                                                     "mask": "+0(000)000-00-00"
-                                                }' --}}
-                                                value="{{ $phone['num'] }}">
+                                                }' --}} value="{{ $phone['num'] }}">
 
-                                            <div class="input-group-append">
-                                                <!-- Select -->
-                                                <div class="tom-select-custom tom-select-custom-end">
-                                                    <select class="js-select form-select" autocomplete="off" name="phoneSelect[]"
-                                                        data-hs-tom-select-options='{
+                                                <div class="input-group-append">
+                                                    <!-- Select -->
+                                                    <div class="tom-select-custom tom-select-custom-end">
+                                                        <select class="js-select form-select" autocomplete="off"
+                                                            name="phoneSelect[]"
+                                                            data-hs-tom-select-options='{
                                                             "searchInDropdown": false,
                                                             "hideSearch": true,
                                                             "dropdownWidth": "8rem"
                                                         }'>
-                                                        <option value="Mobile" @selected($phone['num'] == 'Mobile')>Mobile</option>
-                                                        <option value="Maison" @selected($phone['num'] == 'Maison')>Maison</option>
-                                                        <option value="Bureau" @selected($phone['num'] == 'Bureau')>Bureau</option>
-                                                        <option value="Fax" @selected($phone['num'] == 'Fax')>Fax</option>
-                                                        <option value="Directe" @selected($phone['num'] == 'Directe')>Directe</option>
-                                                    </select>
-                                                    <!-- End Select -->
+                                                            <option value="Mobile" @selected($phone['num'] == 'Mobile')>Mobile
+                                                            </option>
+                                                            <option value="Maison" @selected($phone['num'] == 'Maison')>Maison
+                                                            </option>
+                                                            <option value="Bureau" @selected($phone['num'] == 'Bureau')>Bureau
+                                                            </option>
+                                                            <option value="Fax" @selected($phone['num'] == 'Fax')>Fax
+                                                            </option>
+                                                            <option value="Directe" @selected($phone['num'] == 'Directe')>Directe
+                                                            </option>
+                                                        </select>
+                                                        <!-- End Select -->
+                                                    </div>
                                                 </div>
                                             </div>
+                                            @if (!$loop->first)
+                                                <a class="js-delete-field input-group-add-field-delete"
+                                                    href="javascript:;">
+                                                    <i class="bi-x"></i>
+                                                </a>
+                                            @endif
                                         </div>
-                                        @if (!$loop->first)
-                                            <a class="js-delete-field input-group-add-field-delete" href="javascript:;">
-                                                <i class="bi-x"></i>
-                                            </a>
-                                        @endif
-                                    </div>
                                     @endforeach
                                 </div>
 
@@ -219,8 +232,9 @@
 
                             <div class="col-12">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="{{ $customer->adresse?->is_shipping }}"
-                                        id="billingAddressCheckbox" name="is_shipping" @checked($customer->adresse?->is_shipping)>
+                                    <input class="form-check-input" type="checkbox"
+                                        value="{{ $customer->adresse?->is_shipping }}" id="billingAddressCheckbox"
+                                        name="is_shipping" @checked($customer->adresse?->is_shipping)>
                                     <label class="form-check-label" for="billingAddressCheckbox">
                                         Utiliser ces information d'adresse pour la facturation
                                     </label>
@@ -272,42 +286,54 @@
                                         <div class="row g-3">
                                             <div class="col-sm-6">
                                                 <label for="" class="form-label">Prénom</label>
-                                                <input type="text" class="form-control" data-name="person_prenom[]" id="" placeholder="Clarice" aria-label="Clarice" name="person_prenom[]"
-                                                    value="{{ $personne->prenom }}">
+                                                <input type="text" class="form-control" data-name="person_prenom[]"
+                                                    id="" placeholder="Clarice" aria-label="Clarice"
+                                                    name="person_prenom[]" value="{{ $personne->prenom }}">
                                             </div>
 
                                             <div class="col-sm-6">
                                                 <label for="" class="form-label">Nom</label>
-                                                <input type="text" class="form-control" data-name="person_nom[]" id="" placeholder="Boone" aria-label="Boone" name="person_nom[]"
-                                                value="{{ $personne->nom }}">
+                                                <input type="text" class="form-control" data-name="person_nom[]"
+                                                    id="" placeholder="Boone" aria-label="Boone"
+                                                    name="person_nom[]" value="{{ $personne->nom }}">
                                             </div>
                                             <div class="col-12">
                                                 <label for="" class="form-label">Email</label>
-                                                <input type="email" class="form-control" data-name="person_email[]" id="" placeholder="clarice@site.com" aria-label="clarice@site.com" name="person_email[]"
-                                                value="{{ $personne->email }}">
+                                                <input type="email" class="form-control" data-name="person_email[]"
+                                                    id="" placeholder="clarice@site.com"
+                                                    aria-label="clarice@site.com" name="person_email[]"
+                                                    value="{{ $personne->email }}">
                                             </div>
 
                                             <div class="col-12">
-                                                <label for="phoneLabel" class="form-label">Téléphone <span class="form-label-secondary">(Optional)</span></label>
+                                                <label for="phoneLabel" class="form-label">Téléphone <span
+                                                        class="form-label-secondary">(Optional)</span></label>
                                                 <div class="input-group">
 
-                                                    <input type="text" class="form-control" data-name="person_phone[]" placeholder="Téléphone" aria-label="Téléphone" name="person_phone[]"
-                                                    value="{{ $personne->phone }}">
+                                                    <input type="text" class="form-control" data-name="person_phone[]"
+                                                        placeholder="Téléphone" aria-label="Téléphone"
+                                                        name="person_phone[]" value="{{ $personne->phone }}">
 
                                                     <div class="input-group-append">
                                                         <!-- Select -->
                                                         <div class="tom-select-custom tom-select-custom-end">
-                                                            <select class="js-select form-select" autocomplete="off" name="person_phone_type[]"
+                                                            <select class="js-select form-select" autocomplete="off"
+                                                                name="person_phone_type[]"
                                                                 data-hs-tom-select-options='{
                                                                     "searchInDropdown": false,
                                                                     "hideSearch": true,
                                                                     "dropdownWidth": "8rem"
                                                                 }'>
-                                                                <option value="Mobile" @selected($personne->phone_type == 'Mobile')>Mobile</option>
-                                                                <option value="Maison" @selected($personne->phone_type == 'Maison')>Maison</option>
-                                                                <option value="Bureau" @selected($personne->phone_type == 'Bureau')>Bureau</option>
-                                                                <option value="Fax" @selected($personne->phone_type == 'Fax')>Fax</option>
-                                                                <option value="Directe" @selected($personne->phone_type == 'Directe')>Directe</option>
+                                                                <option value="Mobile" @selected($personne->phone_type == 'Mobile')>Mobile
+                                                                </option>
+                                                                <option value="Maison" @selected($personne->phone_type == 'Maison')>Maison
+                                                                </option>
+                                                                <option value="Bureau" @selected($personne->phone_type == 'Bureau')>Bureau
+                                                                </option>
+                                                                <option value="Fax" @selected($personne->phone_type == 'Fax')>Fax
+                                                                </option>
+                                                                <option value="Directe" @selected($personne->phone_type == 'Directe')>
+                                                                    Directe</option>
                                                             </select>
                                                             <!-- End Select -->
                                                         </div>
@@ -315,7 +341,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <a class="js-delete-field input-group-add-field-delete" href="javascript:;" style="top: 5px; right:5px;font-size: 25px;">
+                                        <a class="js-delete-field input-group-add-field-delete" href="javascript:;"
+                                            style="top: 5px; right:5px;font-size: 25px;">
                                             <i class="bi-x"></i>
                                         </a>
                                     </div>
@@ -333,8 +360,8 @@
                             <div class="row g-3">
                                 <div class="col-sm-6">
                                     <label for="" class="form-label">Prénom</label>
-                                    <input type="text" class="form-control" data-name="person_prenom[]" id=""
-                                        placeholder="Clarice" aria-label="Clarice">
+                                    <input type="text" class="form-control" data-name="person_prenom[]"
+                                        id="" placeholder="Clarice" aria-label="Clarice">
                                 </div>
 
                                 <div class="col-sm-6">
@@ -349,7 +376,8 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <label for="phoneLabel" class="form-label">Téléphone <span class="form-label-secondary">(Optional)</span></label>
+                                    <label for="phoneLabel" class="form-label">Téléphone <span
+                                            class="form-label-secondary">(Optional)</span></label>
                                     <div class="input-group">
                                         {{-- <input type="text" class="form-control" data-name="person_phone[]"
                                             id="phoneLabel" placeholder="Téléphone" aria-label="Téléphone">
@@ -372,11 +400,9 @@
                                             </div>
                                         </div> --}}
                                         <input type="text" class="form-control" data-name="person_phone[]"
-                                        placeholder="Téléphone" aria-label="Téléphone"
-                                        {{-- data-hs-mask-options='{ js-input-mask
+                                            placeholder="Téléphone" aria-label="Téléphone" {{-- data-hs-mask-options='{ js-input-mask
                                             "mask": "+0(000)000-00-00"
-                                        }' --}}
-                                        >
+                                        }' --}}>
 
                                         <div class="input-group-append">
                                             <!-- Select -->
@@ -400,7 +426,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <a class="js-delete-field input-group-add-field-delete" href="javascript:;" style="top: 5px; right:5px;font-size: 25px;">
+                            <a class="js-delete-field input-group-add-field-delete" href="javascript:;"
+                                style="top: 5px; right:5px;font-size: 25px;">
                                 <i class="bi-x"></i>
                             </a>
                         </div>
@@ -420,16 +447,18 @@
                         <div class="mt-3 mb-5 d-flex align-items-center">
                             <!-- Avatar -->
                             <label class="avatar avatar-xl avatar-circle" for="avatarUploader">
-                                <img id="avatarImg" class="avatar-img" src="{{ $customer->image ? asset('storage').'/app/public/'.$customer->image : asset('assets/img/160x160/img1.jpg') }}" alt="Image Description">
+                                <img id="avatarImg" class="avatar-img"
+                                    src="{{ $customer->image ? asset('storage') . '/app/public/' . $customer->image : asset('assets/img/160x160/img1.jpg') }}"
+                                    alt="Image Description">
                             </label>
 
                             <div class="gap-2 d-flex ms-4">
-                                <button type="button" class="form-attachment-btn btn btn-sm btn-outline-primary rounded-pill">
-                                    <i class="bi bi-download"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-placement="bottom" title="Importer"
-                                        data-bs-original-title="Importer" aria-label="Importer"></i>
-                                    <input type="file" class="js-file-attach form-attachment-btn-label" id="avatarUploader"
+                                <button type="button"
+                                    class="form-attachment-btn btn btn-sm btn-outline-primary rounded-pill">
+                                    <i class="bi bi-download" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                        title="Importer" data-bs-original-title="Importer" aria-label="Importer"></i>
+                                    <input type="file" class="js-file-attach form-attachment-btn-label"
+                                        id="avatarUploader"
                                         data-hs-file-attach-options='{
                                             "textTarget": "#avatarImg",
                                             "mode": "image",
@@ -437,15 +466,15 @@
                                             "resetTarget": ".js-file-attach-reset-img",
                                             "resetImg": "../assets/img/160x160/img1.jpg",
                                             "allowTypes": [".png", ".jpeg", ".jpg"]
-                                        }' name="logo">
+                                        }'
+                                        name="logo">
                                 </button>
                                 <!-- End Avatar -->
 
-                                <button type="button" class="js-file-attach-reset-img btn btn-sm btn-outline-danger rounded-pill">
-                                    <i class="bi bi-trash-fill"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-placement="bottom" title=""
-                                        data-bs-original-title="Supprimer" aria-label="Delete"></i>
+                                <button type="button"
+                                    class="js-file-attach-reset-img btn btn-sm btn-outline-danger rounded-pill">
+                                    <i class="bi bi-trash-fill" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                        title="" data-bs-original-title="Supprimer" aria-label="Delete"></i>
                                 </button>
                             </div>
                         </div>
@@ -474,16 +503,16 @@
                             </div>
                             <!-- End Select -->
                             <div class="mb-4 ">
-                                <label for="" class="form-label" >Autres documents</label>
+                                <label for="" class="form-label">Autres documents</label>
                                 <!-- Dropzone -->
                                 <div id="basicExampleDropzone" class="mx-0 js-dropzone row dz-dropzone dz-dropzone-card"
                                     data-hs-dropzone-options='{
                                         "url":"{{ route('pm.dropzon.post') }}?_token={{ csrf_token() }}"
-                                    }'
-                                    >
+                                    }'>
                                     <div class="dz-message">
                                         <img class="mb-3 avatar avatar-sm avatar-4x3"
-                                            src="{{ asset('assets/svg/illustrations/oc-browse.svg') }}" alt="Image Description">
+                                            src="{{ asset('assets/svg/illustrations/oc-browse.svg') }}"
+                                            alt="Image Description">
 
                                         <h6>Glisser et deposer votre document ici</h6>
 
@@ -524,180 +553,180 @@
 @endsection
 
 @section('javascript')
-<script>
-    (function() {
-        // INITIALIZATION OF DROPZONE
-        // =======================================================
-        let fileInput = document.querySelector('input[name=autre_doc]');
-        const dataTransfer = new DataTransfer();
-        HSCore.components.HSDropzone.init('.js-dropzone',{
-            paramName:"autre_doc",
-            success: function (file, response) {
-                dataTransfer.items.add(file);
-                fileInput.files = dataTransfer.files;
-                // console.log(fileInput.files);
-            }
-        })
+    <script>
+        (function() {
+            // INITIALIZATION OF DROPZONE
+            // =======================================================
+            let fileInput = document.querySelector('input[name=autre_doc]');
+            const dataTransfer = new DataTransfer();
+            HSCore.components.HSDropzone.init('.js-dropzone', {
+                paramName: "autre_doc",
+                success: function(file, response) {
+                    dataTransfer.items.add(file);
+                    fileInput.files = dataTransfer.files;
+                    // console.log(fileInput.files);
+                }
+            })
 
 
-        // INITIALIZATION OF SELECT
-        // =======================================================
-        // HSCore.components.HSTomSelect.init('.js-select')
+            // INITIALIZATION OF SELECT
+            // =======================================================
+            // HSCore.components.HSTomSelect.init('.js-select')
 
 
-        // INITIALIZATION OF ADD FIELD
-        // =======================================================
-        new HSAddField('.js-add-field', {
-            addedField: field => {
-                HSCore.components.HSTomSelect.init(field.querySelector('.js-select-dynamic'))
-                HSCore.components.HSMask.init(field.querySelector('.js-input-mask'))
-                var input = field.querySelectorAll('input')
-                var select = field.querySelectorAll('select')
+            // INITIALIZATION OF ADD FIELD
+            // =======================================================
+            new HSAddField('.js-add-field', {
+                addedField: field => {
+                    HSCore.components.HSTomSelect.init(field.querySelector('.js-select-dynamic'))
+                    HSCore.components.HSMask.init(field.querySelector('.js-input-mask'))
+                    var input = field.querySelectorAll('input')
+                    var select = field.querySelectorAll('select')
 
-                $(input).each(function () {
-                    $(this).attr('name', $(this).attr('data-name'))
-                });
-                $(select).each(function () {
-                    $(this).attr('name', $(this).attr('data-name'))
-                });
-                // console.log($(input));
-            }
-        })
+                    $(input).each(function() {
+                        $(this).attr('name', $(this).attr('data-name'))
+                    });
+                    $(select).each(function() {
+                        $(this).attr('name', $(this).attr('data-name'))
+                    });
+                    // console.log($(input));
+                }
+            })
 
 
-        // INITIALIZATION OF INPUT MASK
-        // =======================================================
-        HSCore.components.HSMask.init('.js-input-mask')
+            // INITIALIZATION OF INPUT MASK
+            // =======================================================
+            HSCore.components.HSMask.init('.js-input-mask')
 
-        // INITIALIZATION OF FILE ATTACH
-        // =======================================================
-        new HSFileAttach('.js-file-attach')
+            // INITIALIZATION OF FILE ATTACH
+            // =======================================================
+            new HSFileAttach('.js-file-attach')
 
-        // INITIALIZATION OF QUILLJS EDITOR
-        // =======================================================
-        HSCore.components.HSQuill.init('.js-quill')
+            // INITIALIZATION OF QUILLJS EDITOR
+            // =======================================================
+            HSCore.components.HSQuill.init('.js-quill')
         })();
-</script>
-<script>
-    $(document).ready(function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $('select.select2').each(function() {
-            $(this).select2({
-                tags: $(this).data('tags') ? $(this).data('tags') : false,
-                placeholder: $(this).data('placeholder'),
-                language: "fr",
-                createTag: function(params) {
-                    var term = $.trim(params.term);
+    </script>
+    <script>
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $('select.select2').each(function() {
+                $(this).select2({
+                    tags: $(this).data('tags') ? $(this).data('tags') : false,
+                    placeholder: $(this).data('placeholder'),
+                    language: "fr",
+                    createTag: function(params) {
+                        var term = $.trim(params.term);
 
-                    if (term === '') {
-                        return null;
-                    }
-
-                    return {
-                        id: term,
-                        text: term,
-                        newTag: true
-                    }
-                },
-                ajax: {
-                    url: $(this).data('get-items-route'),
-                    data: function(params) {
-
-                        var query = {
-                            search: params.term,
-                            type: $(this).data('get-items-field'),
-                            method: $(this).data('method'),
-                            id: $(this).data('id'),
-                            page: params.page || 1,
-                            model: $(this).data('related-model'),
-                            label: $(this).data('label'),
+                        if (term === '') {
+                            return null;
                         }
-                        return query;
-                    }
-                },
-                maximumSelectionLength: $(this).data('max-selection') ? $(this).data(
-                    'max-selection') : null,
-            });
 
-            $(this).on('select2:select', function(e) {
-                var data = e.params.data;
+                        return {
+                            id: term,
+                            text: term,
+                            newTag: true
+                        }
+                    },
+                    ajax: {
+                        url: $(this).data('get-items-route'),
+                        data: function(params) {
 
-                if (data.id == '') {
-                    // "None" was selected. Clear all selected options
-                    $(this).val([]).trigger('change');
-                } else {
-                    $(e.currentTarget).find("option[value='" + data.id + "']").attr('selected',
-                        'selected');
-                }
-            });
-
-            $(this).on('select2:unselect', function(e) {
-                var data = e.params.data;
-                $(e.currentTarget).find("option[value='" + data.id + "']").attr('selected',
-                    false);
-            });
-
-            $(this).on('select2:selecting', function(e) {
-                // console.log(e.params.data);
-                if (!$(this).data('tags')) {
-                    return;
-                }
-                var $el = $(this);
-                var route = $el.data('route');
-                var label = $el.data('label');
-                var errorMessage = $el.data('error-message');
-                var newTag = e.params.args.data.newTag;
-
-                // console.log(route);
-
-                if (!newTag) return;
-
-                $el.select2('close');
-
-                $.post(route, {
-                    [label]: e.params.args.data.text,
-                    _tagging: true,
-                }).done(function(data) {
-                    var newOption = new Option(e.params.args.data.text, data.results.id,
-                        false, true);
-                    $el.append(newOption).trigger('change');
-                }).fail(function(error) {
-                    // toastr.error(errorMessage);
-                    console.log(errorMessage);
+                            var query = {
+                                search: params.term,
+                                type: $(this).data('get-items-field'),
+                                method: $(this).data('method'),
+                                id: $(this).data('id'),
+                                page: params.page || 1,
+                                model: $(this).data('related-model'),
+                                label: $(this).data('label'),
+                            }
+                            return query;
+                        }
+                    },
+                    maximumSelectionLength: $(this).data('max-selection') ? $(this).data(
+                        'max-selection') : null,
                 });
 
-                return false;
+                $(this).on('select2:select', function(e) {
+                    var data = e.params.data;
+
+                    if (data.id == '') {
+                        // "None" was selected. Clear all selected options
+                        $(this).val([]).trigger('change');
+                    } else {
+                        $(e.currentTarget).find("option[value='" + data.id + "']").attr('selected',
+                            'selected');
+                    }
+                });
+
+                $(this).on('select2:unselect', function(e) {
+                    var data = e.params.data;
+                    $(e.currentTarget).find("option[value='" + data.id + "']").attr('selected',
+                        false);
+                });
+
+                $(this).on('select2:selecting', function(e) {
+                    // console.log(e.params.data);
+                    if (!$(this).data('tags')) {
+                        return;
+                    }
+                    var $el = $(this);
+                    var route = $el.data('route');
+                    var label = $el.data('label');
+                    var errorMessage = $el.data('error-message');
+                    var newTag = e.params.args.data.newTag;
+
+                    // console.log(route);
+
+                    if (!newTag) return;
+
+                    $el.select2('close');
+
+                    $.post(route, {
+                        [label]: e.params.args.data.text,
+                        _tagging: true,
+                    }).done(function(data) {
+                        var newOption = new Option(e.params.args.data.text, data.results.id,
+                            false, true);
+                        $el.append(newOption).trigger('change');
+                    }).fail(function(error) {
+                        // toastr.error(errorMessage);
+                        console.log(errorMessage);
+                    });
+
+                    return false;
+                });
             });
+
+            var btnAdd = $('#add-contact');
+            var parent = $('fieldset');
+            var element = $('.element');
+
+            btnAdd.on('click', function() {
+                var clone = element.clone();
+                clone.find('hr').removeClass('d-none');
+                clone.find('input').val('');
+                clone.find('.btn-close').removeClass('d-none');
+                clone.appendTo(parent);
+            });
+
+            $('select[name=type_id]').on('change', function() {
+                if ($(this).val() == 2) {
+                    $('.action-field').removeClass('d-none');
+                } else {
+                    $('.action-field').addClass('d-none');
+                }
+            });
+
         });
 
-        var btnAdd = $('#add-contact');
-        var parent = $('fieldset');
-        var element = $('.element');
-
-        btnAdd.on('click', function() {
-            var clone = element.clone();
-            clone.find('hr').removeClass('d-none');
-            clone.find('input').val('');
-            clone.find('.btn-close').removeClass('d-none');
-            clone.appendTo(parent);
-        });
-
-        $('select[name=type_id]').on('change', function() {
-            if ($(this).val() == 2) {
-                $('.action-field').removeClass('d-none');
-            } else {
-                $('.action-field').addClass('d-none');
-            }
-        });
-
-    });
-
-    function removeThisElement(btn) {
-        $(btn).parent().remove();
-    }
-</script>
+        function removeThisElement(btn) {
+            $(btn).parent().remove();
+        }
+    </script>
 @endsection

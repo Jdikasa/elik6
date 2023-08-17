@@ -6,34 +6,34 @@
 @section('titre', 'ELIK6 - Nouvel pays')
 
 @section('body')
-    <div class="content container-fluid pb-5">
-        <div class="page-header card card-lg">
-            <div class="text-star">
-                <h1>Pays</h1>
-                <div class="mt-2 page-breadcrumb d-none d-sm-flex align-items-center">
-                    <div class="">
-                        <nav aria-label="breadcrumb">
-                            <ol class="p-0 mb-0 breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.home') }}">
-                                        <i class="bi bi-house-fill"></i>
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.countries.index') }}">Pays</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">Ajouter un pays</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <div class="block-circle">
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
+<div class="page-header card card-lg">
+    <div class="text-star">
+        <h1>Pays</h1>
+        <div class="mt-2 page-breadcrumb d-none d-sm-flex align-items-center">
+            <div class="">
+                <nav aria-label="breadcrumb">
+                    <ol class="p-0 mb-0 breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('pm.home') }}">
+                                <i class="bi bi-house-fill"></i>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('pm.countries.index') }}">Pays</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Ajouter un pays</li>
+                    </ol>
+                </nav>
             </div>
         </div>
+    </div>
+    <div class="block-circle">
+        <div class="circle-white"></div>
+        <div class="circle-white"></div>
+        <div class="circle-white"></div>
+    </div>
+</div>
+    <div class="pb-5 content container-fluid">
 
         <form class="row g-3" method="POST" action="{{ route('pm.countries.store') }}" enctype="multipart/form-data">
             @csrf
@@ -195,19 +195,19 @@
                             <hr>
                             <div class="col-12">
                                 <label class="form-label">Documents à fournir <sup class="text-danger">*</sup></label>
-                                <div class="form-check form-switch mb-2">
+                                <div class="mb-2 form-check form-switch">
                                     <input type="checkbox" id="test" name="documents[]" class="form-check-input rounded-pill" value="{{ __('Rapport de test') }}"/>
                                     <label class="form-check-label" for="test">{{ __('Rapport de test') }}</label>
                                 </div>
-                                <div class="form-check form-switch mb-2">
+                                <div class="mb-2 form-check form-switch">
                                     <input type="checkbox" id="conformite" name="documents[]" class="form-check-input rounded-pill" value="{{ __('Declaration de conformite') }}"/>
                                     <label class="form-check-label" for="conformite">{{ __('Déclaration de conformité') }}</label>
                                 </div>
-                                <div class="form-check form-switch mb-2">
+                                <div class="mb-2 form-check form-switch">
                                     <input type="checkbox" id="representation" name="documents[]" class="form-check-input rounded-pill" value="{{ __('Lettre de representation') }}"/>
                                     <label class="form-check-label" for="representation">{{ __('Lettre de representation') }}</label>
                                 </div>
-                                <div class="form-check form-switch mb-2">
+                                <div class="mb-2 form-check form-switch">
                                     <input type="checkbox" id="sheet" name="documents[]" class="form-check-input rounded-pill" value="{{ __('Data sheet') }}"/>
                                     <label class="form-check-label" for="sheet">{{ __('Data sheet') }}</label>
                                 </div>

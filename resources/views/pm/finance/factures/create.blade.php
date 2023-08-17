@@ -760,10 +760,8 @@
             <div class="circle-white"></div>
         </div>
     </div>
-    <div class="content container-fluid pb-5">
-
+    <div class="pb-5 content container-fluid">
         @livewire('finances.facture.facture-form')
-
     </div>
 @endsection
 

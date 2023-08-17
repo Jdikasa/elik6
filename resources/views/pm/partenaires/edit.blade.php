@@ -6,34 +6,34 @@
 @section('titre', 'ELIK6 - edition d\'un partenaire')
 
 @section('body')
-    <div class="content container-fluid pb-5">
-        <div class="page-header card card-lg">
-            <div class="text-star">
-                <h1>Partenaires</h1>
-                <div class="mt-2 page-breadcrumb d-none d-sm-flex align-items-center">
-                    <div class="">
-                        <nav aria-label="breadcrumb">
-                            <ol class="p-0 mb-0 breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.home') }}">
-                                        <i class="bi bi-house-fill"></i>
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.partenaires.index') }}">Partenaires</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">Editer un partenaire</li>
-                            </ol>
-                        </nav>
-                    </div>
+    <div class="page-header card card-lg">
+        <div class="text-star">
+            <h1>Partenaires</h1>
+            <div class="mt-2 page-breadcrumb d-none d-sm-flex align-items-center">
+                <div class="">
+                    <nav aria-label="breadcrumb">
+                        <ol class="p-0 mb-0 breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.home') }}">
+                                    <i class="bi bi-house-fill"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.partenaires.index') }}">Partenaires</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Editer un partenaire</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
-            <div class="block-circle">
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-            </div>
         </div>
+        <div class="block-circle">
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+        </div>
+    </div>
+    <div class="pb-5 content container-fluid">
         <form class="row g-3 justify-content-center" method="POST"
             action="{{ route('pm.partenaires.update', $partenaire) }}" enctype="multipart/form-data">
             @csrf
@@ -291,7 +291,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 text-end mt-3">
+                            <div class="mt-3 col-12 text-end">
                                 <button type="submit" class="btn btn-success">Enregistrer</button>
                             </div>
                         </div>

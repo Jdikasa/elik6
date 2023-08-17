@@ -1,46 +1,46 @@
 @extends('pm.layouts.master')
 
 @section('css')
-<style>
-    .tom-select-custom .ts-wrapper.form-select .ts-control,
-    .tom-select-custom .ts-wrapper.multi .ts-control.has-items.hs-select-single-multiple {
-        padding: 0.2rem !important;
-        padding-top: 0.3rem !important;
-    }
-</style>
+    <style>
+        .tom-select-custom .ts-wrapper.form-select .ts-control,
+        .tom-select-custom .ts-wrapper.multi .ts-control.has-items.hs-select-single-multiple {
+            padding: 0.2rem !important;
+            padding-top: 0.3rem !important;
+        }
+    </style>
 @endsection
 
 @section('titre', 'ELIK6 - Nouvel equipement')
 
 @section('body')
-    <div class="content container-fluid pb-5">
-        <div class="page-header card card-lg">
-            <div class="text-star">
-                <h1>Équipements</h1>
-                <div class="mt-2 page-breadcrumb d-none d-sm-flex align-items-center">
-                    <div class="">
-                        <nav aria-label="breadcrumb">
-                            <ol class="p-0 mb-0 breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.home') }}">
-                                        <i class="bi bi-house-fill"></i>
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.products.index') }}">Équipement</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">Modifier un équipement</li>
-                            </ol>
-                        </nav>
-                    </div>
+    <div class="page-header card card-lg">
+        <div class="text-star">
+            <h1>Équipements</h1>
+            <div class="mt-2 page-breadcrumb d-none d-sm-flex align-items-center">
+                <div class="">
+                    <nav aria-label="breadcrumb">
+                        <ol class="p-0 mb-0 breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.home') }}">
+                                    <i class="bi bi-house-fill"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.products.index') }}">Équipement</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Modifier un équipement</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
-            <div class="block-circle">
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-            </div>
         </div>
+        <div class="block-circle">
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+        </div>
+    </div>
+    <div class="pb-5 content container-fluid">
 
         <form class="" method="POST" action="{{ route('pm.products.update', $product) }}"
             enctype="multipart/form-data">
@@ -54,8 +54,8 @@
 
                                 <div class="col-12">
                                     <label class="form-label">Non de l'équipement <sup class="text-danger">*</sup></label>
-                                    <input type="text" class="form-control" name="nom" placeholder="Non de l'équipement"
-                                        required value="{{ $product->nom }}">
+                                    <input type="text" class="form-control" name="nom"
+                                        placeholder="Non de l'équipement" required value="{{ $product->nom }}">
                                 </div>
 
                                 <div class="col-12">
@@ -67,8 +67,10 @@
                                                 "create": true,
                                                 "maxItems":1,
                                                 "placeholder": "Choisir le Type équipement ou ajouter une nouvelle"
-                                            }' name="type_id" required>
-                                            <option value="">Choisir le Type d'équipement ou ajouter une nouvelle</option>
+                                            }'
+                                            name="type_id" required>
+                                            <option value="">Choisir le Type d'équipement ou ajouter une nouvelle
+                                            </option>
                                             @foreach ($types as $type)
                                                 <option value="{{ $type->id }}" @selected($product->type_id == $type->id)>
                                                     {{ $type->nom }}
@@ -80,7 +82,8 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <label class="form-label">Marque de l'équipement <sup class="text-danger">*</sup></label>
+                                    <label class="form-label">Marque de l'équipement <sup
+                                            class="text-danger">*</sup></label>
                                     <!-- Select -->
                                     <div class="tom-select-custom">
                                         <select class="js-select form-select" autocomplete="off" multiple
@@ -88,8 +91,10 @@
                                                 "create": true,
                                                 "maxItems":1,
                                                 "placeholder": "Choisir la Marque de équipement ou ajouter une nouvelle"
-                                            }' name="marque_id" required>
-                                            <option value="">Choisir la Marque de l'équipement ou ajouter une nouvelle</option>
+                                            }'
+                                            name="marque_id" required>
+                                            <option value="">Choisir la Marque de l'équipement ou ajouter une nouvelle
+                                            </option>
                                             @foreach ($marques as $marque)
                                                 <option value="{{ $marque->id }}" @selected($product->marque_id == $marque->id)>
                                                     {{ $marque->marque }}
@@ -101,7 +106,8 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <label class="form-label">Modèle de l'équipement <sup class="text-danger">*</sup></label>
+                                    <label class="form-label">Modèle de l'équipement <sup
+                                            class="text-danger">*</sup></label>
                                     <!-- Select -->
                                     <div class="tom-select-custom">
                                         <select class="js-select form-select form-select-sm" autocomplete="off" multiple
@@ -109,8 +115,10 @@
                                                 "create": true,
                                                 "maxItems":1,
                                                 "placeholder": "Choisir le Modèle de équipement ou ajouter une nouvelle"
-                                            }' name="modele_id" required>
-                                            <option value="">Choisir le Modèle de l'équipement ou ajouter une nouvelle</option>
+                                            }'
+                                            name="modele_id" required>
+                                            <option value="">Choisir le Modèle de l'équipement ou ajouter une nouvelle
+                                            </option>
                                             @foreach ($modeles as $modele)
                                                 <option value="{{ $modele->id }}" @selected($product->modele_id == $modele->id)>
                                                     {{ $modele->modele }}
@@ -128,7 +136,8 @@
                                             data-hs-tom-select-options='{
                                                 "create": true,
                                                 "placeholder": "Choisir la Bande de fréquence ou ajouter une nouvelle"
-                                            }' name="frequences[]" required>
+                                            }'
+                                            name="frequences[]" required>
                                             <option value="">Choisir la Bande de fréquence</option>
                                             @foreach ($frequences as $frequence)
                                                 <option value="{{ $frequence->id }}" @selected(in_array($frequence->id, $product->frequences->pluck('id')->toArray()))>
@@ -147,7 +156,8 @@
                                             data-hs-tom-select-options='{
                                                 "create": true,
                                                 "placeholder": "Choisir la Puissance ou ajouter une nouvelle"
-                                            }' name="puissances[]">
+                                            }'
+                                            name="puissances[]">
                                             <option value="">Choisir la Puissance</option>
                                             @foreach ($puissances as $puissance)
                                                 <option value="{{ $puissance->id }}" @selected(in_array($puissance->id, $product->puissances->pluck('id')->toArray()))>
@@ -166,10 +176,11 @@
                                             data-hs-tom-select-options='{
                                                 "create": true,
                                                 "placeholder": "Choisir la Normes ou ajouter une nouvelle"
-                                            }' name="normes[]">
+                                            }'
+                                            name="normes[]">
                                             <option value="">Choisir la Normes</option>
                                             @foreach ($normes as $norme)
-                                                <option value="{{ $norme->id }}"  @selected(in_array($norme->id, $product->normes->pluck('id')->toArray()))>
+                                                <option value="{{ $norme->id }}" @selected(in_array($norme->id, $product->normes->pluck('id')->toArray()))>
                                                     {{ $norme->norme }}
                                                 </option>
                                             @endforeach
@@ -200,8 +211,8 @@
 
                                 <hr>
 
-                                <div class="col-12 py-0 my-0">
-                                    <h5 class="m-0 p-0">Rapports des tests</h5>
+                                <div class="py-0 my-0 col-12">
+                                    <h5 class="p-0 m-0">Rapports des tests</h5>
                                 </div>
 
                                 <div class="col-12">

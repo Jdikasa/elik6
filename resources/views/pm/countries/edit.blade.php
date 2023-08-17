@@ -6,34 +6,34 @@
 @section('titre', 'ELIK6 - Nouvel pays')
 
 @section('body')
-    <div class="content container-fluid pb-5">
-        <div class="page-header card card-lg">
-            <div class="text-star">
-                <h1>Pays</h1>
-                <div class="mt-2 page-breadcrumb d-none d-sm-flex align-items-center">
-                    <div class="">
-                        <nav aria-label="breadcrumb">
-                            <ol class="p-0 mb-0 breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.home') }}">
-                                        <i class="bi bi-house-fill"></i>
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.countries.index') }}">Pays</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">Ajouter un pays</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <div class="block-circle">
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
+<div class="page-header card card-lg">
+    <div class="text-star">
+        <h1>Pays</h1>
+        <div class="mt-2 page-breadcrumb d-none d-sm-flex align-items-center">
+            <div class="">
+                <nav aria-label="breadcrumb">
+                    <ol class="p-0 mb-0 breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('pm.home') }}">
+                                <i class="bi bi-house-fill"></i>
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('pm.countries.index') }}">Pays</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Ajouter un pays</li>
+                    </ol>
+                </nav>
             </div>
         </div>
+    </div>
+    <div class="block-circle">
+        <div class="circle-white"></div>
+        <div class="circle-white"></div>
+        <div class="circle-white"></div>
+    </div>
+</div>
+    <div class="pb-5 content container-fluid">
 
         <form class="row g-3 justify-content-center" method="POST"
             action="{{ route('pm.countries.update', ['country' => $certificat]) }}" enctype="multipart/form-data">
@@ -113,9 +113,9 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 mt-0" {!! !$certificat->sample_requirements ? 'style="display: none;"' : '' !!}>
+                            <div class="mt-0 col-12" {!! !$certificat->sample_requirements ? 'style="display: none;"' : '' !!}>
                                 <div class="element">
-                                    <div class="row border pb-3 mt-3 rounded mx-0 g-3">
+                                    <div class="pb-3 mx-0 mt-3 border rounded row g-3">
                                         <div class="col-12 col-lg-6">
                                             <label class="form-label">Type d'échantillon <sup class="text-danger">*</sup></label>
                                             <!-- Select -->
@@ -156,9 +156,9 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 mt-0" {!! $certificat->validite == 'A vie' ? 'style="display: none;"' : '' !!}>
+                            <div class="mt-0 col-12" {!! $certificat->validite == 'A vie' ? 'style="display: none;"' : '' !!}>
                                 <div class="element2 validite">
-                                    <div class="row border pb-3 mt-3 rounded mx-0 g-3">
+                                    <div class="pb-3 mx-0 mt-3 border rounded row g-3">
                                         <div class="col-12 col-lg-6">
                                             <label class="form-label">Nombre d'année <sup class="text-danger">*</sup></label>
                                             <input type="number" name="nombre_an" id="" class="form-control" placeholder="Nombre d'année" min="1"
@@ -214,14 +214,14 @@
                                 <input class="form-control" type="file" name="autre_doc" multiple>
                             </div>
                             <hr>
-                            <div class="col-12 mb-2">
+                            <div class="mb-2 col-12">
                                 @php
                                     $documets_fields = ['Rapport de test', 'Déclaration de conformité', 'Lettre de representation', 'Data sheet', 'Facture commerciale'];
                                     $documets = json_decode($certificat->documents, true);
                                 @endphp
                                 <label class="form-label">Documents à fournir <sup class="text-danger">*</sup></label>
                                 @foreach ($documets_fields as $key => $documets_field)
-                                    <div class="form-check form-switch mb-2">
+                                    <div class="mb-2 form-check form-switch">
                                         <input type="checkbox" id="document-{{ $key }}" name="documents[]"
                                             class="form-check-input rounded-pill" value="{{ __($documets_field) }}"
                                             @checked(in_array($documets_field, $documets)) />
@@ -231,7 +231,7 @@
                                 @endforeach
                             </div>
 
-                            <div class="col-12 mb-2">
+                            <div class="mb-2 col-12">
                                 <label class="form-label">Procedure <sup class="text-danger">*</sup></label>
                                 <div class="form-check form-switch">
                                     <input type="checkbox" id="is_mandatory" name="is_mandatory"
@@ -242,7 +242,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12 mb-2">
+                            <div class="mb-2 col-12">
                                 <label class="form-label">Ettiquetage <sup class="text-danger">*</sup></label>
                                 <div class="form-check form-switch">
                                     <input type="checkbox" id="ettiquetage" name="ettiquetage"
@@ -252,7 +252,7 @@
                                         for="ettiquetage">{{ __($certificat->ettiquetage ? 'Oui' : 'Non') }}</label>
                                 </div>
                             </div>
-                            <div class="col-12 mb-2">
+                            <div class="mb-2 col-12">
                                 <label class="form-label">Representation locale <sup class="text-danger">*</sup></label>
                                 <div class="form-check form-switch">
                                     <input type="checkbox" id="local_representation" name="local_representation"

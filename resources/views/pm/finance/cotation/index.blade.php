@@ -12,57 +12,57 @@
 
 @section('body')
 
-<!--breadcrumb-->
-<div class="page-header card card-lg">
-    <div class="text-star">
-        <h1>Liste des cotations</h1>
-        <div class="page-breadcrumb d-none d-sm-flex align-items-center">
-            <div class="">
-                <nav aria-label="breadcrumb">
-                    <ol class="p-0 mb-0 breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page">Cotations</li>
-                    </ol>
-                </nav>
-            </div>
-            <div class="ms-auto">
-                <a href="{{ route('pm.fin.cotations.create') }}" class="btn btn-light rounded-pill">
-                    <i class="bi bi-plus-circle-fill"></i>
-                    Créer une cotation
-                </a>
+    <!--breadcrumb-->
+    <div class="page-header card card-lg">
+        <div class="text-star">
+            <h1>Liste des cotations</h1>
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center">
+                <div class="">
+                    <nav aria-label="breadcrumb">
+                        <ol class="p-0 mb-0 breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Cotations</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="ms-auto">
+                    <a href="{{ route('pm.fin.cotations.create') }}" class="btn btn-light rounded-pill">
+                        <i class="bi bi-plus-circle-fill"></i>
+                        Créer une cotation
+                    </a>
+                </div>
             </div>
         </div>
+        <div class="block-circle">
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+        </div>
     </div>
-    <div class="block-circle">
-        <div class="circle-white"></div>
-        <div class="circle-white"></div>
-        <div class="circle-white"></div>
-    </div>
-</div>
-<!--end breadcrumb-->
-    <div class="content container-fluid pb-5">
+    <!--end breadcrumb-->
+    <div class="pb-5 content container-fluid">
 
-        <div class="row justify-content-end mb-3">
+        <div class="mb-3 row justify-content-end">
             <div class="col-lg">
                 <!-- Datatable Info -->
                 <div id="datatableCounterInfo" style="display: none;">
                     <div class="d-sm-flex justify-content-lg-end align-items-sm-center">
-                        <span class="d-block d-sm-inline-block fs-5 me-3 mb-2 mb-sm-0">
+                        <span class="mb-2 d-block d-sm-inline-block fs-5 me-3 mb-sm-0">
                             <span id="datatableCounter">0</span>
                             Selected
                         </span>
-                        <a class="btn btn-outline-danger btn-sm mb-2 mb-sm-0 me-2" href="javascript:;">
+                        <a class="mb-2 btn btn-outline-danger btn-sm mb-sm-0 me-2" href="javascript:;">
                             <i class="bi-trash"></i> Delete
                         </a>
-                        <a class="btn btn-white btn-sm mb-2 mb-sm-0 me-2" href="javascript:;">
+                        <a class="mb-2 btn btn-white btn-sm mb-sm-0 me-2" href="javascript:;">
                             <i class="bi-archive"></i> Archive
                         </a>
-                        {{-- <a class="btn btn-white btn-sm mb-2 mb-sm-0 me-2" href="javascript:;">
+                        {{-- <a class="mb-2 btn btn-white btn-sm mb-sm-0 me-2" href="javascript:;">
                   <i class="bi-upload"></i> Publish
                 </a>
-                <a class="btn btn-white btn-sm mb-2 mb-sm-0" href="javascript:;">
+                <a class="mb-2 btn btn-white btn-sm mb-sm-0" href="javascript:;">
                   <i class="bi-x-lg"></i> Unpublish
                 </a> --}}
                     </div>
@@ -91,7 +91,7 @@
                     </form>
                 </div>
 
-                <div class="d-grid d-sm-flex gap-2">
+                <div class="gap-2 d-grid d-sm-flex">
                     <!-- Dropdown -->
                     <div class="dropdown">
                         <button type="button" class="btn btn-white btn-sm dropdown-toggle w-100" id="usersExportDropdown"
@@ -102,30 +102,31 @@
                         <div class="dropdown-menu dropdown-menu-sm-end" aria-labelledby="usersExportDropdown">
                             <span class="dropdown-header">Options</span>
                             <a id="export-copy" class="dropdown-item" href="javascript:;">
-                                <img class="avatar avatar-xss avatar-4x3 me-2" src="{{ asset('assets/svg/illustrations/copy-icon.svg') }}"
-                                    alt="Image Description">
+                                <img class="avatar avatar-xss avatar-4x3 me-2"
+                                    src="{{ asset('assets/svg/illustrations/copy-icon.svg') }}" alt="Image Description">
                                 Copy
                             </a>
                             <a id="export-print" class="dropdown-item" href="javascript:;">
-                                <img class="avatar avatar-xss avatar-4x3 me-2" src="{{ asset('assets/svg/illustrations/print-icon.svg') }}"
-                                    alt="Image Description">
+                                <img class="avatar avatar-xss avatar-4x3 me-2"
+                                    src="{{ asset('assets/svg/illustrations/print-icon.svg') }}" alt="Image Description">
                                 Print
                             </a>
                             <div class="dropdown-divider"></div>
                             <span class="dropdown-header">Download options</span>
                             <a id="export-excel" class="dropdown-item" href="javascript:;">
-                                <img class="avatar avatar-xss avatar-4x3 me-2" src="{{ asset('assets/svg/brands/excel-icon.svg') }}"
-                                    alt="Image Description">
+                                <img class="avatar avatar-xss avatar-4x3 me-2"
+                                    src="{{ asset('assets/svg/brands/excel-icon.svg') }}" alt="Image Description">
                                 Excel
                             </a>
                             <a id="export-csv" class="dropdown-item" href="javascript:;">
                                 <img class="avatar avatar-xss avatar-4x3 me-2"
-                                    src="{{ asset('assets/svg/components/placeholder-csv-format.svg') }}" alt="Image Description">
+                                    src="{{ asset('assets/svg/components/placeholder-csv-format.svg') }}"
+                                    alt="Image Description">
                                 .CSV
                             </a>
                             <a id="export-pdf" class="dropdown-item" href="javascript:;">
-                                <img class="avatar avatar-xss avatar-4x3 me-2" src="{{ asset('assets/svg/brands/pdf-icon.svg') }}"
-                                    alt="Image Description">
+                                <img class="avatar avatar-xss avatar-4x3 me-2"
+                                    src="{{ asset('assets/svg/brands/pdf-icon.svg') }}" alt="Image Description">
                                 PDF
                             </a>
                         </div>
@@ -144,7 +145,7 @@
                             style="width: 15rem;">
                             <div class="card card-sm">
                                 <div class="card-body">
-                                    <div class="d-grid gap-3">
+                                    <div class="gap-3 d-grid">
                                         <!-- Form Switch -->
                                         <label class="row form-check form-switch" for="toggleColumn_order">
                                             <span class="col-8 col-sm-9 ms-0">
@@ -302,9 +303,11 @@
                                 <td class="table-column-ps-0">
                                     <a href="ecommerce-order-details.html">#{{ $cotation->id }}</a>
                                 </td>
-                                <td>{{ $cotation->certificat->country->name_fr ?? $cotation->certificat->country->name_en }}</td>
+                                <td>{{ $cotation->certificat->country->name_fr ?? $cotation->certificat->country->name_en }}
+                                </td>
                                 <td>
-                                    <a class="text-body" href="{{ route('pm.clients.show', $cotation->client) }}">{{ $cotation->client->societe->nom }}</a>
+                                    <a class="text-body"
+                                        href="{{ route('pm.clients.show', $cotation->client) }}">{{ $cotation->client->societe->nom }}</a>
                                 </td>
                                 <td>
                                     {{ $cotation->total }}$
@@ -318,9 +321,8 @@
                                 <td>
 
                                     <div class="gap-3 d-flex align-items-center fs-6">
-                                        <a href="{{ route('pm.fin.cotations.show', $cotation) }}"
-                                            class="text-primary" data-bs-toggle="tooltip"
-                                            data-bs-placement="bottom" title=""
+                                        <a href="{{ route('pm.fin.cotations.show', $cotation) }}" class="text-primary"
+                                            data-bs-toggle="tooltip" data-bs-placement="bottom" title=""
                                             data-bs-original-title="View detail" aria-label="Views">
                                             <i class="bi bi-eye-fill"></i>
                                         </a>
@@ -334,8 +336,8 @@
                                             data-bs-toggle="modal" data-bs-target="#exampleModal"
                                             data-id="{{ $cotation->id }}">
                                             <i class="bi bi-trash-fill" data-bs-toggle="tooltip"
-                                                data-bs-placement="bottom" title=""
-                                                data-bs-original-title="Delete" aria-label="Delete"></i>
+                                                data-bs-placement="bottom" title="" data-bs-original-title="Delete"
+                                                aria-label="Delete"></i>
                                         </a>
                                     </div>
                                 </td>
@@ -349,13 +351,13 @@
             <!-- Footer -->
             <div class="card-footer">
                 <div class="row justify-content-center justify-content-sm-between align-items-sm-center">
-                    <div class="col-sm mb-2 mb-sm-0">
+                    <div class="mb-2 col-sm mb-sm-0">
                         <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
                             <span class="me-2">Affichant : </span>
 
                             <!-- Select -->
                             <div class="tom-select-custom">
-                                <select id="datatableEntries" class="js-select form-select form-select-borderless w-auto"
+                                <select id="datatableEntries" class="w-auto js-select form-select form-select-borderless"
                                     autocomplete="off"
                                     data-hs-tom-select-options='{
                                         "searchInDropdown": false,

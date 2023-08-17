@@ -6,38 +6,38 @@
 @endsection
 
 @section('body')
-    <div class="content container-fluid pb-5">
-        <div class="page-header card card-lg">
-            <div class="text-star">
-                <h1>Affichage du Projet</h1>
-                <div class="page-breadcrumb d-none d-sm-flex align-items-center">
-                    <div class="mt-2">
-                        <nav aria-label="breadcrumb">
-                            <ol class="p-0 mb-0 breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.projects.index') }}">Projets</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">#{{ $project->id }}</li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <div class="ms-auto">
-                        <a href="{{ route('pm.projects.edit', $project) }}" class="btn btn-light rounded-pill btn-sm">
-                            <i class="bi-pencil-fill"></i>
-                            Modifier
-                        </a>
-                    </div>
+    <div class="page-header card card-lg">
+        <div class="text-star">
+            <h1>Affichage du Projet</h1>
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center">
+                <div class="mt-2">
+                    <nav aria-label="breadcrumb">
+                        <ol class="p-0 mb-0 breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.projects.index') }}">Projets</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">#{{ $project->id }}</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="ms-auto">
+                    <a href="{{ route('pm.projects.edit', $project) }}" class="btn btn-light rounded-pill btn-sm">
+                        <i class="bi-pencil-fill"></i>
+                        Modifier
+                    </a>
                 </div>
             </div>
-            <div class="block-circle">
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-            </div>
         </div>
+        <div class="block-circle">
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+        </div>
+    </div>
+    <div class="pb-5 content container-fluid">
 
         <div class="row">
             <div class="col-lg-8">
@@ -88,7 +88,7 @@
                         </div>
                         <!-- End Media -->
 
-                        <div class="d-flex mb-4">
+                        <div class="mb-4 d-flex">
                             <div class="flex-fill">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h5>Contact du client</h5>
@@ -139,7 +139,8 @@
                                     $random = rand(1, 4);
                                 @endphp
 
-                                @if (File::exists(public_path('/assets/vendor/flag-icon-css/flags/1x1/' . Str::lower($project->certificat->country->code) . '.svg')))
+                                @if (File::exists(public_path(
+                                            '/assets/vendor/flag-icon-css/flags/1x1/' . Str::lower($project->certificat->country->code) . '.svg')))
                                     <div class="flex-shrink-0">
                                         <div class="avatar avatar-lg avatar-circle">
                                             <img class="avatar-img"
@@ -166,81 +167,81 @@
                             <!-- End Media -->
 
                             <div class="row row-cols-3">
-                                <div class="flex-fill mb-4">
+                                <div class="mb-4 flex-fill">
                                     <div class="col d-flex justify-content-between align-items-center">
                                         <h5>Procedure</h5>
                                     </div>
                                     {{ $project->certificat->is_mandatory ? 'Obligatoire' : 'Volontaire' }}
                                 </div>
-                                <div class="col flex-fill mb-4">
+                                <div class="mb-4 col flex-fill">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h5>Type d'homologation</h5>
                                     </div>
                                     {{ $project->certificat->typeHomologation->nom }}
                                 </div>
-                                <div class="col flex-fill mb-4">
+                                <div class="mb-4 col flex-fill">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h5>Temps d'exécution</h5>
                                     </div>
                                     {{ $project->certificat->leadTime->lead_time }}
                                 </div>
-                                <div class="col flex-fill mb-4">
+                                <div class="mb-4 col flex-fill">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h5>Echantillon</h5>
                                     </div>
                                     {{ $project->certificat->sample_requirements ? 'Oui' : 'Non' }}
                                 </div>
 
-                                <div class="col flex-fill mb-4">
+                                <div class="mb-4 col flex-fill">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h5>Type d'échantillon</h5>
                                     </div>
                                     {{ $project->certificat->typesEchantillon->nom ?? 'aucune' }}
                                 </div>
 
-                                <div class="col flex-fill mb-4">
+                                <div class="mb-4 col flex-fill">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h5>Nombre d'échantillon</h5>
                                     </div>
                                     {{ $project->certificat->nombre_echantillon ?? '0' }}
                                 </div>
 
-                                <div class="col flex-fill mb-4">
+                                <div class="mb-4 col flex-fill">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h5>Etiquetage</h5>
                                     </div>
                                     {{ $project->certificat->ettiquetage ? 'Oui' : 'Non' }}
                                 </div>
 
-                                <div class="col flex-fill mb-4">
+                                <div class="mb-4 col flex-fill">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h5>Validité</h5>
                                     </div>
                                     {{ $project->certificat->validite }}
                                 </div>
 
-                                <div class="col flex-fill mb-4">
+                                <div class="mb-4 col flex-fill">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h5>Representation local</h5>
                                     </div>
                                     {{ $project->certificat->local_representation ? 'Oui' : 'Non' }}
                                 </div>
 
-                                <div class="col flex-fill mb-4">
+                                <div class="mb-4 col flex-fill">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h5>Representation local</h5>
                                     </div>
                                     {{ $project->certificat->local_representation ? 'Oui' : 'Non' }}
                                 </div>
 
-                                <div class="col flex-fill mb-4">
+                                <div class="mb-4 col flex-fill">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h5>Prix initial</h5>
                                     </div>
                                     {{ $project->certificat->total_cost }}$
                                 </div>
 
-                                <div class="col flex-fill mb-4">
+                                <div class="mb-4 col flex-fill">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h5>Prix de renouvellement</h5>
                                     </div>
@@ -309,7 +310,7 @@
                             </div>
                             <!-- End Media -->
 
-                            <div class="d-flex mb-2">
+                            <div class="mb-2 d-flex">
                                 <div class="flex-fill">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h5>Pays</h5>
@@ -334,7 +335,7 @@
                                 </div>
                             </div>
 
-                            <div class="d-flex mb-2">
+                            <div class="mb-2 d-flex">
                                 <div class="flex-fill">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h5>Contact</h5>
@@ -622,7 +623,7 @@
                     <!-- End Header -->
 
                     <!-- Body -->
-                    <div class="card-body mb-3" style="max-height: 400px; overflow-y:scroll">
+                    <div class="mb-3 card-body" style="max-height: 400px; overflow-y:scroll">
                         <!-- Step -->
                         <ul class="step step-icon-sm">
 
@@ -646,7 +647,8 @@
                                                 {{ $note->statut ? $note->statut->titre : $note->titre ?? 'Inconnu' }}</h5>
                                             <p class="mb-2 fs-5">{{ $note->note_text }}</p>
                                             <small class="mb-0">
-                                                Par {{ $note->user?->agent->prenom . ' ' . $note->user?->agent->nom }} <br>le
+                                                Par {{ $note->user?->agent->prenom . ' ' . $note->user?->agent->nom }}
+                                                <br>le
                                                 {{ $note->created_at->isoFormat('LL à H:m') }}
                                             </small>
                                         </div>
@@ -674,13 +676,13 @@
                     <!-- End Body -->
                     <div class="card-footer">
                         <ul class="step step-icon-sm">
-                            <li class="step-item mb-0">
+                            <li class="mb-0 step-item">
                                 <div class="step-content-wrapper">
                                     <div class="step-content">
                                         <h5 class="step-divide">Prochaine mis à jour
                                             {{ $project->update_date->diffForHumans() }}</h5>
                                         @if (today()->gte($project->update_date))
-                                            <a href="javascript:void(0)" class="btn btn-link px-0"
+                                            <a href="javascript:void(0)" class="px-0 btn btn-link"
                                                 data-bs-target="#update-modal" data-bs-toggle="modal">
                                                 <i class="bi bi-clock"></i>
                                                 Mettre à jour
@@ -703,7 +705,7 @@
                     <!-- End Header -->
 
                     <!-- Body -->
-                    <div class="card-body mb-3" style="max-height: 400px; overflow-y:scroll">
+                    <div class="mb-3 card-body" style="max-height: 400px; overflow-y:scroll">
                         @php
                             $revisionHistories = $project->revisionHistory->groupBy(function ($date) {
                                 return $date->created_at->format('Y-m-d');
@@ -798,7 +800,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body text-center">
+                <div class="text-center modal-body">
                     <h5>
                         <i class="bi bi-warning"></i>
                         Etez-vous sûr de vouloire supprimer cet équipement ?

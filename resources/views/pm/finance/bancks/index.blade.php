@@ -12,37 +12,38 @@
 
 @section('body')
 
-<!--breadcrumb-->
-<div class="page-header card card-lg">
-    <div class="text-star">
-        <h1>Banck</h1>
-        <div class="page-breadcrumb d-none d-sm-flex align-items-center">
-            <div class="mt-3">
-                <nav aria-label="breadcrumb">
-                    <ol class="p-0 mb-0 breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page">Banck</li>
-                    </ol>
-                </nav>
-            </div>
-            <div class="ms-auto">
-                <a href="javascript:void(0)" class="btn btn-light rounded-pill" data-bs-toggle="modal" data-bs-target="#new-banque">
-                    <i class="bi bi-plus-circle-fill"></i>
-                    Ajouter une banque
-                </a>
+    <!--breadcrumb-->
+    <div class="page-header card card-lg">
+        <div class="text-star">
+            <h1>Banck</h1>
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center">
+                <div class="mt-3">
+                    <nav aria-label="breadcrumb">
+                        <ol class="p-0 mb-0 breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Banck</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="ms-auto">
+                    <a href="javascript:void(0)" class="btn btn-light rounded-pill" data-bs-toggle="modal"
+                        data-bs-target="#new-banque">
+                        <i class="bi bi-plus-circle-fill"></i>
+                        Ajouter une banque
+                    </a>
+                </div>
             </div>
         </div>
+        <div class="block-circle">
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+        </div>
     </div>
-    <div class="block-circle">
-        <div class="circle-white"></div>
-        <div class="circle-white"></div>
-        <div class="circle-white"></div>
-    </div>
-</div>
-<!--end breadcrumb-->
-    <div class="content container-fluid pb-5">
+    <!--end breadcrumb-->
+    <div class="pb-5 content container-fluid">
 
         <div class="row justify-content-lg-center">
             <div class="col-lg-12">
@@ -62,7 +63,8 @@
                                                 <h3 class="card-title">{{ number_format($total, 2, '.', ',') }}$</h3>
 
                                                 <div class="d-flex align-items-center">
-                                                    <span class="d-block fs-6">{{ convertUnit($total_count) }} transac.</span>
+                                                    <span class="d-block fs-6">{{ convertUnit($total_count) }}
+                                                        transac.</span>
                                                     {{-- <span class="badge bg-soft-success text-success ms-2">
                                                         <i class="bi-graph-up"></i> 4.3%
                                                     </span> --}}
@@ -85,11 +87,12 @@
                                                 <h3 class="card-title">{{ number_format($this_year, 2, '.', ',') }}$</h3>
 
                                                 <div class="d-flex align-items-center">
-                                                    <span class="d-block fs-6">{{ convertUnit($this_year_count) }} transac.</span>
+                                                    <span class="d-block fs-6">{{ convertUnit($this_year_count) }}
+                                                        transac.</span>
                                                     @php
                                                         $difference = $this_year - $last_year;
                                                         $max = $this_year + $last_year;
-                                                        $percentage = ($this_year * 100) > 0 ? ($this_year * 100) / $max : 0;
+                                                        $percentage = $this_year * 100 > 0 ? ($this_year * 100) / $max : 0;
                                                     @endphp
                                                     @if ($difference == 0)
                                                         <span class="badge bg-soft-primary text-primary ms-2">
@@ -123,23 +126,24 @@
                                                 <h3 class="card-title">{{ number_format($last_year, 2, '.', ',') }}$</h3>
 
                                                 <div class="d-flex align-items-center">
-                                                    <span class="d-block fs-6">{{ convertUnit($last_year_count) }} transac.</span>
+                                                    <span class="d-block fs-6">{{ convertUnit($last_year_count) }}
+                                                        transac.</span>
                                                     @php
                                                         $difference = $last_year - $this_year;
                                                         $max = $last_year + $this_year;
-                                                        $percentage = ($last_year * 100) > 0 ? ($last_year * 100) / $max : 0;
+                                                        $percentage = $last_year * 100 > 0 ? ($last_year * 100) / $max : 0;
                                                     @endphp
                                                     @if ($difference == 0)
                                                         <span class="badge bg-soft-primary text-primary ms-2">
-                                                            <i class="bi-reception-0"></i> {{ round($percentage,2) }}%
+                                                            <i class="bi-reception-0"></i> {{ round($percentage, 2) }}%
                                                         </span>
                                                     @elseif($difference > 0)
                                                         <span class="badge bg-soft-success text-success ms-2">
-                                                            <i class="bi-graph-up"></i> {{ round($percentage,2) }}%
+                                                            <i class="bi-graph-up"></i> {{ round($percentage, 2) }}%
                                                         </span>
                                                     @else
                                                         <span class="badge bg-soft-danger text-danger ms-2">
-                                                            <i class="bi-graph-down"></i> {{ round($percentage,2) }}%
+                                                            <i class="bi-graph-down"></i> {{ round($percentage, 2) }}%
                                                         </span>
                                                     @endif
                                                 </div>
@@ -189,10 +193,11 @@
                                     <h4>
                                         {{ $compte->bank->nom }}
                                         @if ($compte->is_primary)
-                                            <span class="rounded-pill badge text-primary bg-soft-primary ms-1">Principale</span>
+                                            <span
+                                                class="rounded-pill badge text-primary bg-soft-primary ms-1">Principale</span>
                                         @endif
                                         {{-- @if ($compte->date_expir->lt(now())) --}}
-                                            {{-- <span class="text-danger small ms-1">{{ $compte->intitule }}</span> --}}
+                                        {{-- <span class="text-danger small ms-1">{{ $compte->intitule }}</span> --}}
                                         {{-- @endif --}}
                                     </h4>
                                 </div>
@@ -200,8 +205,9 @@
                                 <!-- Media -->
                                 <div class="d-flex">
                                     <div class="flex-shrink-0">
-                                        <img class="avatar avatar-sm bg-light p-2 text-black-50" src="{{ asset($compte->bank->image) }}"
-                                            alt="Image Description" style="min-width: 100px; font-size:10px">
+                                        <img class="p-2 avatar avatar-sm bg-light text-black-50"
+                                            src="{{ asset($compte->bank->image) }}" alt="Image Description"
+                                            style="min-width: 100px; font-size:10px">
                                     </div>
 
                                     <div class="flex-grow-1 ms-3">
@@ -249,7 +255,8 @@
 
                                             <div class="col-sm">
                                                 <div class="gap-2 d-flex justify-content-end align-items-center h-100">
-                                                    <a class="btn btn-white btn-sm text-nowrap" href="{{ route('pm.fin.comptes.show', $compte->id) }}">
+                                                    <a class="btn btn-white btn-sm text-nowrap"
+                                                        href="{{ route('pm.fin.comptes.show', $compte->id) }}">
                                                         <i class="bi-list-check me-1"></i> Détail
                                                     </a>
                                                     <a class="btn btn-white btn-sm edit-toggle text-nowrap"
@@ -309,7 +316,8 @@
                                     <select class="js-select form-select form-select-sm" autocomplete="off"
                                         data-hs-tom-select-options='{
                                             "placeholder": "Selectionnez une banque ..."
-                                        }' name="country_id" id="country_id">
+                                        }'
+                                        name="country_id" id="country_id">
                                         <option value="">Pays de la banque ...</option>
                                         @foreach ($countries as $country)
                                             <option value="{{ $country->id }}">
@@ -331,14 +339,15 @@
                             <!-- Form -->
                             <div class="mb-4">
                                 <label for="code_swift" class="form-label">Code SWIFT</label>
-                                <input type="text" class="form-control" name="code_swift"
-                                    id="code_swift" placeholder="Code SWIFT">
+                                <input type="text" class="form-control" name="code_swift" id="code_swift"
+                                    placeholder="Code SWIFT">
                             </div>
                             <!-- End Form -->
 
                             <div class="mb-4">
                                 <label class="form-check-label" for="image">Logo de la banque</label>
-                                <input type="file" name="image" class="form-control form-control-file" id="image">
+                                <input type="file" name="image" class="form-control form-control-file"
+                                    id="image">
                             </div>
 
                             <div class="gap-3 d-flex justify-content-end">
@@ -377,7 +386,8 @@
                                     <select class="js-selecte form-select form-select-sm" autocomplete="off"
                                         data-hs-tom-select-options='{
                                             "placeholder": "Selectionnez une banque..."
-                                        }' name="bank_id" id="">
+                                        }'
+                                        name="bank_id" id="">
                                         <option value="">Selectinnez une banque...</option>
                                         @foreach ($banks as $bank)
                                             <option value="{{ $bank->id }}">
@@ -465,7 +475,8 @@
                                     <select class="js-select form-select form-select-sm" autocomplete="off"
                                         data-hs-tom-select-options='{
                                             "placeholder": "Selectionnez une banque ..."
-                                        }' name="bank_id" id="bank_id">
+                                        }'
+                                        name="bank_id" id="bank_id">
                                         <option value="">Selectinnez une banque ...</option>
                                         @foreach ($banks as $bank)
                                             <option value="{{ $bank->id }}">
@@ -505,15 +516,16 @@
                             <!-- Form -->
                             <div class="mb-4">
                                 <label for="cardNumberLabel" class="form-label">Numéro du compte</label>
-                                <input type="text" class="form-control" name="num"
-                                    id="cardNumberLabel" placeholder="Numéro du compte">
+                                <input type="text" class="form-control" name="num" id="cardNumberLabel"
+                                    placeholder="Numéro du compte">
                             </div>
                             <!-- End Form -->
 
                             <!-- Custom Checkbox -->
                             <div class="mb-4 form-check">
                                 <input type="checkbox" name="is_primary" class="form-check-input" id="is_primary">
-                                <label class="form-check-label" for="is_primary">Faire de ce compte votre compte principale ?</label>
+                                <label class="form-check-label" for="is_primary">Faire de ce compte votre compte
+                                    principale ?</label>
                             </div>
                             <!-- End Custom Checkbox -->
 
@@ -570,8 +582,9 @@
             var deleteToggle = $('.delete-toggle');
             var deleteForm = $('#delete-form');
             deleteToggle.on('click', function() {
-                deleteForm.attr('action', '{{ route('pm.fin.comptes.destroy', '__id') }}'.replace('__id', $(
-                    this).data('id')));
+                deleteForm.attr('action', '{{ route('pm.fin.comptes.destroy', '__id') }}'.replace('__id',
+                    $(
+                        this).data('id')));
             });
 
             // edition
@@ -584,7 +597,8 @@
 
                 editForm.find("select[name=bank_id]").value = compte.bank_id;
 
-                editForm.find("select[name=bank_id] option[value=" + compte.bank_id + "]").attr('selected', true).trigger('change');
+                editForm.find("select[name=bank_id] option[value=" + compte.bank_id + "]").attr('selected',
+                    true).trigger('change');
 
                 // editForm.find("input[name=type_id][value=" + compte.type_id + "]").attr('checked', true);
                 editForm.find("input[name=nom]").val(compte.intitule);
@@ -592,7 +606,8 @@
                 // editForm.find("input[name=date_expir]").val(date_expir);
                 // editForm.find("input[name=code_cvv]").val(compte.code_cvv);
                 editForm.find("input[name=is_primary]").attr('checked', compte.is_primary ? true : false);
-                editForm.attr('action', '{{ route('pm.fin.comptes.update', '__id') }}'.replace('__id', compte
+                editForm.attr('action', '{{ route('pm.fin.comptes.update', '__id') }}'.replace('__id',
+                    compte
                     .id));
 
             });
@@ -641,7 +656,7 @@
                     var input = field.querySelectorAll('input')
                     // var select = field.querySelectorAll('select')
 
-                    $(input).each(function () {
+                    $(input).each(function() {
                         $(this).attr('name', $(this).attr('data-name'))
                     });
                     // $(select).each(function () {
