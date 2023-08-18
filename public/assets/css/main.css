@@ -279,9 +279,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
-    padding: 0!important;
+    /* width: 32px;
+    height: 32px; */
+    padding: 5px 10px !important;
     background: #edf0f6!important;
 }
 .btn-filter svg{
@@ -3320,10 +3320,11 @@ content .block-detail-task {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
+    /* width: 32px; */
     height: 32px;
     position: relative;
     border-radius: 5px;
+    padding: 0px 10px;
 }
 .back .tooltip-indicator{
     position: absolute;

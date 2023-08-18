@@ -6,22 +6,22 @@
 @section('titre', 'ELIK6 - Documents')
 
 @section('body')
-    <div class="content container-fluid pb-5">
+    <div class="mt-3 page-header card card-lg">
+        <div class="text-star">
+            <h1 class="mb-1">{{ Str::ucfirst($dossier->titre) }}</h1>
+            <p class="mb-1 text-white">Ref: {{ Str::ucfirst($dossier->reference) }}</p>
+            <p class="mb-0 text-white">Créé le : {{ $dossier->created_at->format('d/m/Y') }}</p>
+        </div>
+        <div class="block-circle">
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+        </div>
+    </div>
+    <div class="pb-5 content container-fluid">
         <a href="{{ route('pm.classeurs.show', $dossier->classeur) }}" class="back">
             <i class="bi bi-chevron-left"></i> Retour
         </a>
-        <div class="page-header card card-lg mt-3">
-            <div class="text-star">
-                <h1 class="mb-1">{{ Str::ucfirst($dossier->titre) }}</h1>
-                <p class="text-white mb-1">Ref: {{ Str::ucfirst($dossier->reference) }}</p>
-                <p class="text-white mb-0">Créé le : {{ $dossier->created_at->format('d/m/Y') }}</p>
-            </div>
-            <div class="block-circle">
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-            </div>
-        </div>
         <div class="row g-lg-3">
             @livewire('document.document', ['dossier' => $dossier])
         </div>
@@ -130,7 +130,7 @@
                                 </div>
 
                                 <div class="col-lg-12">
-                                    <label for="" class="mb-0 p-0">Tâche parent</label><span> (optionnel)</span>
+                                    <label for="" class="p-0 mb-0">Tâche parent</label><span> (optionnel)</span>
                                     <br>
                                     <small class="mb-2">(cette tâche sera une sous-tâche de celle que vous selectionnez
                                         ici)</small>
@@ -149,7 +149,7 @@
 
                             </div>
                             <div class="from-group row">
-                                <div class="col-lg-12 text-end my-3">
+                                <div class="my-3 col-lg-12 text-end">
                                     <button class="btn btn-add">Enregistrer</button>
                                 </div>
                             </div>

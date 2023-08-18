@@ -7,22 +7,22 @@
 
 @section('body')
 
-    <div class="content container-fluid  pb-5">
-        <!--breadcrumb-->
-        <div class="page-header card card-lg">
-            <div class="text-star">
-                <h1>Documents</h1>
-                <p class="text-white mt-2">
-                    Vous avez {{ $classeurs->count() }} classeurs, {{ $dossiers->count() }} dossiers et {{ $filesCount }}
-                    fichiers
-                </p>
-            </div>
-            <div class="block-circle">
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-            </div>
+    <!--breadcrumb-->
+    <div class="page-header card card-lg">
+        <div class="text-star">
+            <h1>Documents</h1>
+            <p class="mt-2 text-white">
+                Vous avez {{ $classeurs->count() }} classeurs, {{ $dossiers->count() }} dossiers et {{ $filesCount }}
+                fichiers
+            </p>
         </div>
+        <div class="block-circle">
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+        </div>
+    </div>
+    <div class="pb-5 content container-fluid">
 
         <div class="row g-lg-3">
             @livewire('document.document-index')
@@ -30,7 +30,8 @@
     </div>
 
     @foreach ($classeurs as $classeur)
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="detail-classeur-{{ $classeur->id }}" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="detail-classeur-{{ $classeur->id }}"
+            aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header" style="flex-direction: column;">
                 <div class="d-flex justify-content-between w-100">
                     <div class="text-star">
@@ -95,7 +96,8 @@
             </div> --}}
         </div>
 
-        <div class="modal fade" id="modal-edit-classeur-{{ $classeur->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modal-edit-classeur-{{ $classeur->id }}" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -116,7 +118,7 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <input type="text" class="form-control" placeholder="Denomination" name="titre"
-                                        value="{{ $classeur->titre }}" required>
+                                            value="{{ $classeur->titre }}" required>
                                     </div>
                                     <div class="col-lg-12">
                                         <textarea name="description" class="form-control" id="description" placeholder="description" cols="30"
@@ -124,8 +126,8 @@
                                     </div>
 
                                     <div class="col-lg-12 text-end">
-                                        <button class="btn btn-add" type="submit" data-bs-dismiss="modal" aria-label="Close"
-                                        wire:click.prevent="storeFonction()">Enregistrer</button>
+                                        <button class="btn btn-add" type="submit" data-bs-dismiss="modal"
+                                            aria-label="Close" wire:click.prevent="storeFonction()">Enregistrer</button>
                                     </div>
                                 </div>
                             </form>
@@ -135,8 +137,8 @@
             </div>
         </div>
 
-        <div class="modal fade" id="modal-delete-classeur-{{ $classeur->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="modal-delete-classeur-{{ $classeur->id }}" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-sm">
                 <div class="modal-content">
                     <div class="modal-body">
@@ -149,7 +151,8 @@
                             @csrf
                             @method('DELETE')
                             <div class="mb-3 block-btn d-flex justify-content-center">
-                                <a href="#" class="btn btn-cancel me-4" data-bs-dismiss="modal" aria-label="Close">Annuler</a>
+                                <a href="#" class="btn btn-cancel me-4" data-bs-dismiss="modal"
+                                    aria-label="Close">Annuler</a>
                                 <button class="btn btn-delete">Supprimer</button>
                             </div>
                         </form>

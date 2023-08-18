@@ -1,25 +1,25 @@
-<div class="mt-3 block-folder">
-    <ul class="mb-3 nav nav-tabs" id="myTab" role="tablist">
+<div class="mt-3 block-folder" wire:poll.keep-alive>
+    <ul class="mb-3 nav nav-tabs" id="myTab" role="tablist" wire:ignore>
         <li class="nav-item" role="presentation">
             <button class="nav-link {{ $pan == 1 ? 'active' : '' }}" id="profile-tab" data-bs-toggle="tab"
                 data-bs-target="#tache-{{ $tache->id }}" type="button" role="tab" aria-controls="tache"
-                aria-selected="true" wire:click='changeTab(1)'>Liste de objectifs</button>
+                aria-selected="true" wire:click='changeTab(1)' wire:ignore.self>Liste de objectifs</button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link {{ $pan == 2 ? 'active' : '' }}" id="home-tab" data-bs-toggle="tab"
                 data-bs-target="#comment-{{ $tache->id }}" type="button" role="tab" aria-controls="comment"
-                aria-selected="false" wire:click='changeTab(2)'>Commentaires</button>
+                aria-selected="false" wire:click='changeTab(2)' wire:ignore.self>Commentaires</button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link {{ $pan == 3 ? 'active' : '' }}" id="home-tab" data-bs-toggle="tab"
                 data-bs-target="#fichier-{{ $tache->id }}" type="button" role="tab" aria-controls="fichier"
-                aria-selected="false" wire:click='changeTab(3)'>Fichiers
+                aria-selected="false" wire:click='changeTab(3)' wire:ignore.self>Fichiers
                 partagés</button>
         </li>
     </ul>
-    <div class="tab-content" id="myTabContent">
+    <div class="tab-content" id="myTabContent" wire:ignore.self>
         <div class="tab-pane fade {{ $pan == 1 ? 'show active' : '' }}" id="tache-{{ $tache->id }}" role="tabpanel"
-            aria-labelledby="home-tab">
+            aria-labelledby="home-tab" wire:ignore.self>
             <h6 class="mt-4">
                 Progression de la tâche assignée
             </h6>
@@ -91,7 +91,7 @@
             </div>
         </div>
         <div class="tab-pane fade {{ $pan == 2 ? 'show active' : '' }}" id="comment-{{ $tache->id }}"
-            role="tabpanel" aria-labelledby="home-tab">
+            role="tabpanel" aria-labelledby="home-tab" wire:ignore.self>
             <div class="all-comments pe-3" style="overflow-y: auto; height: 35vh; overflow-x: hidden;">
                 <div class="block-scroll" id="tache-commentaires">
                     @if ($commentaires->count() == 0)
@@ -129,7 +129,7 @@
                     <textarea wire:model="message" class="form-control" rows="3" placeholder="Ajouter un commentaire..."></textarea>
                 </div>
                 <div class="text-end">
-                    <button type="submit" class="btn btn-primary mt-2">Envoyer</button>
+                    <button type="submit" class="mt-2 btn btn-primary">Envoyer</button>
                 </div>
             </form>
 
@@ -147,8 +147,8 @@
                     @foreach ($fichiers as $fichier)
                         <div class="file d-flex">
                             <a href="{{ files($fichier->document)->link }}" target="_blank">
-                                <div class="icon">
-                                    <i class="fi fi-rr-file"></i>
+                                <div class="icon" style="font-size: 35px !important">
+                                    <i class="bi bi-file-pdf"></i>
                                 </div>
                             </a>
                             <a href="{{ files($fichier->document)->link }}" target="_blank">
@@ -173,7 +173,7 @@
                     @enderror
                 </div>
                 <div class="text-end">
-                    <button type="submit" class="btn btn-primary mt-2">Ajouter</button>
+                    <button type="submit" class="mt-2 btn btn-primary">Ajouter</button>
                 </div>
             </form>
 

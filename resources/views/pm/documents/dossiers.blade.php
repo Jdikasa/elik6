@@ -7,22 +7,22 @@
 
 @section('body')
 
-    <div class="content container-fluid pb-5">
+    <div class="mt-3 page-header card card-lg">
+        <div class="text-star">
+            <h1 class="mb-1">{{ Str::ucfirst($classeur->titre) }}</h1>
+            <p class="mb-1 text-white">Ref: {{ $classeur->reference }}</p>
+            <p class="mb-0 text-white">Créé le : {{ $classeur->created_at->format('d/m/Y') }}</p>
+        </div>
+        <div class="block-circle">
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+        </div>
+    </div>
+    <div class="pb-5 content container-fluid">
         <a href="{{ route('pm.documents.index') }}" class="back">
             <i class="bi bi-chevron-left"></i> Retour
         </a>
-        <div class="page-header card card-lg mt-3">
-            <div class="text-star">
-                <h1 class="mb-1">{{ Str::ucfirst($classeur->titre) }}</h1>
-                <p class="text-white mb-1">Ref: {{ $classeur->reference }}</p>
-                <p class="text-white mb-0">Créé le : {{ $classeur->created_at->format('d/m/Y') }}</p>
-            </div>
-            <div class="block-circle">
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-            </div>
-        </div>
 
 
         <div class="row g-lg-3">
@@ -30,7 +30,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="modal-new-archive-dossier" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modal-new-archive-dossier" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -70,11 +71,11 @@
                                     <div class="row">
                                         <div class="col-12 col-lg-6">
                                             <input type="password" name="password" id="" placeholder="Mot de passe"
-                                                class="form-control mb-2">
+                                                class="mb-2 form-control">
                                         </div>
                                         <div class="col-12 col-lg-6">
                                             <input type="password" name="password_confirm" id=""
-                                                placeholder="Confirmez le mot de passe" class="form-control mb-2">
+                                                placeholder="Confirmez le mot de passe" class="mb-2 form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -90,7 +91,8 @@
     </div>
 
     @foreach ($dossiers as $dossier)
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="detail-dossier-{{ $dossier->id }}" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="detail-dossier-{{ $dossier->id }}"
+            aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header" style="flex-direction: column;">
                 <div class="d-flex justify-content-between w-100">
                     <div class="text-star">
@@ -155,7 +157,8 @@
             </div>
         </div>
 
-        <div class="modal fade" id="modal-edit-archive-dossier-{{ $dossier->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="modal-edit-archive-dossier-{{ $dossier->id }}" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -172,12 +175,12 @@
                                 <input type="hidden" name="classeur_id" id="" value="{{ $classeur->id }}">
                                 <div class="row g-3">
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" placeholder="Réference" name="reference"
-                                            value="{{ $dossier->reference }}" required>
+                                        <input type="text" class="form-control" placeholder="Réference"
+                                            name="reference" value="{{ $dossier->reference }}" required>
                                     </div>
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" placeholder="Denomination" name="titre"
-                                        value="{{ $dossier->titre }}" required>
+                                        <input type="text" class="form-control" placeholder="Denomination"
+                                            name="titre" value="{{ $dossier->titre }}" required>
                                     </div>
                                     <div class="col-lg-12">
                                         <textarea name="description" class="form-control" id="description" placeholder="description" cols="30"
@@ -187,23 +190,25 @@
                                         <div class="d-flex">
                                             <span>Confidentiel</span>
                                             <div class="form-check form-switch ms-3">
-                                                <input class="form-check-input" type="checkbox" value="{{ $dossier->confidentiel }}" role="switch"
-                                                    id="check-date" name="confidentiel" @checked($dossier->confidentiel)>
+                                                <input class="form-check-input" type="checkbox"
+                                                    value="{{ $dossier->confidentiel }}" role="switch" id="check-date"
+                                                    name="confidentiel" @checked($dossier->confidentiel)>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 password @if(!$dossier->confidentiel) d-none @endif">
+                                    <div class="col-12 password @if (!$dossier->confidentiel) d-none @endif">
                                         <div class="row">
                                             <div class="col-12 col-lg-6">
-                                                <input type="password" name="password" id="" placeholder="Mot de passe"
-                                                    class="form-control mb-1">
+                                                <input type="password" name="password" id=""
+                                                    placeholder="Mot de passe" class="mb-1 form-control">
                                                 @if ($dossier->confidentiel)
-                                                    <small style="font-size: 11px">Laissez vide pour concerver l'ancien</small>
+                                                    <small style="font-size: 11px">Laissez vide pour concerver
+                                                        l'ancien</small>
                                                 @endif
                                             </div>
                                             <div class="col-12 col-lg-6">
                                                 <input type="password" name="password_confirm" id=""
-                                                    placeholder="Confirmez le mot de passe" class="form-control mb-2">
+                                                    placeholder="Confirmez le mot de passe" class="mb-2 form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -218,8 +223,8 @@
             </div>
         </div>
 
-        <div class="modal fade" id="modal-delete-dossier-{{ $dossier->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="modal-delete-dossier-{{ $dossier->id }}" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-sm">
                 <div class="modal-content">
                     <div class="modal-body">
@@ -232,7 +237,8 @@
                             @csrf
                             @method('DELETE')
                             <div class="mb-3 block-btn d-flex justify-content-center">
-                                <a href="#" class="btn btn-cancel me-4" data-bs-dismiss="modal" aria-label="Close">Annuler</a>
+                                <a href="#" class="btn btn-cancel me-4" data-bs-dismiss="modal"
+                                    aria-label="Close">Annuler</a>
                                 <button class="btn btn-delete">Supprimer</button>
                             </div>
                         </form>
@@ -241,8 +247,8 @@
             </div>
         </div>
 
-        <div class="modal fade" id="modal-pass-dossier-{{ $dossier->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+        <div class="modal fade" id="modal-pass-dossier-{{ $dossier->id }}" tabindex="-1"
+            aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-sm">
                 <div class="modal-content">
                     <div class="modal-body">
@@ -257,9 +263,10 @@
                                 <input type="hidden" name="dossier_id" id="" value="{{ $dossier->id }}">
                                 <div class="col-12 position-relative">
                                     <label for="password" class="mb-3">Mot de passe</label>
-                                    <input type="password" class="form-control form-control-validation" placeholder="Mot de passe" name="password">
+                                    <input type="password" class="form-control form-control-validation"
+                                        placeholder="Mot de passe" name="password">
                                 </div>
-                                <div class="col-12 d-flex mt-2 justify-content-end">
+                                <div class="mt-2 col-12 d-flex justify-content-end">
                                     <button class="btn btn-add">{{ __('Accéder') }}</button>
                                 </div>
 
@@ -275,7 +282,7 @@
 @section('javascript')
     <script>
         $(document).ready(function() {
-            $('input[name=confidentiel]').on('change', function () {
+            $('input[name=confidentiel]').on('change', function() {
                 console.log(true);
                 if ($(this).val() == 0) {
                     $(this).val(1);
@@ -285,7 +292,7 @@
 
                 if ($(this).val() == 1) {
                     $('.password').removeClass('d-none');
-                }else{
+                } else {
                     $('.password').addClass('d-none');
                 }
             });
