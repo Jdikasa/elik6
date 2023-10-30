@@ -51,7 +51,7 @@
                             <div class="row g-3">
 
                                 <div class="col-12">
-                                    <label class="form-label">Non de l'équipement <sup class="text-danger">*</sup></label>
+                                    <label class="form-label">Nom de l'équipement <sup class="text-danger">*</sup></label>
                                     <input type="text" class="form-control" name="nom"
                                         placeholder="Non de l'équipement" required>
                                 </div>

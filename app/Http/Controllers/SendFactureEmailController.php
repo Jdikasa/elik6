@@ -11,12 +11,12 @@ class SendFactureEmailController extends Controller
 {
     public function sendEmail(Request $request)
     {
-
         try {
             $pdfFile = Storage::allFiles('tmp')[0];
 
             // Check if $pdfFile is null before passing it to the constructor
-            if (!$pdfFile) {
+
+            if ($pdfFile == "") {
                 // Log or display an error message
                 $content = json_encode([
                     'name' => 'Finance / facture',
@@ -35,6 +35,7 @@ class SendFactureEmailController extends Controller
             $email = new SendFactureEmail($pdfFile, $request->subject, $request->message);
             // Send the email message with the attachment
             Mail::to($request->email)->send($email);
+            
             // Delete the temporary PDF file from the server
             Storage::delete($pdfFile);
 
