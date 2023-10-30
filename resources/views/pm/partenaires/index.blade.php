@@ -250,16 +250,16 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="gap-3 d-flex align-items-center">
+                                    <a href="{{ route('pm.partenaires.show', $partenaire) }}" class="gap-3 d-flex align-items-center">
                                         @if ($partenaire->image)
-                                            <img src="{{ asset('storage') . '/app/public/' . $partenaire->image }}"
+                                            <img src="{{ image($partenaire->image) }}"
                                                 class="rounded-circle" width="44" height="44" alt="">
                                         @endif
 
                                         <div class="">
                                             <p class="mb-0">{{ $partenaire->nom }}</p>
                                         </div>
-                                    </div>
+                                    </a>
                                 </td>
                                 <td>{{ $partenaire->societe->nom }}</td>
                                 <td>

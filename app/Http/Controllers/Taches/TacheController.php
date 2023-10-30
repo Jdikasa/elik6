@@ -32,8 +32,8 @@ class TacheController extends Controller
      */
     public function index()
     {
-        $taches = Tache::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
-        $agents = Agent::all();
+        $taches = Tache::forCurrentTeam()->getTachesForCurrentUser()->orWhere('user_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
+        $agents = Agent::forCurrentTeam()->get();
 
         return view('pm.taches.index')->with([
             'agents' => $agents,
@@ -49,7 +49,7 @@ class TacheController extends Controller
     public function create(Request $request)
     {
         $data = [
-            'agents' => Agent::select('id', 'nom', 'prenom')->where('id', '!=', Auth::id())->get(),
+            'agents' => Agent::forCurrentTeam()->select('id', 'nom', 'prenom')->where('id', '!=', Auth::id())->get(),
             'priorites' => Priorite::select('id', 'titre')->get(),
         ];
         if ($request->doc != null) {
@@ -79,6 +79,7 @@ class TacheController extends Controller
                 'date_fin' => $request->date_fin,
                 'priorite_id' => $request->priorite_id,
                 'user_id' => Auth::user()->id,
+                'team_id' => Auth::user()->current_team_id,
                 'tache_statut_id' => '1',
             ]);
 

@@ -31,7 +31,7 @@ class Create extends Component
     public function mount()
     {
         $this->partenaires = Partenaire::forCurrentTeam()->get();
-        $this->noteEtapes = NoteEtape::forCurrentTeam()->get();
+        $this->noteEtapes = NoteEtape::get();
     }
 
     public function updatedCertificat()

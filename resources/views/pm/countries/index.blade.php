@@ -586,8 +586,7 @@
             var deleteForm = $('#delete-form');
 
             deleteToggle.on('click', function() {
-                deleteForm.attr('action', '{{ route('pm.countries.destroy', '__id') }}'.replace('__id', $(
-                    this).data('id')));
+                deleteForm.attr('action', '{{ route('pm.countries.destroy', '__id') }}'.replace('__id', $(this).data('id')));
             });
 
             var bulkDeleteForm = $('#bulk-delete-form');

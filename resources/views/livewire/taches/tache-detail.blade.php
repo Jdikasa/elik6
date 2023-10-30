@@ -30,9 +30,12 @@
                                     <a class="dropdown-item"
                                         href="{{ route('pm.taches.edit', $tache->id) }}">Modifier</a>
                                 </li>
-                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                <li>
+                                    <a class="dropdown-item" href="#" data-bs-toggle="modal"
                                         data-bs-target="#modal-add-objectifs-{{ $tache->id }}">Ajouter un
-                                        objectif</a></li>
+                                        objectif
+                                    </a>
+                                </li>
                                 <li>
                                     <a class="dropdown-item delete" href="#"
                                         data-id="{{ $tache->id }}">Supprimer</a>

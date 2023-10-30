@@ -55,14 +55,13 @@ class Tache extends Model
     }
 
 
-    public static function getTachesForCurrentUser()
+    public static function scopeGetTachesForCurrentUser($query)
     {
         $agent_id = Auth::user()->agent->id;
 
-        return self::whereHas('objectifs', function ($query) use ($agent_id) {
+        return $query->whereHas('objectifs', function ($query) use ($agent_id) {
             $query->where('agent_id', $agent_id);
-        })
-            ->get();
+        });
     }
 
 

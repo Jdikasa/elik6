@@ -39,9 +39,9 @@ class CountryController extends Controller
     public function create()
     {
         $countries = Country::select('id','name_fr')->get();
-        $typesHomologations = CertificatsTypesHomologation::forCurrentTeam()->select('id','nom')->get();
-        $typesEchantillons = CertificatsTypesEchantillon::forCurrentTeam()->select('id','nom')->get();
-        $leadTimes = CertificatsLeadsTime::forCurrentTeam()->select('id','lead_time')->get();
+        $typesHomologations = CertificatsTypesHomologation::select('id','nom')->get();
+        $typesEchantillons = CertificatsTypesEchantillon::select('id','nom')->get();
+        $leadTimes = CertificatsLeadsTime::select('id','lead_time')->get();
 
         return view('pm.countries.create')->with([
             'countries' => $countries,

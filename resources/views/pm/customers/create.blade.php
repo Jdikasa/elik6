@@ -170,7 +170,7 @@
                                 </a>
 
                             </div>
-                            <div id="addPhoneFieldTemplate" class="input-group-add-field" style="display: none;">
+                            <div id="addPhoneFieldTemplate" class="input-group-add-field d-flex align-items-center" style="display: none;">
                                 <div class="input-group">
                                     <input type="text" class="form-control" data-name="phone[]"
                                         placeholder="Téléphone" aria-label="Téléphone">

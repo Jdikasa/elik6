@@ -67,12 +67,12 @@
     </div>
     <!--end breadcrumb-->
     <div class="pb-5 content container-fluid">
-        @livewire('taches.index-tache')
-        @foreach ($taches as $key => $tache)
 
+        @livewire('taches.index-tache')
+
+        @foreach ($taches as $key => $tache)
             @livewire('taches.tache-detail', ['tache' => $tache], key($tache->id))
             @livewire('taches.add-tache-participant-modal', ['tache' => $tache], key($tache->id))
-
             @foreach ($tache->objectifs as $objectif)
                 @livewire('taches.edit-tache-participant-modal', ['objectif' => $objectif], key($objectif->id))
             @endforeach

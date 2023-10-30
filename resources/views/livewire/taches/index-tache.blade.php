@@ -71,7 +71,8 @@
                                                     <div class="tooltip-team">
                                                         {{ $objecif->agent?->prenom }}
                                                     </div>
-                                                    <img src="{{ imageOrDefault($objecif->agent?->image) }}" alt="image de profil {{ $objecif->agent?->prenom . ' ' . $objecif->agent?->nom }}">
+                                                    <img src="{{ imageOrDefault($objecif->agent?->image) }}"
+                                                        alt="image de profil {{ $objecif->agent?->prenom . ' ' . $objecif->agent?->nom }}">
                                                 </div>
                                             @endforeach
                                             <div class="user badge-plus" data-bs-toggle="modal"
@@ -133,63 +134,67 @@
         <div class="tab-pane fade {{ $tab == 2 ? 'show active' : '' }}" id="assign-tache" role="tabpanel"
             aria-labelledby="in-progress">
             <div class="row g-3">
-                @forelse ($newTaches ?? [] as $key => $tache)
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="pb-1 card card-table">
-                            <div class="block-taks task" style="border: none">
-                                <div
-                                    class="badge-task @if ($tache->priorite_id == 1) normal @elseif($tache->priorite_id == 2) urgent @else absolu @endif">
-                                    {{ $tache->priorite->titre }}
-                                </div>
-                                <div
-                                    class="badge-task @if ($tache->priorite_id == 1) normal @elseif($tache->priorite_id == 2) urgent @else absolu @endif">
-                                    {{ $tache->priorite->titre }}
-                                </div>
-                                <div class="block">{{ $tache->titre }}</div>
-                                <div class="row g-2">
-                                    <div class="col-12">
-                                        <div class="block-detail">
-                                            {{-- <h6>{{ $tache->tache }}</h6> --}}
-                                            <p>{{ "Une nouvelle tâche vous a été assignée, cliquez sur 'TRAITER' pour commencer le traitement " }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <span class="item-date">
-                                            Date debut
-                                        </span>
-                                        <p class="debute-task task-date"> {{ $tache->date_debut }}</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <span class="item-date">
-                                            Date fin
-                                        </span>
-                                        <p class="end-task task-date">{{ $tache->date_fin }}</p>
-                                    </div>
-                                    <div class="col-12">
+                <div class="mx-auto col-lg-12">
+                    <div class="card card-table">
+                        @forelse ($newTaches ?? [] as $key => $tache)
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="pb-1 card card-table tache-item">
+                                    <div class="block-taks task" style="border: none">
                                         <div
-                                            class="block-progress d-flex justify-content-between align-items-center">
-                                            <div class="progressBar">
-                                                <div class="move" style="width: {{ $tache->pourcentage }}%">
+                                            class="badge-task @if ($tache->priorite_id == 1) normal @elseif($tache->priorite_id == 2) urgent @else absolu @endif">
+                                            {{ $tache->priorite->titre }}
+                                        </div>
+                                        <div
+                                            class="badge-task @if ($tache->priorite_id == 1) normal @elseif($tache->priorite_id == 2) urgent @else absolu @endif">
+                                            {{ $tache->priorite->titre }}
+                                        </div>
+                                        <div class="row g-2">
+                                            <div class="block">{{ $tache->titre }}</div>
+                                            <div class="col-12">
+                                                <div class="block-detail">
+                                                    {{-- <h6>{{ $tache->tache }}</h6> --}}
+                                                    <p>
+                                                        {{ Str::limit(strip_tags($tache->description), 100) }}
+                                                    </p>
                                                 </div>
                                             </div>
-                                            <div class="pourcentage">
-                                                {{ $tache->pourcentage }}%
+                                            <div class="col-6">
+                                                <span class="item-date">
+                                                    Date debut
+                                                </span>
+                                                <p class="debute-task task-date"> {{ $tache->date_debut }}</p>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 d-flex justify-content-between">
-                                        <div class="block-user d-flex">
-                                            <div class="block-user d-flex">
-                                                @foreach ($tache->objectifs as $objecif)
-                                                    <div class="user">
-                                                        <span class="online"></span>
-                                                        <img src="{{ imageOrDefault($objecif->agent?->image) }}"
-                                                            alt="image de profil {{ $objecif->agent?->prenom . ' ' . $objecif->agent?->nom }}">
+                                            <div class="col-6">
+                                                <span class="item-date">
+                                                    Date fin
+                                                </span>
+                                                <p class="end-task task-date">{{ $tache->date_fin }}</p>
+                                            </div>
+                                            <div class="col-12">
+                                                <div
+                                                    class="block-progress d-flex justify-content-between align-items-center">
+                                                    <div class="progressBar">
+                                                        <div class="move"
+                                                            style="width: {{ $tache->pourcentage }}%">
+                                                        </div>
                                                     </div>
-                                                @endforeach
+                                                    <div class="pourcentage">
+                                                        {{ $tache->pourcentage }}%
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 d-flex justify-content-between">
+                                                <div class="block-user d-flex">
+                                                    <div class="block-user d-flex">
+                                                        @foreach ($tache->objectifs as $objecif)
+                                                            <div class="user">
+                                                                <span class="online"></span>
+                                                                <img src="{{ imageOrDefault($objecif->agent?->image) }}"
+                                                                    alt="image de profil {{ $objecif->agent?->prenom . ' ' . $objecif->agent?->nom }}">
+                                                            </div>
+                                                        @endforeach
 
-                                                {{-- <div class="user badge-plus" data-bs-toggle="modal"
+                                                        {{-- <div class="user badge-plus" data-bs-toggle="modal"
                                                         data-bs-target="#modal-add-participants-{{ $tache->id }}">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                             height="24" viewBox="0 0 24 24" fill="none"
@@ -202,18 +207,16 @@
                                                                 y2="12"></line>
                                                         </svg>
                                                     </div> --}}
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-sm btn-add"
+                                                    wire:click="updateStatut({{ $tache->id }})">Traiter</button>
                                             </div>
                                         </div>
-                                        <button class="btn btn-sm btn-add"
-                                            wire:click="updateStatut({{ $tache->id }})">Traiter</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                @empty
-                    <div class="mx-auto col-lg-12">
-                        <div class="card card-table">
+                        @empty
                             <div class="text-center col-12">
                                 <img src="{{ asset('assets/images/sad.gif') }}" alt="" class=""
                                     width="35px">
@@ -221,105 +224,124 @@
                                     Aucune tâche assignée
                                 </p>
                             </div>
-                        </div>
+                        @endforelse
                     </div>
-                @endforelse
+                </div>
             </div>
         </div>
 
         <div class="tab-pane fade {{ $tab == 3 ? 'show active' : '' }}" id="in-progress" role="tabpanel"
             aria-labelledby="in-progress">
             <div class="row g-3">
-                @forelse ($tacheEncours ?? [] as $key => $tache)
-                    <div class="col-lg-4 col-md-6 col-sm-6">
-                        <div class="pb-1 card card-table">
-                            <div class="block-taks task" style="border: none">
-                                <div
-                                    class="badge-task @if ($tache->priorite_id == 1) normal @elseif($tache->priorite_id == 2) urgent @else absolu @endif">
-                                    {{ $tache->priorite->titre }}
-                                </div>
-                                <div
-                                    class="badge-task @if ($tache->priorite_id == 1) normal @elseif($tache->priorite_id == 2) urgent @else absolu @endif">
-                                    {{ $tache->priorite->titre }}
-                                </div>
-                                <div class="block">{{ $tache->titre }}</div>
-                                <div class="row g-2">
-                                    <div class="col-12">
-                                        <div class="block-detail">
-                                            <p>{{ 'La Tâche est en cours ... ' }}
+                <div class="mx-auto col-lg-12">
+                    <div class="card card-table">
+                        @forelse ($tacheEncours ?? [] as $key => $tache)
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="pb-1 card card-table tache-item border">
+                                    <div class="block-taks task pt-0" style="border: none">
+                                        <small>Priorité</small>
+                                        <div class="badge-task @if ($tache->priorite_id == 1) normal @elseif($tache->priorite_id == 2) urgent @else absolu @endif">
+                                            {{ $tache->priorite->titre }}
                                         </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <span class="item-date">
-                                            Date debut
-                                        </span>
-                                        <p class="debute-task task-date"> {{ $tache->date_debut }}</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <span class="item-date">
-                                            Date fin
-                                        </span>
-                                        <p class="end-task task-date">{{ $tache->date_fin }}</p>
-                                    </div>
-                                    <div class="col-12">
-                                        <div
-                                            class="block-progress d-flex justify-content-between align-items-center">
-                                            <div class="progressBar">
+                                        <div class="row g-2">
+                                            <div class="block p-0">
+                                                {{ $tache->titre }}
+                                            </div>
+                                            <div class="col-12 p-0">
+                                                <div class="block-detail">
+                                                    <p>{{  Str::limit(strip_tags($tache->description), 50) }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 p-0">
+                                                <span class="item-date">
+                                                    Date debut
+                                                </span>
+                                                <p class="debute-task task-date"> {{ $tache->date_debut->format('d/m/Y') }}</p>
+                                            </div>
+                                            <div class="col-6 p-0">
+                                                <span class="item-date">
+                                                    Date fin
+                                                </span>
+                                                <p class="end-task task-date">{{ $tache->date_fin->format('d/m/Y') }}</p>
+                                            </div>
+                                            <div class="col-12 p-0">
+                                                <div
+                                                    class="block-progress d-flex justify-content-between align-items-center">
+                                                    <div class="progressBar">
 
-                                                <div class="move" style="width: {{ $tache->pourcentage }}%">
+                                                        <div class="move"
+                                                            style="width: {{ $tache->pourcentage }}%">
+                                                        </div>
+                                                    </div>
+                                                    <div class="pourcentage">
+                                                        {{ $tache->pourcentage }}%
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="pourcentage">
-                                                {{ $tache->pourcentage }}%
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 d-flex justify-content-between">
-                                        <div class="block-user d-flex">
-                                            @foreach ($tache->objectifs as $objecif)
-                                                <div class="user">
-                                                    <span class="online"></span>
-                                                    <img src="{{ imageOrDefault($objecif->agent?->image) }}"
-                                                        alt="image de profil {{ $objecif->agent?->prenom . ' ' . $objecif->agent?->nom }}">
+                                            <div class="col-12 d-flex justify-content-between p-0">
+                                                {{-- <div class="block-user d-flex">
+                                                    @foreach ($tache->objectifs as $objecif)
+                                                        <div class="user">
+                                                            <span class="online"></span>
+                                                            <img src="{{ imageOrDefault($objecif->agent?->image) }}"
+                                                                alt="image de profil {{ $objecif->agent?->prenom . ' ' . $objecif->agent?->nom }}">
+                                                        </div>
+                                                    @endforeach
+                                                </div> --}}
+                                                <div class="block-all-membres">
+                                                    @foreach ($tache->objectifs as $objectif)
+                                                        <div class="avatar-membre"
+                                                            @if ($tache->user_id == Auth::user()->id)
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#modal-edit-participants-{{ $tache->id }}"
+                                                            @endif
+                                                            >
+                                                            <img src="{{ imageOrDefault($objectif->agent?->image) }}" alt="image profil">
+                                                        </div>
+                                                    @endforeach
+                                                    @if ($tache->pourcentage < 100 && $tache->statut_id != '3' && $tache->user_id == Auth::user()->id)
+                                                        <div class="avatar-membre" data-bs-toggle="modal"
+                                                            data-bs-target="#modal-add-participants-{{ $tache->id }}">
+                                                            <i class="bi bi-plus"></i>
+                                                        </div>
+                                                    @else
+                                                    <div></div>
+                                                    @endif
                                                 </div>
-                                            @endforeach
-                                        </div>
-                                        <div class="block-options-sm d-flex align-items-center">
-                                            <a href="#" data-bs-toggle="offcanvas"
-                                                data-bs-target="#detail-task-{{ $tache->id }}"
-                                                data-bs-pan="{{ 1 }}" aria-controls="offcanvasRight">
-                                                <i class="fi fi-rr-eye"></i>
-                                            </a>
-                                            <a href="#" data-bs-toggle="offcanvas"
-                                                data-bs-target="#detail-task-{{ $tache->id }}"
-                                                data-bs-pan="{{ 2 }}">
-                                                <i class="fi fi-rr-clip"></i>
-                                            </a>
-                                            <a href="#" data-bs-toggle="offcanvas"
-                                                data-bs-target="#detail-task-{{ $tache->id }}"
-                                                data-bs-pan="{{ 3 }}">
-                                                <i class="fi fi-rr-comment-alt"></i>
-                                            </a>
+                                                <div class="block-options-sm d-flex align-items-center">
+                                                    <a href="#" data-bs-toggle="offcanvas"
+                                                        data-bs-target="#detail-task-{{ $tache->id }}"
+                                                        data-bs-pan="{{ 1 }}"
+                                                        aria-controls="offcanvasRight">
+                                                        <i class="bi bi-eye"></i>
+                                                    </a>
+                                                    <a href="javascript:void(0)" data-bs-toggle="offcanvas"
+                                                        data-bs-target="#detail-task-{{ $tache->id }}"
+                                                        data-bs-pan="{{ 2 }}">
+                                                        <i class="bi bi-clip"></i>
+                                                    </a>
+                                                    <a href="javascript:void(0)" data-bs-toggle="offcanvas"
+                                                        data-bs-target="#detail-task-{{ $tache->id }}"
+                                                        data-bs-pan="{{ 3 }}">
+                                                        <i class="bi bi-comment"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                @empty
-                    <div class="mx-auto col-lg-12">
-                        <div class="card card-table">
+                        @empty
                             <div class="text-center col-12">
                                 <img src="{{ asset('assets/images/sad.gif') }}" alt="" class=""
                                     width="35px">
-                                <p class="text-center para"
-                                    style="font-size: 14px; color: vafr(--colorParagraph)">
+                                <p class="text-center para" style="font-size: 14px; color: vafr(--colorParagraph)">
                                     Aucune tâche en cours
                                 </p>
                             </div>
-                        </div>
+                        @endforelse
                     </div>
-                @endforelse
+                </div>
             </div>
         </div>
 
@@ -339,7 +361,8 @@
                                     <div class="col-12">
                                         <div class="block-detail">
                                             <h6>{{ $tache->tache }}</h6>
-                                            <p>{{ 'La tâche est terminée.' }}
+                                            <p>
+                                                {{ Str::limit(strip_tags($tache->description), 100) }}
                                             </p>
                                         </div>
                                     </div>
@@ -348,8 +371,7 @@
                                         <p>{{ $tache->date_fin }}</p>
                                     </div>
                                     <div class="col-12">
-                                        <div
-                                            class="block-progress d-flex justify-content-between align-items-center">
+                                        <div class="block-progress d-flex justify-content-between align-items-center">
                                             <div class="progressBar">
                                                 <div class="move" style="width: {{ $tache->pourcentage }}%">
                                                 </div>
@@ -397,8 +419,7 @@
                             <div class="text-center col-12">
                                 <img src="{{ asset('assets/images/sad.gif') }}" alt="" class=""
                                     width="35px">
-                                <p class="text-center para"
-                                    style="font-size: 14px; color: vafr(--colorParagraph)">
+                                <p class="text-center para" style="font-size: 14px; color: vafr(--colorParagraph)">
                                     Aucune tâche terminée
                                 </p>
                             </div>
@@ -427,7 +448,7 @@
                                 <div class="row g-2">
                                     <div class="col-12">
                                         <div class="block-detail">
-                                            <p>{{ 'La Tâche est hors delais ... ' || Str::substr($tache->description, 0, 50) }}
+                                            <p>{{ Str::limit(strip_tags($tache->description), 100) }}</p>
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -443,8 +464,7 @@
                                         <p class="end-task task-date">{{ $tache->date_fin }}</p>
                                     </div>
                                     <div class="col-12">
-                                        <div
-                                            class="block-progress d-flex justify-content-between align-items-center">
+                                        <div class="block-progress d-flex justify-content-between align-items-center">
                                             <div class="progressBar">
 
                                                 <div class="move" style="width: {{ $tache->pourcentage }}%">
@@ -456,14 +476,29 @@
                                         </div>
                                     </div>
                                     <div class="col-12 d-flex justify-content-between">
-                                        <div class="block-user d-flex">
+                                        {{-- <div class="block-user d-flex">
                                             @foreach ($tache->objectifs as $objecif)
                                                 <div class="user">
                                                     <span class="online"></span>
                                                     <img src="{{ imageOrDefault($objecif->agent?->image) }}"
-                                                        alt="image de profil {{ $objecif->agent?->prenom . ' ' . $objecif->agent?->nom }}">
+                                                        alt="image de profil {{ $objecif->agent?->prenom . ' ' . $objecif->agent?->nom }}"
+                                                        title="{{ $objecif->agent?->prenom . ' ' . $objecif->agent?->nom }}">
                                                 </div>
                                             @endforeach
+                                        </div> --}}
+                                        <div class="block-all-membres">
+                                            @foreach ($tache->objectifs as $objectif)
+                                                <div class="avatar-membre" data-bs-toggle="modal"
+                                                    data-bs-target="#modal-edit-participants-{{ $tache->id }}">
+                                                    <img src="{{ imageOrDefault($objectif->agent?->image) }}" alt="image profil">
+                                                </div>
+                                            @endforeach
+                                            @if ($tache->pourcentage < 100 && $tache->statut_id != '3')
+                                                <div class="avatar-membre" data-bs-toggle="modal"
+                                                    data-bs-target="#modal-add-participants-{{ $tache->id }}">
+                                                    <i class="bi bi-plus"></i>
+                                                </div>
+                                            @endif
                                         </div>
                                         <div class="block-options-sm d-flex align-items-center">
                                             <a href="#" data-bs-toggle="offcanvas"
@@ -493,8 +528,7 @@
                             <div class="text-center col-12">
                                 <img src="{{ asset('assets/images/sad.gif') }}" alt="" class=""
                                     width="35px">
-                                <p class="text-center para"
-                                    style="font-size: 14px; color: vafr(--colorParagraph)">
+                                <p class="text-center para" style="font-size: 14px; color: vafr(--colorParagraph)">
                                     Aucune tâche hors delais
                                 </p>
                             </div>

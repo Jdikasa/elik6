@@ -1255,7 +1255,6 @@
                             processData: false,
                             contentType: false,
                             success: function(data) {
-                                console.log(data)
 
                                 $('#layer-main-wrap').addClass('done');
                                 const myModal = new bootstrap.Modal('#email-modal', {

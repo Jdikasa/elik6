@@ -3,14 +3,14 @@
 namespace App\Http\Livewire\Taches;
 
 use App\Models\Tache;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class IndexTache extends Component
 {
-    public $taches;
+    public $taches = [];
     public $assignees;
-    public $tab;
+    public $tab = 1;
     public $newTaches;
     public $tacheEncours;
     public $horsDelais;
@@ -19,17 +19,6 @@ class IndexTache extends Component
 
     protected $listeners = ['reloadComponent' => '$refresh'];
 
-    public function mount()
-    {
-        if (Auth::user()->id == 1) {
-            # code...
-            $this->tab = 1;
-        } else {
-            # code...
-            $this->tab = 2;
-        }
-
-    }
     public function refresh()
     {
         $this->reset();
@@ -51,10 +40,12 @@ class IndexTache extends Component
         }
         $this->tab = 3;
     }
+
     public function changeTab($value)
     {
         $this->tab = $value;
     }
+
     public function render()
     {
         switch ($this->tab) {
@@ -77,19 +68,20 @@ class IndexTache extends Component
                 # code...
                 break;
         }
-        if (Auth::user()->id == 1) {
+
+        // if (Auth::user()->id == 1) {
             # code...
-            $taches = Tache::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
+            $taches = Tache::forCurrentTeam()->where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
             $this->taches = $taches;
-        } else {
+        // } else {
             # code...
-            $assignees = Tache::getTachesForCurrentUser();
+            $assignees = Tache::forCurrentTeam()->getTachesForCurrentUser()->get();
             $this->assignees = $assignees;
             $this->newTaches = $this->assignees->where('tache_statut_id', '1')->sortByDesc('id');
             $this->tacheEncours = $this->assignees->where('tache_statut_id', '2')->sortByDesc('id');
             $this->endTaches = $this->assignees->where('tache_statut_id', '3')->sortByDesc('id');
             $this->horsDelais = $this->assignees->where('tache_statut_id', '4')->sortByDesc('id');
-        }
+        // }
 
         return view('livewire.taches.index-tache');
     }
