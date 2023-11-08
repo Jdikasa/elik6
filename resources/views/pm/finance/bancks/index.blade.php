@@ -187,6 +187,12 @@
                             <h5 class="mb-0">Liste des comptes enregistrées</h5>
                         </li>
                         @forelse ($comptes as $compte)
+                            @php
+                                $total_net = $compte->factures->where('team_id', Auth::user()->currentTeam->id)->sum('total_net');
+                                $montant_recu = $compte->transactions->where('team_id', Auth::user()->currentTeam->id)->sum('montant');
+                                $montant_attent = $total_net - $montant_recu;
+                                $balance = $montant_recu;
+                            @endphp
                             <!-- Item -->
                             <li class="list-group-item">
                                 <div class="mb-2">
@@ -248,7 +254,7 @@
                                                     <div class="flex-grow-1">
                                                         <h6 class="mb-1 card-subtitle">Solde disponible</h6>
                                                         <h3 class="card-title">
-                                                            {{ number_format($compte->balance, 2, '.', ',') }}$</h3>
+                                                            {{ number_format($balance, 2, '.', ',') }}$</h3>
                                                     </div>
                                                 </div>
                                             </div>

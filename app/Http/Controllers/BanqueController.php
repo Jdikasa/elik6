@@ -15,8 +15,11 @@ class BanqueController extends Controller
     {
         $banks = Bank::forCurrentTeam()->select('id', 'nom')->get();
         $countries = Country::all();
+        
         $comptes = Compte::forCurrentTeam()->select('*')->get();
+
         $total = PayTransaction::forCurrentTeam()->sum('montant');
+
         $this_year = PayTransaction::whereYear('created_at', now()->year)
         ->where('team_id', Auth::user()->current_team_id)
         ->sum('montant');

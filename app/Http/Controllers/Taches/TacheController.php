@@ -59,7 +59,7 @@ class TacheController extends Controller
         } else {
             $data['document'] = null;
         }
-        return view('arsp.pages.taches.new-task', $data);
+        return view('pm.taches.new-task', $data);
     }
 
     /**

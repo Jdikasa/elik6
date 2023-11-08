@@ -21,15 +21,18 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $clients = Customer::forCurrentTeam()->whereMonth('created_at', now())->get();
+        // ->whereMonth('created_at', now())
+        $clients = Customer::forCurrentTeam()->get();
         $totalClients = $clients->count();
         $clientChartData = $this->chartData($clients);
 
-        $certificats = Certificat::forCurrentTeam()->whereHas('projects')->whereMonth('created_at', now())->get();
+        // ->whereMonth('created_at', now())
+        $certificats = Certificat::forCurrentTeam()->whereHas('projects')->get();
         $totalCertificats = $certificats->count();
         $certificatChartData = $this->chartData($certificats);
 
-        $projects = Project::forCurrentTeam()->whereMonth('created_at', now())->get();
+        // ->whereMonth('created_at', now())
+        $projects = Project::forCurrentTeam()->get();
         $totalProjects = $projects->count();
         $projectChartData = $this->chartData($projects);
         $projectStatuts = NoteEtape::forCurrentTeam()->get();
@@ -72,24 +75,14 @@ class HomeController extends Controller
 
         $projects = $projects->take(5);
 
-        $transactions = PayTransaction::forCurrentTeam()->whereMonth('created_at', now())->get();
+        // ->whereMonth('created_at', now())
+        $transactions = PayTransaction::forCurrentTeam()->get();
         $transactionMontant = $transactions->sum("montant");
         $transactionChartData = $this->transactionChartData($transactions);
         $transactionChartData2 = FacturesStatut::with('transactions:montant')->withCount('transactions')->get();
 
-        // $countries = Country::whereHas('certificat');
-        // $clients = $countries->map(function ($country) {
-        //     $object = new stdClass();
-        //     $object->coords = $country->action;
-        //     $object->name = $country->name_fr;
-        //     $object->reel = $country->customers->where('type_id', 3)->count();
-        //     $object->simple = $country->customers->where('type_id', 1)->count();
-        //     $object->potentiel = $country->customers->where('type_id', 2)->count();
-        //     $object->code = $country->code;
-        //     return $object;
-        // });
-
         $certificats = Certificat::forCurrentTeam()->with('country')->get();
+
         $clients = $certificats->map(function ($certificat) {
             $object = new stdClass();
             $object->coords = $certificat->country->action;
@@ -100,6 +93,7 @@ class HomeController extends Controller
             $object->code = $certificat->country->code;
             return $object;
         });
+        // dd($clients);
         $sumClient['reel'] = $clients->sum('reel');
         $sumClient['simple'] = $clients->sum('simple');
         $sumClient['potentiel'] = $clients->sum('potentiel');
@@ -126,13 +120,19 @@ class HomeController extends Controller
 
     public function chartData($collection)
     {
-        $data = $collection->map(function ($data) {
+        $data = $collection->groupBy(function($data){
+            return $data->created_at->isoFormat('DD MMM');
+        })
+        ->map(function ($data, $month) {
+            // dd($data);
             return [
-                'label' => $data->created_at->isoFormat('DD MMM'),
-                'data' => 1,
+                'label' => $month,
+                'data' => $data->count(),
             ];
         })->groupBy('label');
 
+        $data->flatten();
+        
         $labels = $data->map(function ($label, $key) {
             return $key;
         })->flatten()->toArray();

@@ -138,12 +138,7 @@ class CustomerController extends Controller
                 'message' => 'L\'ajout du client a échoué ! ' . $th->message,
             ]);
 
-            session()->flash(
-                'session',
-                $content
-            );
-
-            return redirect()->back();
+            // return redirect()->back();
         }
 
         session()->flash(
@@ -342,12 +337,12 @@ class CustomerController extends Controller
                 'message' => 'La modification du client a échoué !',
             ]);
 
-            session()->flash(
-                'session',
-                $content
-            );
+            // session()->flash(
+            //     'session',
+            //     $content
+            // );
 
-            return redirect()->back();
+            // return redirect()->back();
         }
 
         session()->flash(

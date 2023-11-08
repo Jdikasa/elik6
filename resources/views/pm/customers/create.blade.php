@@ -170,7 +170,8 @@
                                 </a>
 
                             </div>
-                            <div id="addPhoneFieldTemplate" class="input-group-add-field d-flex align-items-center" style="display: none;">
+
+                            <div id="addPhoneFieldTemplate" class="input-group-add-field d-flex align-items-center gap-2" style="display: none !important;">
                                 <div class="input-group">
                                     <input type="text" class="form-control" data-name="phone[]"
                                         placeholder="Téléphone" aria-label="Téléphone">
@@ -196,10 +197,11 @@
                                     </div>
                                 </div>
 
-                                <a class="js-delete-field input-group-add-field-delete" href="javascript:;">
-                                    <i class="bi-x"></i>
+                                <a class="js-delete-field input-group-add-field-delete btn btn-light btn-sm border-danger" href="javascript:;">
+                                    <i class="bi bi-trash"></i>
                                 </a>
                             </div>
+
                             <div class="col-12">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="0"
@@ -310,6 +312,10 @@
 
                         <div id="newPersonTemplate" style="display: none; position: relative;">
                             <hr>
+                            <a class="js-delete-field input-group-add-field-delete position-absolute btn btn-sm btn-light border-danger" href="javascript:;"
+                                style="top: 5px; right:5px;font-size: 16px;">
+                                <i class="bi-trash"></i>
+                            </a>
                             <div class="row g-3">
                                 <div class="col-sm-6">
                                     <label for="" class="form-label">Prénom</label>
@@ -379,10 +385,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a class="js-delete-field input-group-add-field-delete" href="javascript:;"
-                                style="top: 5px; right:5px;font-size: 25px;">
-                                <i class="bi-x"></i>
-                            </a>
+
                         </div>
                     </div>
                     <!-- Body -->

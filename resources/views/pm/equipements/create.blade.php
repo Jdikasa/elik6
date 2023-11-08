@@ -50,11 +50,11 @@
                         <div class="card-body">
                             <div class="row g-3">
 
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <label class="form-label">Nom de l'équipement <sup class="text-danger">*</sup></label>
                                     <input type="text" class="form-control" name="nom"
                                         placeholder="Non de l'équipement" required>
-                                </div>
+                                </div> --}}
 
                                 <div class="col-12">
                                     <label class="form-label">Type de l'équipement <sup class="text-danger">*</sup></label>
@@ -75,6 +75,12 @@
                                         </select>
                                     </div>
                                     <!-- End Select -->
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label">Fabriquent <sup class="text-danger">*</sup></label>
+                                    <input type="text" class="form-control" name="nom"
+                                        placeholder="Fabriquent de l'équipement" required>
                                 </div>
 
                                 <div class="col-12">

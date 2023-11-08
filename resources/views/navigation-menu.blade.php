@@ -233,7 +233,7 @@
                     </li>
                 @endif
 
-                <li class="nav-item d-none d-sm-inline-block">
+                {{-- <li class="nav-item d-none d-sm-inline-block">
                     <!-- Notification -->
                     <div class="dropdown">
                         <button type="button" class="btn btn-ghost-secondary btn-icon rounded-circle"
@@ -341,13 +341,13 @@
                                 <!-- Card Footer -->
                                 {{-- <a class="text-center card-footer p-0 pt-2" href="#">
                                     View all notifications <i class="bi-chevron-right"></i>
-                                </a> --}}
+                                </a> -}}
                                 <!-- End Card Footer -->
                             </div>
                         </div>
                     </div>
                     <!-- End Notification -->
-                </li>
+                </li> --}}
 
                 <!-- Settings Dropdown -->
                 <div class="relative ml-3">

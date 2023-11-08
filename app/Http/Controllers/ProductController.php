@@ -99,7 +99,7 @@ class ProductController extends Controller
             $product->marque_id = $marque_id;
             $product->modele_id = $modele_id;
             $product->description = $request->description;
-            $product->image = (new Image)->handle($request, 'image', 'products');
+            // $product->image = (new Image)->handle($request, 'image', 'products');
             $product->rapport_rf = (new File)->handle($request, 'rapport_rf', 'products');
             $product->rapport_safety = (new File)->handle($request, 'rapport_safety', 'products');
             $product->rapport_emc = (new File)->handle($request, 'rapport_emc', 'products');

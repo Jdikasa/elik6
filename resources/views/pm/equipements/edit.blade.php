@@ -52,11 +52,11 @@
                         <div class="card-body">
                             <div class="row g-3">
 
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <label class="form-label">Non de l'équipement <sup class="text-danger">*</sup></label>
                                     <input type="text" class="form-control" name="nom"
                                         placeholder="Non de l'équipement" required value="{{ $product->nom }}">
-                                </div>
+                                </div> --}}
 
                                 <div class="col-12">
                                     <label class="form-label">Type de l'équipement <sup class="text-danger">*</sup></label>
@@ -79,6 +79,12 @@
                                         </select>
                                     </div>
                                     <!-- End Select -->
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label">Fabriquant <sup class="text-danger">*</sup></label>
+                                    <input type="text" class="form-control" name="nom"
+                                        placeholder="Fabriquant de l'équipement" required value="{{ $product->nom }}">
                                 </div>
 
                                 <div class="col-12">

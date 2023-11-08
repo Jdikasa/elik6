@@ -51,16 +51,6 @@
 
                     <div id="navbarVerticalMenuPagesMenu">
 
-                        @can('view projects')
-                            <div class="nav-item">
-                                <a class="nav-link @if (Route::is('pm.projects.index') || Str::contains(route('pm.projects.index'), request()->segment(1))) active @endif"
-                                    href="{{ route('pm.projects.index') }}">
-                                    <i class="bi bi-stickies-fill nav-icon"></i>
-                                    <span class="nav-link-title">Projets</span>
-                                </a>
-                            </div>
-                        @endcan
-
                         @can('view customers')
                             <div class="nav-item">
                                 <a class="nav-link @if (Route::is('pm.clients.index') || Str::contains(route('pm.clients.index'), request()->segment(1))) active @endif"
@@ -101,12 +91,23 @@
                             </div>
                         @endcan
 
+                        @can('view projects')
+                            <div class="nav-item">
+                                <a class="nav-link @if (Route::is('pm.projects.index') || Str::contains(route('pm.projects.index'), request()->segment(1))) active @endif"
+                                    href="{{ route('pm.projects.index') }}">
+                                    <i class="bi bi-stickies-fill nav-icon"></i>
+                                    <span class="nav-link-title">Projets</span>
+                                </a>
+                            </div>
+                        @endcan
+
                     </div>
 
                     @if (Auth::user()->can('view finance') ||
                             Auth::user()->can('view tasks') ||
                             Auth::user()->can('manage human ressources'))
-                        <span class="mt-2 dropdown-header">Finance, Tâches & RH</span>
+                            {{-- , Tâches --}}
+                        <span class="mt-2 dropdown-header">Finance & RH</span>
                         <small class="bi-three-dots nav-subtitle-replacer"></small>
                     @endif
 
@@ -152,7 +153,7 @@
                         </div>
                     @endcan
 
-                    @can('view tasks')
+                    {{-- @can('view tasks')
                         <div class="nav-item">
                             <a class="nav-link @if (Route::is('pm.taches.index') || Str::contains(route('pm.taches.index'), request()->segment(2))) active @endif"
                                 href="{{ route('pm.taches.index') }}">
@@ -160,7 +161,7 @@
                                 <span class="nav-link-title">Tâches</span>
                             </a>
                         </div>
-                    @endcan
+                    @endcan --}}
 
                     @can('manage human ressources')
                         <div class="nav-item">

@@ -1,6 +1,6 @@
-@extends('arsp.layouts.master')
+@extends('pm.layouts.master')
 
-@section('styles')
+{{-- @section('styles')
     <link rel="stylesheet" href="{{ asset('vendor/select2/dist/css/select2.min.css') }}">
     <script src="{{ asset('vendor/tinymce/js/tinymce/tinymce.min.js?v1') }}"></script>
     <style>
@@ -63,36 +63,43 @@
             object-fit: cover;
         }
     </style>
-@endsection
+@endsection --}}
 
-@section('content')
-    <div class="container-fluid px-lg-4">
-        <a href="{{ url()->previous()}}" class="back">
-            <i class="fi fi-rr-angle-left"></i>
-            <div class="tooltip-indicator">
-                Retour
-            </div>
-        </a>
-        <div class="mb-2 row">
-            
-            <div class="col-12">
-                <nav aria-label="breadcrumb">
-                    <ol class="mb-2 breadcrumb breadcrumb-no-gutter">
-                        <li class="breadcrumb-item">
-                            <a class="breadcrumb-link" href="{{ route('arsp.home') }}">
-                                <i class="fi fi-sr-apps fi-sr me-2"></i>
-                                Tableau de bord
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a class="breadcrumb-link" href="{{ route('arsp.taches.index') }}">Gestion des tâches</a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page">Nouvelle tâche</li>
+@section('body')
 
-                    </ol>
-                </nav>
+    <div class="page-header card card-lg">
+        <div class="text-star">
+            <h1>Nouvelle tâches</h1>
+            {{-- <p class="mb-0">
+                {{ Auth::user()->name . ', ' }} vous avez
+                {{== $taches->count() }} créées
+            </p> --}}
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center">
+                <div class="mt-3">
+                    <nav aria-label="breadcrumb">
+                        <ol class="p-0 mb-0 breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.taches.index') }}">
+                                    Gestion de tâches
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Nouvelle tâches</li>
+                        </ol>
+                    </nav>
+                </div>
             </div>
         </div>
+        <div class="block-circle">
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+        </div>
+    </div>
+
+    <div class="pb-5 content container-fluid">
 
         <div class="row">
             <div class="col-lg-12">
@@ -105,7 +112,7 @@
                         </div>
                         <hr>
                     @endif
-                    <form action="{{ route('arsp.taches.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('pm.taches.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row g-lg-3 g-3">
                             <div class="col-lg-4">
