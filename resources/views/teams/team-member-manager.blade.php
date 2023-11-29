@@ -162,12 +162,12 @@
                                     <button class="ml-2 text-sm text-gray-400 underline"
                                         wire:click="manageRole('{{ $user->id }}')">
                                         {{-- {{ Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name }} --}}
-                                        {{ \Spatie\Permission\Models\Role::where('key', $user->membership->role)->first()->name }}
+                                        {{ \Spatie\Permission\Models\Role::where('key', $user->membership->role)->first()?->name }}
                                     </button>
                                 @elseif (\Spatie\Permission\Models\Role::where('team_id', Auth::user()->currentTeam?->id)->count())
                                     <div class="ml-2 text-sm text-gray-400">
                                         {{-- {{ Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name }} --}}
-                                        {{ \Spatie\Permission\Models\Role::where('key', $user->membership->role)->first()->name }}
+                                        {{ \Spatie\Permission\Models\Role::where('key', $user->membership->role)->first()?->name }}
                                     </div>
                                 @endif
 
