@@ -1,40 +1,40 @@
 @extends('pm.layouts.master')
 
 @section('body')
-    <div class="content container-fluid p- pb-5">
-        <div class="page-header card card-lg">
-            <div class="text-star">
-                <h1>Affichage du pays</h1>
-                <div class="page-breadcrumb d-none d-sm-flex align-items-center">
-                    <div class="mt-2">
-                        <nav aria-label="breadcrumb">
-                            <ol class="p-0 mb-0 breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="{{ route('pm.countries.index') }}">Pays</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    {{ $certificat->country->name_fr }}
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <div class="ms-auto">
-                        <a href="{{ route('pm.countries.edit', $certificat) }}" class="btn btn-light rounded-pill btn-sm">
-                            <i class="bi-pencil-fill"></i>
-                            Modifier
-                        </a>
-                    </div>
+    <div class="page-header card card-lg mb-3">
+        <div class="text-star">
+            <h1>Affichage du pays</h1>
+            <div class="page-breadcrumb d-none d-sm-flex align-items-center">
+                <div class="mt-2">
+                    <nav aria-label="breadcrumb">
+                        <ol class="p-0 mb-0 breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.home') }}"><i class="bi bi-house-fill"></i></a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('pm.countries.index') }}">Pays</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                {{ $certificat->country->name_fr }}
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="ms-auto">
+                    <a href="{{ route('pm.countries.edit', $certificat) }}" class="btn btn-light rounded-pill btn-sm">
+                        <i class="bi-pencil-fill"></i>
+                        Modifier
+                    </a>
                 </div>
             </div>
-            <div class="block-circle">
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-                <div class="circle-white"></div>
-            </div>
         </div>
+        <div class="block-circle">
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+            <div class="circle-white"></div>
+        </div>
+    </div>
+    <div class="content container-fluid pb-5">
 
         <div class="row">
             <div class="col-lg-8">
@@ -257,36 +257,35 @@
                         }'>
                         <thead class="thead-light">
                             <tr>
-                                <th>Projet</th>
-                                <th>Date soumi.</th>
-                                <th>Client</th>
-                                <th>Statut</th>
-                                <th>Prix</th>
-                                <th>Mis à jour</th>
+                                <th>Projet N°</th>
+                                <th>Non Client</th>
+                                <th>Date soumission</th>
+                                <th>Date cloture</th>
+                                <th>Durée</th>
+                                <th>Prochaine màj</th>
                             </tr>
                         </thead>
-
                         <tbody>
-                            @foreach ($projects as $project)
+                            @foreach ($projects as $projet)
                                 <tr>
                                     <td>
-                                        <a href="{{ route('pm.projects.show', $project) }}">#{{ $project->id }}</a>
-                                    </td>
-                                    <td>{{ $project->date_soumission->format('d/m/Y') }}</td>
-                                    <td class="text-wrap">
-                                        {{ $project->customer->societe->nom }}
+                                        <a href="{{ route('pm.projects.show', $projet) }}">#{{ $projet->id }}</a>
                                     </td>
                                     <td>
-                                        <span class="badge bg-soft-success text-success">
-                                            <span class="legend-indicator bg-success"></span>Paid
-                                        </span>
+                                        {{ $projet->customer->societe->nom ?? 'nulle' }}
                                     </td>
-                                    <td>{{ $project->prix ?? 0 }}$</td>
+                                    <td>{{ $projet->date_soumission?->isoFormat('ll') }}</td>
+                                    <td>{{ $projet->date_cloture?->isoFormat('ll') }}</td>
                                     <td>
-                                        {{ $project->update_date->format('d/m/Y') }}
+                                        {{ $projet->duree }}
+                                    </td>
+                                    <td>
+                                        {{ $projet->update_date?->isoFormat('ll') }}
                                     </td>
                                 </tr>
                             @endforeach
+
+
                         </tbody>
                     </table>
                 </div>
@@ -695,7 +694,7 @@
                                                 <span class="step-icon step-icon-soft-dark step-icon-pseudo"></span>
                                                 <div class="step-content">
                                                     <h5 class="mb-1">{{ $history->userResponsible()->name }} a ajouté
-                                                        cette équipement.</h5>
+                                                        ce pays.</h5>
                                                     <p class="mb-0 fs-5">
                                                         {{ \Carbon\Carbon::parse($history->newValue())->format('H:m:s') }}
                                                     </p>

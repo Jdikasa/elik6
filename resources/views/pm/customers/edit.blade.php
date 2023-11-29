@@ -283,6 +283,10 @@
                                 @foreach ($customer->personnes as $personne)
                                     <div style="position: relative;">
                                         <hr>
+                                        <a class="js-delete-field input-group-add-field-delete position-absolute btn btn-sm btn-light border-danger" href="javascript:;"
+                                            style="top: 5px; right:5px;font-size: 16px;">
+                                            <i class="bi-trash"></i>
+                                        </a>
                                         <div class="row g-3">
                                             <div class="col-sm-6">
                                                 <label for="" class="form-label">Prénom</label>
@@ -341,10 +345,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <a class="js-delete-field input-group-add-field-delete" href="javascript:;"
-                                            style="top: 5px; right:5px;font-size: 25px;">
-                                            <i class="bi-x"></i>
-                                        </a>
                                     </div>
                                 @endforeach
                             </div>

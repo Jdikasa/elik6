@@ -207,17 +207,17 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
+<body style="background: #FF96733D !important">
     <script src="{{ asset('assets/js/hs.theme-appearance.js') }}"></script>
 
-    <main id="content" role="main" class="main">
+    <main id="content" role="main" class="main" style="background: #FF9673 !important">
         <div class="top-0 position-fixed end-0 start-0 bg-img-start"
             style="height: 32rem; background-image: url({{ asset('assets/svg/components/card-6.svg') }});">
             <!-- Shape -->
             <div class="shape shape-bottom zi-1">
                 <svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                     viewBox="0 0 1921 273">
-                    <polygon fill="#fff" points="0,273 1921,273 1921,0 " />
+                    <polygon fill="#FF96733D" points="0,273 1921,273 1921,0 " />
                 </svg>
             </div>
             <!-- End Shape -->

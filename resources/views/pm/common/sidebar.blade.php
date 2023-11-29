@@ -198,7 +198,7 @@
                         </div>
                     @endcan
 
-                    @can('view settings')
+                    {{-- @can('view settings')
                         <span class="mt-2 dropdown-header">Parametrages</span>
                         <small class="bi-three-dots nav-subtitle-replacer"></small>
 
@@ -218,7 +218,7 @@
                                 <a class="nav-link " href="#">Fonctions</a>
                             </div>
                         </div>
-                    @endcan
+                    @endcan --}}
 
                 </div>
             </div>

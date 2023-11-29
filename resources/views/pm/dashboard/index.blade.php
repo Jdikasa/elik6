@@ -495,10 +495,10 @@
                                         <td>
                                             <a class="d-flex align-items-center" href="project.html">
                                                 @if (File::exists(public_path(
-                                                            '/assets/vendor/flag-icon-css/flags/1x1/' . Str::lower($project->certificat->country->code) . '.svg')))
+                                                            '/assets/vendor/flag-icon-css/flags/1x1/' . Str::lower($project->certificat?->country?->code) . '.svg')))
                                                     <div class="flex-shrink-0">
                                                         <img class="avatar avatar-sm"
-                                                            src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/' . Str::lower($project->certificat->country->code) . '.svg') }}"
+                                                            src="{{ asset('assets/vendor/flag-icon-css/flags/1x1/' . Str::lower($project->certificat?->country?->code) . '.svg') }}"
                                                             alt="Image Description">
                                                     </div>
                                                 @else
@@ -511,14 +511,14 @@
                                                 @endif
                                                 <div class="flex-grow-1 ms-3">
                                                     <span class="mb-0 d-block h5 text-inherit">
-                                                        {{ $project->certificat->country->name_fr ?? $projet->certificat->country->name_en }}
+                                                        {{ $project->certificat?->country?->name_fr ?? $projet->certificat?->country->name_en }}
                                                     </span>
                                                 </div>
                                             </a>
                                         </td>
                                         <td>
                                             <span class="h6">
-                                                {{ $project->customer->societe->nom ?? 'nulle' }}
+                                                {{ $project->customer?->societe->nom ?? 'nulle' }}
                                             </span>
                                         </td>
                                         <td>

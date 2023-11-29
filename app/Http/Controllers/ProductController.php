@@ -173,7 +173,7 @@ class ProductController extends Controller
             $content = json_encode([
                 'name' => 'Equipement',
                 'statut' => 'error',
-                'message' => 'L\'enregistrement de l\'équipement a échoué ! '.$th->message,
+                'message' => 'L\'enregistrement de l\'équipement a échoué ! ' . $th->message,
             ]);
             session()->flash(
                 'session',
@@ -225,7 +225,7 @@ class ProductController extends Controller
                 'dossier_id' => $dossier->id,
                 'libelle' => $doc_name,
                 'category_id' => 4,
-                'reference' => 'EQPMT/DOC/' . str_pad(Document::forCurrentTeam()->count()+1, 6, '0', STR_PAD_RIGHT),
+                'reference' => 'EQPMT/DOC/' . str_pad(Document::forCurrentTeam()->count() + 1, 6, '0', STR_PAD_RIGHT),
                 'type' => 3,
                 'document' => $doc_path,
                 'user_id' => Auth::user()->id,
@@ -310,85 +310,110 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        $type_id = $request->type_id;
-        $marque_id = $request->marque_id;
-        $modele_id = $request->modele_id;
+        try {
+            $type_id = $request->type_id;
+            $marque_id = $request->marque_id;
+            $modele_id = $request->modele_id;
 
-        if (!is_numeric($type_id)) {
-            $type = new ProductsType();
-            $type->nom = $type_id;
-            $type->save();
-            $type_id = $type->id;
-        }
-
-        if (!is_numeric($marque_id)) {
-            $marque = new ProductsMarque();
-            $marque->marque = $marque_id;
-            $marque->save();
-            $marque_id = $marque->id;
-        }
-
-        if (!is_numeric($modele_id)) {
-            $modele = new ProductsModel();
-            $modele->modele = $modele_id;
-            $modele->save();
-            $modele_id = $modele->id;
-        }
-
-        $product->nom = $request->nom;
-        $product->type_id = $request->type_id;
-        $product->marque_id = $request->marque_id;
-        $product->modele_id = $request->modele_id;
-        $product->description = $request->description;
-        $product->image = (new Image)->handle($request, 'image', 'products') ?? $product->image;
-        $product->rapport_rf = (new File)->handle($request, 'rapport_rf', 'products') ?? $product->rapport_rf;
-        $product->rapport_safety = (new File)->handle($request, 'rapport_safety', 'products') ?? $product->rapport_safety;
-        $product->rapport_emc = (new File)->handle($request, 'rapport_emc', 'products') ?? $product->rapport_emc;
-        $product->rapport_sar = (new File)->handle($request, 'rapport_sar', 'products') ?? $product->rapport_sar;
-        $product->declaration = (new File)->handle($request, 'declaration', 'products') ?? $product->declaration;
-        $product->autre_rapport = (new File)->handle($request, 'autre_rapport', 'products') ?? $product->autre_rapport;
-        $product->save();
-
-        $frequences = [];
-        $puissances = [];
-        $normes = [];
-
-        foreach ($request->frequences as $key => $value) {
-            if (!is_numeric($value)) {
-                $frequence = new BandesFrequence();
-                $frequence->frequence = $value;
-                $frequence->save();
-                array_push($frequences, $frequence->id);
-            } else {
-                array_push($frequences, $value);
+            if (!is_numeric($type_id)) {
+                $type = new ProductsType();
+                $type->nom = $type_id;
+                $type->save();
+                $type_id = $type->id;
             }
-        }
 
-        foreach ($request->puissances as $key => $value) {
-            if (!is_numeric($value)) {
-                $puissance = new Puissance();
-                $puissance->puisance = $value;
-                $puissance->save();
-                array_push($puissances, $puissance->id);
-            } else {
-                array_push($puissances, $value);
+            if (!is_numeric($marque_id)) {
+                $marque = new ProductsMarque();
+                $marque->marque = $marque_id;
+                $marque->save();
+                $marque_id = $marque->id;
             }
-        }
 
-        foreach ($request->normes as $key => $value) {
-            if (!is_numeric($value)) {
-                $norme = new Norme();
-                $norme->norme = $value;
-                $norme->save();
-                array_push($normes, $norme->id);
-            } else {
-                array_push($normes, $value);
+            if (!is_numeric($modele_id)) {
+                $modele = new ProductsModel();
+                $modele->modele = $modele_id;
+                $modele->save();
+                $modele_id = $modele->id;
             }
+
+            $product->nom = $request->nom;
+            $product->type_id = $request->type_id;
+            $product->marque_id = $request->marque_id;
+            $product->modele_id = $request->modele_id;
+            $product->description = $request->description;
+            $product->image = (new Image)->handle($request, 'image', 'products') ?? $product->image;
+            $product->rapport_rf = (new File)->handle($request, 'rapport_rf', 'products') ?? $product->rapport_rf;
+            $product->rapport_safety = (new File)->handle($request, 'rapport_safety', 'products') ?? $product->rapport_safety;
+            $product->rapport_emc = (new File)->handle($request, 'rapport_emc', 'products') ?? $product->rapport_emc;
+            $product->rapport_sar = (new File)->handle($request, 'rapport_sar', 'products') ?? $product->rapport_sar;
+            $product->declaration = (new File)->handle($request, 'declaration', 'products') ?? $product->declaration;
+            $product->autre_rapport = (new File)->handle($request, 'autre_rapport', 'products') ?? $product->autre_rapport;
+            $product->save();
+
+            $frequences = [];
+            $puissances = [];
+            $normes = [];
+
+            foreach ($request->frequences as $key => $value) {
+                if (!is_numeric($value)) {
+                    $frequence = new BandesFrequence();
+                    $frequence->frequence = $value;
+                    $frequence->save();
+                    array_push($frequences, $frequence->id);
+                } else {
+                    array_push($frequences, $value);
+                }
+            }
+
+            foreach ($request->puissances as $key => $value) {
+                if (!is_numeric($value)) {
+                    $puissance = new Puissance();
+                    $puissance->puisance = $value;
+                    $puissance->save();
+                    array_push($puissances, $puissance->id);
+                } else {
+                    array_push($puissances, $value);
+                }
+            }
+
+            foreach ($request->normes as $key => $value) {
+                if (!is_numeric($value)) {
+                    $norme = new Norme();
+                    $norme->norme = $value;
+                    $norme->save();
+                    array_push($normes, $norme->id);
+                } else {
+                    array_push($normes, $value);
+                }
+            }
+
+            $product->frequences()->sync($frequences);
+            $product->puissances()->sync($puissances);
+            $product->normes()->sync($normes);
+
+            $content = json_encode([
+                'name' => 'Equipement',
+                'statut' => 'success',
+                'message' => 'La modification de l\'équipement a réussi avec succès !',
+            ]);
+
+        } catch (\Throwable $th) {
+            $content = json_encode([
+                'name' => 'Equipement',
+                'statut' => 'error',
+                'message' => 'La modification de l\'équipement a échoué ! ' . $th->message,
+            ]);
+            session()->flash(
+                'session',
+                $content
+            );
+            return redirect()->back();
         }
 
-        $product->frequences()->sync($frequences);
-        $product->puissances()->sync($puissances);
-        $product->normes()->sync($normes);
+        session()->flash(
+            'session',
+            $content
+        );
 
         return redirect()->route('pm.products.index');
     }

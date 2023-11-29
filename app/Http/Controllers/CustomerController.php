@@ -271,7 +271,7 @@ class CustomerController extends Controller
     {
         try {
             $personnes = [];
-            for ($i = 0; $i < count($request->person_nom); $i++) {
+            for ($i = 0; $i < count($request->person_nom ?? []); $i++) {
                 if ($request->person_nom[$i]) {
                     $personne = new ContactsPeople;
                     $personne->nom = $request->person_nom[$i];
@@ -336,13 +336,6 @@ class CustomerController extends Controller
                 'statut' => 'error',
                 'message' => 'La modification du client a échoué !',
             ]);
-
-            // session()->flash(
-            //     'session',
-            //     $content
-            // );
-
-            // return redirect()->back();
         }
 
         session()->flash(
@@ -363,8 +356,9 @@ class CustomerController extends Controller
     {
         try {
             $customer = Customer::find($customer);
-            $ids = $customer->projects->pluck('id')->toArray();
-            Project::destroy($ids);
+            // $ids = $customer->projects->pluck('id')->toArray();
+            // Project::destroy($ids);
+            $customer->societe->delete();
             $customer->delete();
             $content = json_encode([
                 'name' => 'Pays',

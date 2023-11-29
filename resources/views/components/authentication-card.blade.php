@@ -9,8 +9,8 @@
                 {{ $slot }}
             </div>
         </div>
-        <div class="text-center position-relative zi-1">
-            <small class="mb-4 text-cap text-body">
+        <div class="text-center position-relative zi-1 text-white">
+            <small class="mb-4 text-cap text-bod text-white">
                 {{ __('Trusted by the world\'s best teams') }}
             </small>
 

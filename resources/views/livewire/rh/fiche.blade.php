@@ -568,10 +568,10 @@
                                                                     class="stretched-link"
                                                                     @if ($dossier->confidentiel) data-bs-toggle="modal" data-bs-target="#modal-pass-dossier-{{ $dossier->id }}" @endif>
                                                                     @if ($dossier->confidentiel)
-                                                                        <img src="{{ asset('assets/images/icons/lockedfolder-arsp.svg') }}"
+                                                                        <img src="{{ asset('assets/img/icons/lockedfolder-arsp.svg') }}"
                                                                             alt="" class="me-2">
                                                                     @else
-                                                                        <img src="{{ asset('assets/images/icons/folder-arsp.svg') }}"
+                                                                        <img src="{{ asset('assets/img/icons/folder-arsp.svg') }}"
                                                                             alt="" class="me-2">
                                                                     @endif
                                                                 </a>

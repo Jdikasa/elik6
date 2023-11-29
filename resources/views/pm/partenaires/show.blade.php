@@ -128,7 +128,7 @@
                                     </ul>
                                 </div>
                             @endif
-                            <div class="flex-fill">
+                            {{-- <div class="flex-fill">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h5>Prix du partenaire</h5>
                                 </div>
@@ -136,7 +136,7 @@
                                 <span class="mb-2 d-block text-body">
                                     {{ $partenaire->prix }} $
                                 </span>
-                            </div>
+                            </div> --}}
                         </div>
 
                         <div class="mb-2 d-flex">
@@ -194,8 +194,8 @@
                                         <div
                                             class="text-body px-0 @if ($loop->first) ps-0 @endif @if ($loop->last) pe-0 @endif ">
                                             <strong>Pays</strong> : {{ Str::ucfirst($modalite->country?->name_fr) }}<br>
-                                            <strong>Prix</strong> : {{ $modalite->prix }}$<br>
-                                            <strong>Prix renouvel.</strong> : {{ $modalite->renewal_price }}
+                                            <strong>Prix initial</strong> : {{ $modalite->prix }}$<br>
+                                            <strong>Prix renouvel.</strong> : {{ $modalite->renewal_price }}$
                                         </div>
                                     @endforeach
                                 </div>
@@ -232,40 +232,6 @@
                             </div>
                             <!-- End Datatable Info -->
                         </div>
-
-                        <!-- Nav Scroller -->
-                        {{-- <div class="js-nav-scroller hs-nav-scroller-horizontal">
-                            <span class="hs-nav-scroller-arrow-prev" style="display: none;">
-                                <a class="hs-nav-scroller-arrow-link" href="javascript:;">
-                                    <i class="bi-chevron-left"></i>
-                                </a>
-                            </span>
-
-                            <span class="hs-nav-scroller-arrow-next" style="display: none;">
-                                <a class="hs-nav-scroller-arrow-link" href="javascript:;">
-                                    <i class="bi-chevron-right"></i>
-                                </a>
-                            </span>
-
-                            <!-- Nav -->
-                            <ul class="nav nav-segment nav-fill">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="#">Toutes les projets</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" tabindex="-1">Projets en cours</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" tabindex="-1">Projet terminé</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link disabled" href="#" tabindex="-1"
-                                        aria-disabled="true">Unpaid</a>
-                                </li>
-                            </ul>
-                            <!-- End Nav -->
-                        </div> --}}
-                        <!-- End Nav Scroller -->
                     </div>
                     <!-- End Header -->
 
@@ -306,32 +272,35 @@
                             }'>
                             <thead class="thead-light">
                                 <tr>
-                                    <th>Projet</th>
-                                    <th>Date soumi.</th>
-                                    <th>Pays</th>
-                                    <th>Prix</th>
-                                    <th>Mis à jour</th>
+                                    <th>Projet N°</th>
+                                    <th>Non Client</th>
+                                    <th>Date soumission</th>
+                                    <th>Date cloture</th>
+                                    <th>Durée</th>
+                                    <th>Prochaine màj</th>
                                 </tr>
                             </thead>
-
                             <tbody>
-                                @foreach ($projects as $project)
+                                @foreach ($projects as $projet)
                                     <tr>
                                         <td>
-                                            <a href="{{ route('pm.projects.show', $project) }}">
-                                                #{{ $project->id }}
-                                            </a>
+                                            <a href="{{ route('pm.projects.show', $projet) }}">#{{ $projet->id }}</a>
                                         </td>
-                                        <td>{{ $project->date_soumission->format('d/m/Y') }}</td>
-                                        <td class="text-wrap">
-                                            {{ $project->certificat?->country?->name_fr }}
-                                        </td>
-                                        <td>{{ $project->prix ?? 0 }}$</td>
                                         <td>
-                                            {{ $project->update_date->format('d/m/Y') }}
+                                            {{ $projet->customer->societe->nom ?? 'nulle' }}
+                                        </td>
+                                        <td>{{ $projet->date_soumission?->isoFormat('ll') }}</td>
+                                        <td>{{ $projet->date_cloture?->isoFormat('ll') }}</td>
+                                        <td>
+                                            {{ $projet->duree }}
+                                        </td>
+                                        <td>
+                                            {{ $projet->update_date?->isoFormat('ll') }}
                                         </td>
                                     </tr>
                                 @endforeach
+
+
                             </tbody>
                         </table>
                     </div>
@@ -585,7 +554,7 @@
                                                 <span class="step-icon step-icon-soft-dark step-icon-pseudo"></span>
                                                 <div class="step-content">
                                                     <h5 class="mb-1">{{ $history->userResponsible()->name }} a ajouté
-                                                        cette équipement.</h5>
+                                                        ce partenaire.</h5>
                                                     <p class="mb-0 fs-5">
                                                         {{ \Carbon\Carbon::parse($history->newValue())->format('H:m:s') }}
                                                     </p>

@@ -597,7 +597,7 @@
                                             <div class="step-content-wrapper">
                                                 <span class="step-icon step-icon-soft-dark step-icon-pseudo"></span>
                                                 <div class="step-content">
-                                                    <h5 class="mb-1">{{ $history->userResponsible()->name }} a ajouté cette équipement.</h5>
+                                                    <h5 class="mb-1">{{ $history->userResponsible()->name }} a ajouté ce client.</h5>
                                                     <p class="mb-0 fs-5">{{ \Carbon\Carbon::parse($history->newValue())->format('H:m:s') }}</p>
                                                 </div>
                                             </div>

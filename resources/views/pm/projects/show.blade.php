@@ -53,14 +53,14 @@
                             <div
                                 class="avatar avatar-lg @if ($random == 1) avatar-soft-primary @elseif($random == 2) avatar-soft-dark @elseif($random == 3) avatar-soft-info @else avatar-soft-danger @endif  avatar-circle">
                                 <span class="avatar-initials">
-                                    {{ Str::upper($project->customer->societe->nom[0]) }}
+                                    {{ Str::upper($project->customer?->societe->nom[0] ?? 'I') }}
                                 </span>
                             </div>
 
                             <div class="mx-3 flex-grow-1">
                                 <span class="fs-6">CLIENT / SOCIETE</span>
                                 <div class="mb-1 d-flex">
-                                    <h3 class="mb-0 me-3">{{ $project->customer->societe?->nom }}</h3>
+                                    <h3 class="mb-0 me-3">{{ $project->customer?->societe?->nom ?? 'Inconnu' }}</h3>
                                 </div>
                                 {{-- <span class="fs-6">Enregistré {{ $project->created_at->diffForHumans() }}</span> --}}
                             </div>
@@ -74,11 +74,11 @@
                                     </button>
 
                                     <div class="mt-1 dropdown-menu" aria-labelledby="actionsDropdown">
-                                        <a class="dropdown-item" href="mailto:{{ $project->customer->adresse?->email }}">
+                                        <a class="dropdown-item" href="mailto:{{ $project->customer?->adresse?->email }}">
                                             <i class="bi-envelope dropdown-item-icon"></i> Email
                                         </a>
                                         <a class="dropdown-item"
-                                            href="tel:{{ json_decode($project->customer->adresse?->phone ?? '[]', true)[0]['num'] }}">
+                                            href="tel:{{ json_decode($project->customer?->adresse?->phone ?? '[]', true)[0]['num'] ?? '' }}">
                                             <i class="bi-telephone dropdown-item-icon"></i> Téléphoner
                                         </a>
                                     </div>
@@ -96,18 +96,20 @@
 
                                 <ul class="list-unstyled list-py-1 text-body">
                                     <li>
-                                        <i class="bi-at me-2"></i>{{ $project->customer->adresse?->email }}
+                                        <i class="bi-at me-2"></i>{{ $project->customer?->adresse?->email ?? 'Non defini' }}
                                     </li>
                                     <li class="d-flex">
                                         <i class="bi-phone me-2"></i>
                                         <div>
-                                            @foreach (collect(json_decode($project->customer->adresse?->phone ?? '[]', true)) as $phone)
+                                            @forelse (collect(json_decode($project->customer?->adresse?->phone ?? '[]', true)) as $phone)
                                                 {{-- <span class="legend-indicator bg-success"></span> --}}
-                                                {{ $phone['type'] . ': ' . $phone['num'] }}
+                                                {{ $phone['type'] . ': ' . $phone['num'] ?? 'non defini' }}
                                                 @if (!$loop->last)
                                                     <br>
                                                 @endif
-                                            @endforeach
+                                            @empty
+                                            Non defini
+                                            @endforelse
                                         </div>
 
                                     </li>
@@ -117,14 +119,19 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h5>Adresse du client</h5>
                                 </div>
-                                @if ($project->customer->adresse?->adresse_1)
+                                @if ($project->customer?->adresse?->adresse_1)
                                     <span class="mb-2 d-block text-body">
-                                        <i class="bi-map me-2"></i>{{ $project->customer->adresse?->adresse_1 }}
+                                        <i class="bi-map me-2"></i>{{ $project->customer?->adresse?->adresse_1 ?? 'Non defini' }}
                                     </span>
                                 @endif
-                                @if ($project->customer->adresse?->adresse_2)
+                                @if ($project->customer?->adresse?->adresse_2)
                                     <span class="d-block text-body">
-                                        <i class="bi-map me-2"></i>{{ $project->customer->adresse?->adresse_2 }}
+                                        <i class="bi-map me-2"></i>{{ $project->customer?->adresse?->adresse_2 ?? 'Non defini' }}
+                                    </span>
+                                @endif
+                                @if (!$project->customer?->adresse?->adresse_2 && !$project->customer?->adresse?->adresse_1)
+                                    <span class="mb-2 d-block text-body">
+                                        <i class="bi-map me-2"></i>{{ 'Non defini' }}
                                     </span>
                                 @endif
                             </div>

@@ -214,9 +214,9 @@ class CountryController extends Controller
     {
         $certificat = Certificat::find($certificat);
         $countries = Country::select('id','name_fr')->get();
-        $typesHomologations = CertificatsTypesHomologation::forCurrentTeam()->select('id','nom')->get();
-        $typesEchantillons = CertificatsTypesEchantillon::forCurrentTeam()->select('id','nom')->get();
-        $leadTimes = CertificatsLeadsTime::forCurrentTeam()->select('id','lead_time')->get();
+        $typesHomologations = CertificatsTypesHomologation::select('id','nom')->get();
+        $typesEchantillons = CertificatsTypesEchantillon::select('id','nom')->get();
+        $leadTimes = CertificatsLeadsTime::select('id','lead_time')->get();
 
         return view('pm.countries.edit')->with([
             'countries' => $countries,
