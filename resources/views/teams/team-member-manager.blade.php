@@ -38,14 +38,14 @@
                     </div>
 
                     <!-- Role -->
-                    @if (\Spatie\Permission\Models\Role::where('team_id', Auth::user()->currentTeam->id)->count() > 0)
+                    @if (\Spatie\Permission\Models\Role::where('team_id', Auth::user()->currentTeam?->id)->count() > 0)
                         <div class="col-span-6 lg:col-span-4" wire:poll.keep-alive>
                             <x-label for="role" value="{{ __('Role') }}" />
                             <x-input-error for="role" class="mt-2" />
 
                             <div
                                 class="relative z-0 mt-2 border border-gray-200 rounded-lg cursor-pointer dark:border-gray-700">
-                                @foreach (\Spatie\Permission\Models\Role::where('team_id', Auth::user()->currentTeam->id)->get() as $index => $role)
+                                @foreach (\Spatie\Permission\Models\Role::where('team_id', Auth::user()->currentTeam?->id)->get() as $index => $role)
                                     <button type="button"
                                         class="relative px-4 py-3 inline-flex w-full rounded-lg focus:z-10 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 {{ $index > 0 ? 'border-t border-gray-200 focus:border-none rounded-t-none' : '' }} {{ !$loop->last ? 'rounded-b-none' : '' }}"
                                         wire:click="$set('addTeamMemberForm.role', '{{ $role->key }}')">
@@ -158,13 +158,13 @@
                             <div class="flex items-center">
                                 <!-- Manage Team Member Role -->
                                 @if (Gate::check('addTeamMember', $team) &&
-                                        \Spatie\Permission\Models\Role::where('team_id', Auth::user()->currentTeam->id)->count())
+                                        \Spatie\Permission\Models\Role::where('team_id', Auth::user()->currentTeam?->id)->count())
                                     <button class="ml-2 text-sm text-gray-400 underline"
                                         wire:click="manageRole('{{ $user->id }}')">
                                         {{-- {{ Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name }} --}}
                                         {{ \Spatie\Permission\Models\Role::where('key', $user->membership->role)->first()->name }}
                                     </button>
-                                @elseif (\Spatie\Permission\Models\Role::where('team_id', Auth::user()->currentTeam->id)->count())
+                                @elseif (\Spatie\Permission\Models\Role::where('team_id', Auth::user()->currentTeam?->id)->count())
                                     <div class="ml-2 text-sm text-gray-400">
                                         {{-- {{ Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name }} --}}
                                         {{ \Spatie\Permission\Models\Role::where('key', $user->membership->role)->first()->name }}
@@ -205,7 +205,7 @@
             <x-input-error for="role" class="mt-2" />
 
             <div class="relative z-0 mt-1 border border-gray-200 rounded-lg cursor-pointer">
-                @foreach (\Spatie\Permission\Models\Role::where('team_id', Auth::user()->currentTeam->id)->get() as $index => $role)
+                @foreach (\Spatie\Permission\Models\Role::where('team_id', Auth::user()->currentTeam?->id)->get() as $index => $role)
                     <button type="button"
                         class="relative px-4 py-3 inline-flex w-full rounded-lg focus:z-10 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 {{ $index > 0 ? 'border-t border-gray-200 focus:border-none rounded-t-none' : '' }} {{ !$loop->last ? 'rounded-b-none' : '' }}"
                         wire:click="$set('currentRole', '{{ $role->key }}')">

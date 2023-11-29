@@ -165,44 +165,6 @@
                         wire:model.defer="addTeamMemberForm.description" />
                     <x-input-error for="description" class="mt-2" />
                 </div>
-
-                <!-- Permission -->
-                {{-- @if (\Spatie\Permission\Models\Permission::count() > 0)
-                    <div class="col-span-6 mb-4 lg:col-span-4">
-                        <x-label for="role" value="{{ __('Permission') }}" />
-                        <x-input-error for="role" class="mt-2" />
-
-                        <div class="pt-2 row">
-                            @php
-                                $permissionGoupe = \Spatie\Permission\Models\Permission::select('id', 'module_id', 'name')
-                                    ->get()
-                                    ->groupBy('module_id');
-                            @endphp
-                            @foreach ($permissionGoupe as $module => $permissions)
-                                <div class="col-span-3">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"
-                                            id="groupe-{{ $loop->iteration }}">
-                                        <x-label class="text-lg font-bold form-check-label"
-                                            for="groupe-{{ $loop->iteration }}"
-                                            value="{{ __(\App\Models\Module::find($module)->name) }}" />
-                                    </div>
-                                    @foreach ($permissions as $permission)
-                                        <div class="ml-4 form-check">
-                                            <input class="form-check-input" type="checkbox"
-                                                id="permission-{{ $loop->iteration }}" name="permissions[]"
-                                                wire:model="addTeamMemberForm.permissions"
-                                                value="{{ $permission->id }}">
-                                            <x-label class="form-check-label d-inline"
-                                                for="permission-{{ $loop->iteration }}"
-                                                value="{{ __($permission->name) }}" />
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif --}}
             </x-slot>
 
             <x-slot name="actions">

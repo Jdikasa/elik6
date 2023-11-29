@@ -774,11 +774,11 @@
                         <div class="d-block d-md-flex justify-content-md-between">
                             <div class="col-md-5">
                                 <!-- Logo -->
-                                @if (Auth::user()->currentTeam->teamInfo->logo)
+                                @if (Auth::user()->currentTeam?->teamInfo->logo)
                                     <img id="logoImg"
                                         class="mb-2 mx-md-0 avatar avatar-xl avatar-4x3 avatar-centered avatar-md-start"
-                                        src="{{ Auth::user()->currentTeam->teamInfo->logo }}"
-                                        alt="{{ Auth::user()->currentTeam->name }}" data-hs-theme-appearance="default">
+                                        src="{{ Auth::user()->currentTeam?->teamInfo->logo }}"
+                                        alt="{{ Auth::user()->currentTeam?->name }}" data-hs-theme-appearance="default">
                                 @endif
                                 {{-- <img id="logoImg" class="mb-2 avatar avatar-xl avatar-4x3 avatar-centere"
                                     src="{{ asset('assets/svg/logos/logo-light.svg') }}" alt="Image Description"

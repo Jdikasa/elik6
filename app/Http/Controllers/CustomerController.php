@@ -163,7 +163,7 @@ class CustomerController extends Controller
                     'departement_id' => Auth::user()->current_team_id,
                     'titre' => 'Classeur clients',
                     'team_id' => Auth::user()->current_team_id,
-                    'reference' => 'CLI/' . Str::upper(Str::replace(' ', '', Auth::user()->currentTeam->name)) . '/DOCS/' . str_pad(Auth::user()->current_team_id, 6, '0', STR_PAD_RIGHT),
+                    'reference' => 'CLI/' . Str::upper(Str::replace(' ', '', Auth::user()->currentTeam?->name)) . '/DOCS/' . str_pad(Auth::user()->current_team_id, 6, '0', STR_PAD_RIGHT),
                 ],
                 [
                     'description' => 'Classeur pour les documents des clients',

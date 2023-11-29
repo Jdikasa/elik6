@@ -728,7 +728,7 @@
                             <x-slot name="trigger">
                                 <button type="button" class="btn btn-outline btn-ghost-secondary rounded-pill"
                                     data-bs-toggle="dropdown" aria-expanded="false" data-bs-dropdown-animation>
-                                    {{ Auth::user()->currentTeam->name }}
+                                    {{ Auth::user()->currentTeam?->name }}
                                     <i class="bi bi-chevron-down ms-3"></i>
                                 </button>
                             </x-slot>
@@ -752,7 +752,7 @@
 
                                             <!-- Team Settings -->
                                             <x-dropdown-link
-                                                href="{{ route('teams.show', Auth::user()->currentTeam->id) }}"
+                                                href="{{ route('teams.show', Auth::user()->currentTeam?->id) }}"
                                                 class="dropdown-item">
                                                 <i class="bi bi-gear me-1"></i>
                                                 {{ __('Reglages de l\'entreprise') }}

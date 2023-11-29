@@ -188,7 +188,7 @@
                             <x-slot name="trigger">
                                 <span class="inline-flex rounded-md">
                                     <button type="button" class="btn btn-ghost-secondary btn-ico rounded-pill d-flex">
-                                        {{ Auth::user()->currentTeam->name }}
+                                        {{ Auth::user()->currentTeam?->name }}
 
                                         <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
@@ -205,7 +205,7 @@
                                     </div>
 
                                     <!-- Team Settings -->
-                                    <x-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
+                                    <x-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam?->id) }}">
                                         {{ __('Team Settings') }}
                                     </x-dropdown-link>
 
@@ -314,7 +314,7 @@
                                                         </div>
                                                     </div>
                                                     <!-- End Col -->
-    
+
                                                     <div class="col ms-n2">
                                                         <h5 class="mb-1">from Google</h5>
                                                         <p class="text-body fs-5">Start using forms to capture the
@@ -322,7 +322,7 @@
                                                         </p>
                                                     </div>
                                                     <!-- End Col -->
-    
+
                                                     <small class="col-auto text-muted text-cap">17dy</small>
                                                     <!-- End Col -->
                                                 </div>
@@ -458,7 +458,7 @@
                     </div>
 
                     <!-- Team Settings -->
-                    <x-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" :active="request()->routeIs('teams.show')">
+                    <x-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam?->id) }}" :active="request()->routeIs('teams.show')">
                         {{ __('Team Settings') }}
                     </x-responsive-nav-link>
 

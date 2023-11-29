@@ -138,7 +138,7 @@ class PersonnelController extends Controller
                         'departement_id' => $agent?->fonction()?->service?->division?->departement?->id ?? Auth::user()->current_team_id,
                         'titre' => 'Classeur cursus agents',
                         'team_id' => Auth::user()->current_team_id,
-                        'reference' => 'AG/' . Str::upper(Str::replace(' ', '', Auth::user()->currentTeam->name)) . '/DOCS/' . str_pad(Auth::user()->current_team_id, 6, '0', STR_PAD_RIGHT),
+                        'reference' => 'AG/' . Str::upper(Str::replace(' ', '', Auth::user()->currentTeam?->name)) . '/DOCS/' . str_pad(Auth::user()->current_team_id, 6, '0', STR_PAD_RIGHT),
                     ],
                     [
                         'description' => 'Classeur pour les documents cursus des agents',

@@ -348,7 +348,7 @@ body {
     width: 261px;
     height: 100%;
     background: var(--whiteColor);
-    z-index: 90;
+    z-index: 90 !important;
     /* box-shadow: 0 5px 10px rgba(0,0,0,0.01); */
     transition: width .3s ease;
 }

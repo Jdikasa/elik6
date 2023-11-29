@@ -188,8 +188,8 @@
                         </li>
                         @forelse ($comptes as $compte)
                             @php
-                                $total_net = $compte->factures->where('team_id', Auth::user()->currentTeam->id)->sum('total_net');
-                                $montant_recu = $compte->transactions->where('team_id', Auth::user()->currentTeam->id)->sum('montant');
+                                $total_net = $compte->factures->where('team_id', Auth::user()->currentTeam?->id)->sum('total_net');
+                                $montant_recu = $compte->transactions->where('team_id', Auth::user()->currentTeam?->id)->sum('montant');
                                 $montant_attent = $total_net - $montant_recu;
                                 $balance = $montant_recu;
                             @endphp

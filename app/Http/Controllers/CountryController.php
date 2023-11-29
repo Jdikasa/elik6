@@ -125,7 +125,7 @@ class CountryController extends Controller
                     'departement_id' => Auth::user()->current_team_id,
                     'titre' => 'Classeur pays',
                     'team_id' => Auth::user()->current_team_id,
-                    'reference' => 'PAYS/' . Str::upper(Str::replace(' ', '', Auth::user()->currentTeam->name)) . '/DOCS/' . str_pad(Auth::user()->current_team_id, 6, '0', STR_PAD_RIGHT),
+                    'reference' => 'PAYS/' . Str::upper(Str::replace(' ', '', Auth::user()->currentTeam?->name)) . '/DOCS/' . str_pad(Auth::user()->current_team_id, 6, '0', STR_PAD_RIGHT),
                 ],
                 [
                     'description' => 'Classeur pour les documents des pays',

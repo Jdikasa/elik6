@@ -48,7 +48,7 @@ Cordialement,
 @slot('subcopy')
 @component('mail::subcopy')
 <!-- subcopy here -->
-{{ Auth::user()->agent->nom }} {{ Auth::user()->roles->first()->name }} {{ Auth::user()->currentTeam->name }}
+{{ Auth::user()->agent->nom }} {{ Auth::user()->roles->first()->name }} {{ Auth::user()->currentTeam?->name }}
 @endcomponent
 @endslot
 

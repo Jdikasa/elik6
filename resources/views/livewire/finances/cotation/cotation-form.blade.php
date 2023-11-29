@@ -226,7 +226,7 @@
                         <!-- Logo -->
                         <img id="logoImg"
                             class="mb-2 mx-md-0 avatar avatar-xl avatar-4x3 avatar-centered avatar-md-start"
-                            src="{{ Auth::user()->currentTeam->teamInfo->logo }}" alt="Image Description"
+                            src="{{ Auth::user()->currentTeam?->teamInfo->logo }}" alt="Image Description"
                             data-hs-theme-appearance="default">
                         {{-- <img id="logoImg" class="mb-2 avatar avatar-xl avatar-4x3 avatar-centere"
                             src="{{ asset('assets/svg/logos/logo-light.svg') }}" alt="Image Description"
@@ -470,7 +470,7 @@
                 <!-- End Row -->
 
                 <p class="mt-5 mb-2 text-center fs-6">
-                    Si vous avez des questions à propos de cette cotation, veillez contacter {{ Auth::user()->currentTeam->name }}, <br> +243858508022,
+                    Si vous avez des questions à propos de cette cotation, veillez contacter {{ Auth::user()->currentTeam?->name }}, <br> +243858508022,
                     info@conformitech.net
                 </p>
                 <h5 class="text-center">Heureux de faire affaire avec vous</h5>

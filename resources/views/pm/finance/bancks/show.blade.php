@@ -830,8 +830,8 @@
 
                                     <div class="gap-2 d-flex">
                                         @php
-                                            $total_net = $compte->factures->where('team_id', Auth::user()->currentTeam->id)->sum('total_net');
-                                            $montant_recu = $compte->transactions->where('team_id', Auth::user()->currentTeam->id)->sum('montant');
+                                            $total_net = $compte->factures->where('team_id', Auth::user()->currentTeam?->id)->sum('total_net');
+                                            $montant_recu = $compte->transactions->where('team_id', Auth::user()->currentTeam?->id)->sum('montant');
                                             $montant_attent = $total_net - $montant_recu;
                                             $balance = $montant_recu;
                                         @endphp
@@ -981,7 +981,7 @@
                     </thead>
 
                     <tbody>
-                        @foreach ($compte->transactions->where('team_id', Auth::user()->currentTeam->id) as $transaction)
+                        @foreach ($compte->transactions->where('team_id', Auth::user()->currentTeam?->id) as $transaction)
                             <tr>
                                 <td>
                                     <a href="#">{{ $transaction->facture->client?->societe?->nom }}</a>
