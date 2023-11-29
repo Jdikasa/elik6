@@ -55,6 +55,8 @@ class Project extends Model
     protected $revisionNullString = 'nothing';
     protected $revisionUnknownString = 'unknown';
 
+    protected $guarded = [];
+
     public function identifiableName()
     {
         return $this->nom;
