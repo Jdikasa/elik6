@@ -101,6 +101,10 @@ class Certificat extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+    // public function partenaires()
+    // {
+    //     return $this->hasManyThrough(Partenaire::class, Modalite::class, 'country_id');
+    // }
     public function partenaires()
     {
         return $this->hasMany(Partenaire::class, 'country_id');

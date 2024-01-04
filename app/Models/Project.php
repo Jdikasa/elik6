@@ -92,7 +92,7 @@ class Project extends Model
      */
     public function getPrixPartenaireAttribute($value)
     {
-        return $this->partenaire->modalites->where('country_id', $this->certificat->country->id)->first()->prix ?? 0;
+        return $this->partenaire?->modalites->where('country_id', $this->certificat->country->id)->first()->prix ?? 0;
     }
 
     /**

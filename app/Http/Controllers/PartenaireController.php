@@ -176,7 +176,7 @@ class PartenaireController extends Controller
     {
         $countries = Country::select('id', 'code', 'name_fr', 'name_en')->orderBy('name_fr')->get();
         $societes = Societe::forCurrentTeam()->select('id', 'nom')->orderBy('nom')->get();
-        $modePaiements = ModesPaiement::forCurrentTeam()->select('id', 'mode')->orderBy('mode')->get();
+        $modePaiements = ModesPaiement::select('id', 'mode')->orderBy('mode')->get();
         return view('pm.partenaires.edit')->with([
             'partenaire' => $partenaire,
             'countries' => $countries,

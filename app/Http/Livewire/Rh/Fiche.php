@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire\Rh;
 
+use Laravel\Fortify\Contracts\UpdatesUserPasswords;
 use App\Models\Agent;
 use App\Models\Statut;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Jetstream\Contracts\RemovesTeamMembers;
 use Laravel\Jetstream\Jetstream;
@@ -18,6 +20,11 @@ class Fiche extends Component
     public $statuts;
     public $permissions = [];
     public $permissionGoup = [];
+    public $state = [
+        'current_password' => '',
+        'password' => '',
+        'password_confirmation' => '',
+    ];
 
     /**
      * The team instance.
@@ -158,6 +165,40 @@ class Fiche extends Component
             $role->givePermissionTo($this->permissions);
             $this->agent->user->givePermissionTo($this->permissions);
         }
+    }
+
+    /**
+     * Update the user's password.
+     *
+     * @param  \Laravel\Fortify\Contracts\UpdatesUserPasswords  $updater
+     * @return void
+     */
+    public function updatePassword(UpdatesUserPasswords $updater)
+    {
+        $this->resetErrorBag();
+
+        $updater->update($this->agent->user, $this->state);
+
+        if (request()->hasSession()) {
+            if (Auth::user()->is($this->agent->user)) {
+                request()->session()->put([
+                    'password_hash_'.Auth::getDefaultDriver() => Auth::user()->getAuthPassword(),
+                ]);
+            }
+        }
+
+        $this->state = [
+            'current_password' => '',
+            'password' => '',
+            'password_confirmation' => '',
+        ];
+
+        $this->emit('saved');
+    }
+
+    public function getUserProperty()
+    {
+        return $this->agent->user;
     }
 
 }

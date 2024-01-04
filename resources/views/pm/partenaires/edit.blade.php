@@ -112,7 +112,7 @@
                                                     <option value="">Selectionez un pays</option>
                                                     @foreach ($modePaiements as $modePaiement)
                                                         <option value="{{ $modePaiement->id }}"
-                                                            @selected($partenaire->mode->id == $modePaiement->id)>
+                                                            @selected($partenaire->mode?->id == $modePaiement->id)>
                                                             {{ $modePaiement->mode }}
                                                         </option>
                                                     @endforeach
@@ -123,7 +123,7 @@
                                                 $paiement_attributs = json_decode($partenaire->paiement_attributs);
                                             @endphp
 
-                                            <div class="mode-bank @if ($partenaire->mode->id != 1) d-none @endif">
+                                            <div class="mode-bank @if ($partenaire->mode?->id != 1) d-none @endif">
                                                 <div class="pb-3 mx-0 mt-3 border rounded row g-3">
                                                     <div class="col-12 col-lg-6">
                                                         <label class="form-label" for="nom_bank">Nom de la bank <sup
@@ -162,7 +162,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="mode-agence @if ($partenaire->mode->id != 2) d-none @endif">
+                                            <div class="mode-agence @if ($partenaire->mode?->id != 2) d-none @endif">
                                                 <div class="pb-3 mx-0 mt-3 border rounded row g-3">
                                                     <div class="col-12 col-lg-6">
                                                         <label class="form-label">Nom du beneficiaire <sup

@@ -33,7 +33,7 @@ class ProjectController extends Controller
     public function getCertificat(Request $request)
     {
         $certificat = Certificat::forCurrentTeam()->where('country_id', $request->id)->first();
-        
+
         $parteners = Partenaire::forCurrentTeam()
         ->select('id', 'societe_id')
         ->with('societe')
@@ -96,6 +96,7 @@ class ProjectController extends Controller
             $projet->date_soumission = Carbon::createFromFormat('d/m/Y', $request->date_soumission);
             $projet->update_date = Carbon::createFromFormat('d/m/Y', $request->update_date);
             $projet->date_cloture = Carbon::createFromFormat('d/m/Y', $request->date_cloture);
+            $projet->type = $request->type;
             $projet->description = $request->description;
             $projet->team_id = Auth::user()->current_team_id;
             $projet->save();
@@ -158,6 +159,7 @@ class ProjectController extends Controller
     {
         $clients = Customer::forCurrentTeam()->get();
         $certificats = Certificat::forCurrentTeam()->get();
+        
         return view('pm.projects.edit')->with([
             'project' => $project,
             'clients' => $clients,
@@ -188,6 +190,7 @@ class ProjectController extends Controller
             'date_soumission' => Carbon::createFromFormat('d/m/Y', $request->date_soumission),
             'update_date' => Carbon::createFromFormat('d/m/Y', $request->update_date),
             'date_cloture' => Carbon::createFromFormat('d/m/Y', $request->date_cloture),
+            'type' => $request->type,
             'description' => $request->description,
         ]);
 

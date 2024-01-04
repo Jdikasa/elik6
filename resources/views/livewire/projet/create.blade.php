@@ -5,13 +5,29 @@
             <div class="card-body">
                 <div class="row g-3">
 
+                    @can('definir le type du projet')
+                        <div class="col-12">
+                            <label class="form-label">Type de projet <sup class="text-danger">*</sup></label>
+                            <div class="tom-select-custom" wire:ignore>
+                                <select class="js-select form-select form-select-sm" autocomplete="off"
+                                    data-hs-tom-select-options='{
+                                        "placeholder": "Selectionnez un type..."
+                                    }' name="type" required>
+                                    <option value="">Selectionnez un type...</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                </select>
+                            </div>
+                        </div>
+                    @endcan
+
                     <div class="col-12">
                         <label class="form-label">Client <sup class="text-danger">*</sup></label>
                         <div class="tom-select-custom" wire:ignore>
                             <select class="js-select form-select form-select-sm" autocomplete="off"
                                 data-hs-tom-select-options='{
                                     "placeholder": "Selectionnez un client..."
-                                }' name="client_id">
+                                }' name="client_id" required>
                                 <option value="">Select a person...</option>
                                 @foreach ($clients as $client)
                                     <option value="{{ $client->id }}">

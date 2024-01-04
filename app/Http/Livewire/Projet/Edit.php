@@ -38,8 +38,12 @@ class Edit extends Component
         $this->pays = $this->project->certificat->country->name_fr;
         $this->total_cost = $this->project->certificat->total_cost;
         $this->partener_cost = $this->project->partenaire?->modalites->where('country_id', $this->project->certificat->country->id)->first()?->prix ?? 0;
-        $this->partenaires = $this->project->certificat->partenaires ?? Partenaire::all();
+        $this->partenaires = Partenaire::forCurrentTeam()->whereHas('modalites', function ($query) {
+            $query->where('country_id', $this->project->certificat->country_id);
+        })->get() ?? Partenaire::forCurrentTeam()->get();
+        // $this->project->certificat->partenaires ?? Partenaire::all();
         $this->partenaire = $this->project->partenaire?->id;
+        // dd($this->project->certificat);
     }
 
     public function updatedCertificat()

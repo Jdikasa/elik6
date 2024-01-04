@@ -40,7 +40,8 @@
                                         </div>
                                         <div class="name-person">
                                             <h6>{{ $actifAgent?->prenom . ' ' . $actifAgent?->nom }}</h6>
-                                            <p>{{ $actifAgent?->fonction()?->titre }}</p>
+                                            {{-- <p>{{ $actifAgent?->fonction()?->titre }}</p> --}}
+                                            <p>{{ $actifAgent?->user->roles?->first()?->name }}</p>
                                         </div>
                                         @if (Auth::user()->agent->id == $actifAgent->id)
                                             <small class="badge bg-info ms-3" style="font-size:8px">Vous</small>
@@ -121,20 +122,19 @@
                             <div class="block-user-info">
                                 <div class="row g-3 align-items-center">
                                     <div class="col-lg-4">
-                                        <div class="d-flex">
+                                        <div class="d-flex align-items-center">
 
                                             <div class="avatar-user">
-                                                <span
-                                                    class="statut @if ($agent?->user?->statut_id == 1) on @else off @endif"></span>
+                                                <span class="statut @if ($agent?->user?->statut_id == 1) on @else off @endif"></span>
                                                 <img src="{{ imageOrDefault($agent?->image) }}" alt="photo profil">
                                             </div>
 
                                             <div class="text-star">
                                                 <h4>{{ $agent?->prenom }} {{ $agent?->nom }}</h4>
-                                                <p class="mb-0">{{ $agent?->fonction()?->titre }}</p>
-                                                <p class="mb-0">Matricule: {{ $agent?->matricule }}</p>
-                                                {{-- <p class="mb-0">En emploi
-                                                    {{ $agent?->contrat?->date_debut?->diffForHumans() }}</p> --}}
+                                                {{-- <p class="mb-0">{{ $agent?->fonction()?->titre }}</p> --}}
+                                                <p class="mb-0">{{ $agent?->user?->roles?->first()?->name }}</p>
+                                                <p class="mb-0">Matricule: {{ $agent?->matricule ?? 'Non défini' }}</p>
+                                                {{-- <p class="mb-0">En emploi {{ $agent?->contrat?->date_debut?->diffForHumans() }}</p> --}}
                                             </div>
                                         </div>
                                         <div class="row justify-content-center">
@@ -157,7 +157,7 @@
                                                             <div class="infos">
                                                                 <p>Email</p>
                                                                 <h6>
-                                                                    {{ $agent?->adresse?->agent_email ?? 'Non Specifié' }}
+                                                                    {{ $agent?->user?->email ?? 'Non Specifié' }}
                                                                 </h6>
                                                             </div>
                                                         </div>
@@ -331,7 +331,8 @@
                                                 </div> --}}
                                             </div>
                                         </div>
-                                        <div class="info-lg">
+
+                                        {{-- <div class="info-lg">
                                             <h2>Infos proféssionneles</h2>
                                             <div class="row g-3">
                                                 <div class="col-lg-3">
@@ -362,7 +363,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="info-lg">
                                             <h2>Documents cursus du personnel</h2>
@@ -531,13 +532,12 @@
                                                     </div>
 
                                                 </div>
-                                                <div class="col-lg-4">
+                                                {{-- <div class="col-lg-4">
                                                     <div class="items">
                                                         <p>Fonction</p>
                                                         <h6>{{ $agent?->fonction()->titre ?? 'Non specifié' }}</h6>
                                                     </div>
-
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                         <div class="info-lg">
@@ -590,7 +590,8 @@
                                                 @endforelse
                                             </div>
                                         </div>
-                                        <div class="info-lg">
+
+                                        {{-- <div class="info-lg">
 
                                             <h2>Progression de tâches</h2>
                                             <div class="block-all-task">
@@ -660,7 +661,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                     </div>
 

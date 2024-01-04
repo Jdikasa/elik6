@@ -262,10 +262,10 @@
                                 @php
                                     $random = rand(1, 4);
                                 @endphp
-                                @if ($project->partenaire->image)
+                                @if ($project->partenaire?->image)
                                     <div class="flex-shrink-0">
                                         <div class="avatar avatar-lg avatar-circle">
-                                            <img class="avatar-img" src="{{ image($project->partenaire->image) }}"
+                                            <img class="avatar-img" src="{{ image($project->partenaire?->image) }}"
                                                 alt="Image Description">
                                         </div>
                                     </div>
@@ -273,14 +273,14 @@
                                     <div
                                         class="avatar avatar-lg @if ($random == 1) avatar-soft-primary @elseif($random == 2) avatar-soft-dark @elseif($random == 3) avatar-soft-info @else avatar-soft-danger @endif  avatar-circle">
                                         <span
-                                            class="avatar-initials">{{ Str::upper($project->partenaire->societe->nom[0]) }}</span>
+                                            class="avatar-initials">{{ Str::upper($project->partenaire?->societe->nom[0]) }}</span>
                                     </div>
                                 @endif
 
                                 <div class="mx-3 flex-grow-1">
                                     <span class="fs-6">PARTENAIRE</span>
                                     <div class="mb-1 d-flex">
-                                        <h3 class="mb-0 me-3">{{ Str::ucfirst($project->partenaire->societe?->nom) }}</h3>
+                                        <h3 class="mb-0 me-3">{{ Str::ucfirst($project->partenaire?->societe?->nom) }}</h3>
                                     </div>
                                 </div>
 
@@ -293,7 +293,7 @@
                                         </button>
 
                                         <div class="mt-1 dropdown-menu" aria-labelledby="actionsDropdown">
-                                            <a class="dropdown-item" href="mailto:{{ $project->partenaire->email }}">
+                                            <a class="dropdown-item" href="mailto:{{ $project->partenaire?->email }}">
                                                 <i class="bi-envelope dropdown-item-icon"></i> Email
                                             </a>
                                             <a class="dropdown-item" href="tel:{{ $project->partenaire?->phone }}">
@@ -305,7 +305,7 @@
                                                 <i class="bi-trash dropdown-item-icon text-danger"></i>
                                                 Suprimmer
                                             </a>
-                                            <form action="{{ route('pm.partenaires.destroy', $project->partenaire) }}"
+                                            <form action="{{ $project->partenaire? route('pm.partenaires.destroy', $project->partenaire):'#' }}"
                                                 id="delete_partenaire">
                                                 @csrf
                                                 @method('DELETE')
@@ -335,7 +335,7 @@
                                     </div>
 
                                     <span class="mb-2 d-block text-body">
-                                        {{-- {{ $project->partenaire->prix }} $ --}}
+                                        {{-- {{ $project->partenaire?->prix }} $ --}}
                                         {{ $project->prixPartenaire }} $
 
                                     </span>
@@ -350,11 +350,11 @@
 
                                     <ul class="list-unstyled list-py-1 text-body">
                                         <li>
-                                            <i class="bi-at me-2"></i>{{ $project->partenaire->email }}
+                                            <i class="bi-at me-2"></i>{{ $project->partenaire?->email }}
                                         </li>
                                         <li class="d-flex">
                                             <i class="bi-phone me-2"></i>
-                                            {{ $project->partenaire->phone }}
+                                            {{ $project->partenaire?->phone }}
                                         </li>
                                     </ul>
                                 </div>
@@ -365,7 +365,7 @@
 
                                     <span class="mb-2 d-block text-body">
                                         <i class="bi-person me-2"></i>
-                                        {{ $project->partenaire->nom }}
+                                        {{ $project->partenaire?->nom }}
                                     </span>
                                 </div>
                             </div>
@@ -578,9 +578,15 @@
                         <table class="table">
                             @php
                                 $project_cost = $project->certificat->total_cost ?? 0;
-                                $partener_cost = $project->partenaire->modalites->where('country_id', $project->certificat->country->id)->first()?->prix ?? 0;
+                                $partener_cost = $project->partenaire?->modalites->where('country_id', $project->certificat->country->id)->first()?->prix ?? 0;
                             @endphp
                             <tbody>
+                                <tr>
+                                    <td style="font-weight: bold !important">Type du projet </td>
+                                    <td class="text-end text-truncate pays">
+                                        {{ $project->type ?? 'Non défini' }}
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td style="font-weight: bold !important">Etape </td>
                                     <td class="text-end text-truncate pays">

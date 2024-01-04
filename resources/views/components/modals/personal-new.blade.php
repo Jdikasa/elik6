@@ -180,7 +180,7 @@
                             <input type="text" name="temps" class="form-control" placeholder="temps contractuel">
                         </div>
 
-                        <div class="col-lg-6">
+                        {{-- <div class="col-lg-6">
                             <select class="form-select" name="departement_id" aria-label="Default select example">
                                 <option selected="" disabled>Département</option>
                                 @foreach ($departements as $departement)
@@ -211,7 +211,7 @@
                                     <option value="{{ $fonction->id }}">{{ $fonction->titre }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
                         <div class="col-lg-6">
                             <input type="text" name="matricule" class="form-control" placeholder="Matricule">
                         </div>
