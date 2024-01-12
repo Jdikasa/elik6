@@ -16,8 +16,8 @@
                                         "placeholder": "Selectionnez un type..."
                                     }' name="type" required>
                                     <option value="">Selectionnez un type...</option>
-                                    <option value="A" @selected($project->type == 'A')>A</option>
-                                    <option value="B" @selected($project->type == 'B')>B</option>
+                                    <option value="R" @selected($project->type == 'R')>R</option>
+                                    <option value="F" @selected($project->type == 'F')>F</option>
                                 </select>
                             </div>
                         </div>

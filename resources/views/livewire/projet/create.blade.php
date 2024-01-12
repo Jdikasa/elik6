@@ -14,8 +14,8 @@
                                         "placeholder": "Selectionnez un type..."
                                     }' name="type" required>
                                     <option value="">Selectionnez un type...</option>
-                                    <option value="A">A</option>
-                                    <option value="B">B</option>
+                                    <option value="R">R</option>
+                                    <option value="F">F</option>
                                 </select>
                             </div>
                         </div>
